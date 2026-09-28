@@ -288,7 +288,7 @@ function drawIntro(t) {
 function drawDialog(v) {
   const L = LEVELS[v.lv];
   const line = v.lines[v.i] || ['', ''];
-  const [who, text] = line;
+  let [who, text] = line; who = CIVIL_TO_HERO[who] || who;
   const k = v.t;
   // background: the chapter's stage, darkened
   const bgName = v.card ? L.bg : L.bg;
@@ -321,7 +321,7 @@ function drawDialog(v) {
     else spr('mentors', key, 1020, 620, { scale: argo ? 1 : 1.3, face: -1 });
   } else if (sp && !HEROES.some((h) => h.name === who)) {
     const [sheet, key] = sp;
-    const sc = sheet === 'people' ? 1.5 : sheet === 'bosses' ? (who === 'TRIVOR' ? 1.9 : 1.6) : 1.1;
+    const sc = sheet === 'people' ? 1.5 : sheet === 'bosses' ? (who === 'TRIVOR' ? 1.9 : 1.6) : sheet === 'ferreaG' ? 0.62 : 1.1;
     drawShadow(1020, 620, 60);
     spr(sheet, key, 1020, 620, { scale: sc, face: -1 });
   } else if (sp) {

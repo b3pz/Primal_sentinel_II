@@ -42,7 +42,7 @@ function newStage(levelIdx, players, checkpoint = 0, Lover = null) {
     S.team = 34 * UP.team;
   }
   S.cam = clamp(startX - 380, 0, L.length - W);
-  if (levelIdx === 0 && !checkpoint && !Lover) {
+  if (L.civilStart && !checkpoint && !Lover) {
     S.phase = 'morph';
     S.players.forEach((p) => { if (p.hero < CORE_HEROES) { p.civil = true; p.inv = 0; } });
     S.banner = { text: 'PREMI SPECIALE PER TRASFORMARTI', sub: 'I CUORI SONO ANCORA CON VOI', t: 12 };
@@ -168,7 +168,7 @@ function stepStage(S, ctrls, dt) {
   stepCamera(S, dt);
 
   // team meter decays very slowly when nothing happens
-  S.team = clamp(S.team, 0, 100);
+  S.team = S.L.unarmored ? 0 : clamp(S.team, 0, 100);   // II cap. 3: no team power without the Cuori
   for (const pr of S.props) pr.shake = Math.max(0, pr.shake - dt);
 }
 const EMPTY_CTRL = { l: 0, r: 0, u: 0, d: 0, held: {}, pressed: {} };
@@ -276,7 +276,7 @@ function stepPlayer(S, p, c, dt) {
         if (held) { pairSlam(S, p, held); break; }
       }
       // titan summon: hold TEAM for a second (once per chapter, needs 3 sigils)
-      if (c.held.team && S.team < 100 && S.summonOK && !S.summonUsed && !S.summon) {
+      if (c.held.team && !S.L.unarmored && S.team < 100 && S.summonOK && !S.summonUsed && !S.summon) {
         p.teamHold = (p.teamHold || 0) + dt;
         if (p.teamHold > 0.9) { p.teamHold = 0; summonTitan(S, p); break; }
       } else p.teamHold = 0;
@@ -284,9 +284,9 @@ function stepPlayer(S, p, c, dt) {
       const gr = grabbable(S, p);
       if (gr && ((c.pressed.punch && gr.st === 'hurt') || (dx === p.face && !p.run && (p.pushT = (p.pushT || 0) + dt) > 0.15))) { p.pushT = 0; grab(S, p, gr); break; }
       if (!gr) p.pushT = 0;
-      if (c.pressed.team && S.team >= 100) { teamAttack(S, p); break; }
-      if (c.pressed.special) { special(S, p); break; }
-      if (c.pressed.jump) { p.st = 'jump'; p.t = 0; p.vz = LOW_GRAVITY.includes(S.lvl) && !S.L.bonus ? 650 : 620; p.jdx = dx * (p.run ? 1.35 : 1); p.jdy = dy; sfx(S, 'jump'); break; }
+      if (c.pressed.team && S.team >= 100 && !S.L.unarmored) { teamAttack(S, p); break; }
+      if (c.pressed.special && !S.L.unarmored) { special(S, p); break; }
+      if (c.pressed.jump) { p.st = 'jump'; p.t = 0; p.vz = S.L.lowGrav && !S.L.bonus ? 650 : 620; p.jdx = dx * (p.run ? 1.35 : 1); p.jdy = dy; sfx(S, 'jump'); break; }
       if (c.pressed.dodge && hero.id === 'kharon' && !dx) { p.st = 'parry'; p.t = 0; sfx(S, 'weapon'); break; }   // trait: Kharon parries
       if (c.pressed.dodge) { p.st = 'dodge'; p.t = 0; p.inv = 0.38; p.ddir = dx || -p.face; sfx(S, 'dodge'); break; }
       if (c.pressed.shoot) { p.aim = c.u ? 1 : 0; shoot(S, p); break; }
@@ -309,7 +309,7 @@ function stepPlayer(S, p, c, dt) {
       break;
     }
     case 'jump': {
-      p.z += p.vz * dt; p.vz -= (LOW_GRAVITY.includes(S.lvl) && !S.L.bonus ? 1050 : 1500) * dt;
+      p.z += p.vz * dt; p.vz -= (S.L.lowGrav && !S.L.bonus ? 1050 : 1500) * dt;
       // air control: the jump can be steered, needed to land on cars and dumpsters
       p.jdx = lerp(p.jdx, dx * (p.run ? 1.35 : 1), Math.min(1, dt * 8)); p.jdy = lerp(p.jdy, dy, Math.min(1, dt * 8));
       if (dx) p.face = dx;
@@ -499,6 +499,7 @@ function grabbable(S, p) {
 }
 /* the blaster: few shots, magazines are rare */
 function shoot(S, p) {
+  if (S.L.unarmored) return;   // II cap. 3: no blaster without the armour
   if (p.ammo <= 0) { sfx(S, 'empty'); floatText(S, p.x, p.y - 170, 'SCARICA!', '#ff9a8a', 16); p.st = 'atk'; p.atk = 'shoot'; p.t = 0.2; p._swung = true; p.hit = new Set(); return; }
   startMove(S, p, 'shoot');
 }
@@ -546,7 +547,7 @@ function throwEnemy(S, p, e) {
 
 function hitScan(S, p, m) {
   const hero = heroOf(p);
-  let reach = m.reach, dmg = m.dmg * hero.power, depth = m.depth;
+  let reach = m.reach, dmg = m.dmg * hero.power * (S.L.unarmored ? 0.75 : 1), depth = m.depth;
   if (hero.id === 'azur') reach += 34;   // trait: the trident reaches further
   if (m.weapon && p.weapon) { reach += ITEMS[p.weapon.type].reach; dmg *= ITEMS[p.weapon.type].dmg; }
   let landed = false;
@@ -606,6 +607,19 @@ function hitProp(S, o, who) {
 }
 
 function damageEnemy(S, p, e, dmg, opt = {}) {
+  // II: the generals carry armour pieces that must be broken first (they soak most of the damage)
+  if (e.boss && e.parts && e.parts.length && dmg > 0) {
+    const part = e.parts[0];
+    part.hp -= dmg * (opt.heavy ? 1.6 : 1);
+    dmg *= 0.3;
+    sparks(S, e.x - e.face * 30, e.y - 150, '#ffcf8a', 8);
+    if (part.hp <= 0) {
+      e.parts.shift();
+      ev(S, { t: 'pop', x: Math.round(e.x), y: Math.round(e.y - 280), s: part.name + ' ROTTO!', c: '#ffd35a', big: 1 }); sfx(S, 'break'); shake(S, 10);
+      sparks(S, e.x, e.y - 140, '#ffb05a', 30, 'fire');
+      if (!e.parts.length) { e.broken = true; ev(S, { t: 'pop', x: Math.round(e.x), y: Math.round(e.y - 320), s: 'NUCLEO SCOPERTO!', c: '#ff6a5a', big: 1 }); }
+    }
+  }
   if (e.guarding && !opt.unblockable && p) {
     const from = opt.from !== undefined ? opt.from : p.x;
     if ((from - e.x) * e.face > 0) {
@@ -704,6 +718,7 @@ function hurtPlayer(S, p, dmg, opt = {}) {
 
 /* ---------------- specials ---------------- */
 function special(S, p) {
+  if (S.L.unarmored) { floatText(S, p.x, p.y - 190, 'NIENTE POTERI!', '#ff9a8a', 16); return; }
   const hero = heroOf(p);
   if (p.en < 40) {
     // desperation: costs health like classic arcades
@@ -766,6 +781,15 @@ function stepSpecial(S, p, dt) {
       for (const dy of [-34, 34]) S.shots.push({ id: nid(), kind: 'wave', x: p.x + p.face * 70, y: clamp(p.y + dy, FLOOR_TOP, FLOOR_BOTTOM), z: 0, vx: p.face * 760, owner: p.id, life: 1.2, dmg: 34 * hero.power, hit: new Set(), friendly: true });
     }
     if (p.t > 0.5) end();
+  } else if (k === 'rigel') {
+    // light blade: one long crescent that crosses the screen
+    if (p.t > 0.16 && !p._s1) {
+      p._s1 = 1; sfx(S, 'laser'); shake(S, 6);
+      S.shots.push({ id: nid(), kind: 'wave', x: p.x + p.face * 70, y: p.y, z: 0, vx: p.face * 900, owner: p.id, life: 1.3, dmg: 40 * hero.power, hit: new Set(), friendly: true, c: '#8fd8ff' });
+      sparks(S, p.x + p.face * 80, p.y - 90, '#8fd8ff', 20, 'slash');
+    }
+    if (p.t > 0.16 && p.t < 0.3) hitAll((e) => (e.x - p.x) * p.face > -20 && Math.abs(e.x - p.x) < 160 && Math.abs(e.y - p.y) < 50, 22);
+    if (p.t > 0.5) end();
   } else if (k === 'onyx') {
     // axe, close range: overhead smash that splits the ground
     if (p.t > 0.3 && !p._s1) { p._s1 = 1; ring(S, p.x + p.face * 70, p.y, '#e3ecf5', 220, 0.55); ev(S, { t: 'crack', x: p.x + p.face * 70, y: p.y }); shake(S, 18); sfx(S, 'stomp'); }
@@ -779,6 +803,7 @@ function stepSpecial(S, p, dt) {
    playing appear in columns of light, the weapons join into the Cannone Primordiale above the leader
    and it fires across the battlefield (2.6 s) */
 function teamAttack(S, p) {
+  if (S.L.unarmored) return;
   S.team = 0;
   sfx(S, 'team');
   const al = alivePlayers(S);
@@ -1041,6 +1066,7 @@ function spawnBoss(S, key, x, y) {
     id: nid(), boss: true, key, B, sprite: B.sprite || key, x, y, z: 0, vz: 0, face: -1, hp: Math.round(B.hp * hpMul), max: Math.round(B.hp * hpMul),
     st: 'intro', t: 0, cool: 1.2, inv: 0, flash: 0, walk: 0, pat: 0, poise: 0, target: 0, alpha: 1,
   };
+  if (B.parts) e.parts = B.parts.map(([name, hp]) => ({ name, hp: hp * hpMul }));
   S.enemies.push(e);
   S.bossId = e.id;
   return e;
@@ -1182,8 +1208,8 @@ function bossAttack(S, e, p) {
       break;
     }
     case 'wave': {
-      S.shots.push({ id: nid(), kind: 'wave', x: e.x + e.face * 80, y: e.y, z: 0, vx: e.face * 560, owner: e.id, life: 2.5, dmg: 18 });
-      if (phase2) S.shots.push({ id: nid(), kind: 'wave', x: e.x + e.face * 80, y: clamp(e.y + (e.y > 600 ? -70 : 70), FLOOR_TOP, FLOOR_BOTTOM), z: 0, vx: e.face * 520, owner: e.id, life: 2.5, dmg: 18 });
+      S.shots.push({ id: nid(), kind: 'wave', x: e.x + e.face * 80, y: e.y, z: 0, vx: e.face * 560, owner: e.id, life: 2.5, dmg: 18, c: e.sprite === 'rigel' ? '#8fd8ff' : undefined });
+      if (phase2) S.shots.push({ id: nid(), kind: 'wave', x: e.x + e.face * 80, y: clamp(e.y + (e.y > 600 ? -70 : 70), FLOOR_TOP, FLOOR_BOTTOM), z: 0, vx: e.face * 520, owner: e.id, life: 2.5, dmg: 18, c: e.sprite === 'rigel' ? '#8fd8ff' : undefined });
       sfx(S, 'laser');
       break;
     }
@@ -1300,7 +1326,7 @@ function stepCivs(S, dt) {
   S.civs = S.civs.filter((c) => c.x > S.cam - 150 && c.x < S.cam + W + 400 || c.mode === 'cower' || c.mode === 'saved');
   // ambient: during the first chapter more people flee from the invasion
   S.ambientT -= dt;
-  if (S.ambientT <= 0 && S.lvl === 0 && !S.L.survival && !S.L.rush && S.zoneIdx < 3 && S.civs.length < 6) {
+  if (S.ambientT <= 0 && S.L.ambientCivs && !S.L.survival && !S.L.rush && S.zoneIdx < 3 && S.civs.length < 6) {
     S.ambientT = rand(2.5, 5);
     S.civs.push(makeCiv(pick(CIVS), S.cam + W + 60, rand(FLOOR_TOP, 540), 'flee'));
   }
@@ -1338,6 +1364,7 @@ function stepZones(S, dt) {
     }
     return;
   }
+  if (S.lastWaves) { S.endT += dt; if (S.endT > 1.5) S.result = L.giant ? 'giant' : 'clear'; return; }
   if (!S.zoneOn) return;
   if (z.escape) { stepEscape(S, z, dt); return; }
   if (z.boss) {
@@ -1359,6 +1386,7 @@ function stepZones(S, dt) {
     if (z.ride === 'end' && S.ride) endRide(S, true);
     for (const c of S.civs) if (c.mode === 'cower') { S.saved++; c.mode = 'saved'; c.face = -1; c.t = 0; if (c.caged) { c.caged = false; ev(S, { t: 'uncage', x: Math.round(c.x), y: Math.round(c.y) }); } for (const p of alivePlayers(S)) p.score += 300; }
     const zz = L.zones[S.zoneIdx];
+    if (!zz) { S.endT = 0.001; S.zoneOn = true; S.zoneIdx--; S.lastWaves = true; }   // II: a chapter that ends with waves instead of a boss
     ev(S, { t: 'go' }); ev(S, { t: 'pop', x: 640, y: 230, s: 'ZONA LIBERATA!', c: '#ffd35a', big: 1, fixed: 1 });
     for (const p of S.players) p.hp = Math.min(p.max, p.hp + 10);
   }
@@ -1368,7 +1396,7 @@ function spawnWave(S, z, i) {
   const [type, n0] = S.zw[S.zoneIdx][i];
   const extra = Math.max(0, alivePlayers(S).length - 1);
   const n = n0 + Math.ceil(extra * n0 * 0.5);
-  const veil = [3, 5, 6, 7].includes(S.lvl);   // chapters where the Veil opens portals in the floor
+  const veil = !!S.L.veil;   // chapters where the Veil opens portals in the floor
   for (let k = 0; k < n; k++) {
     const side = k % 2 ? 1 : -1;
     const y = FLOOR_TOP + 20 + ((k * 53) % (FLOOR_BOTTOM - FLOOR_TOP - 30));
@@ -1571,6 +1599,8 @@ function buildView(S) {
     if (e.flash > 0) o.fl = 1;
     if (e.st === 'held') { o.z = 16; o.sh = 0; o.x += Math.round(Math.sin(S.t * 40) * 2); }
     if (e.def && e.def.shade) o.ti = '#3a1466';
+    if (e.def && e.def.tint) o.ti = e.def.tint;
+    if (boss && e.B.tint) o.ti = e.B.tint;
     if (boss && e.alpha !== undefined && e.alpha < 1) o.a = +e.alpha.toFixed(2);
     if (e.st === 'dead') o.a = boss ? 1 : +(Math.max(0, 1 - e.t / 1.1) * (Math.floor(e.t * 16) % 2 ? 0.4 : 1)).toFixed(2);
     if (e.st === 'fall') { o.a = +Math.max(0, 1 - e.t / 0.8).toFixed(2); o.sh = 0; }
@@ -1612,6 +1642,16 @@ function buildView(S) {
     if (p.civil && !p.morphT) o.hint = 'morph';
     if (p.st === 'fall') o.a = +Math.max(0, 1 - p.t / 0.7).toFixed(2);
     if (p.civil) { o.s = 'people'; o.sc = 1; o.r = 0; o.f = `${HEROES[p.hero].id}C_` + (p.st === 'walk' ? 'walk' + (Math.floor(p.walk) % 6) : p.morphT > 0 ? 'raise' : 'idle' + (Math.floor(S.t * 2) % 2)); delete o.wp; }
+    else if (S.L.unarmored && frameOf('people', `${HEROES[p.hero].id}C_idle0`)) {
+      // II cap. 3: fighting in civilian clothes (placeholder poses until the dedicated sheet arrives)
+      const hf = +String(o.f).split('_').pop();
+      const civ = { 0: 'idle' + (Math.floor(S.t * 2) % 2), 4: 'stance', 5: 'point', 6: 'dash2', 7: 'raise', 8: 'stance', 9: 'point', 12: 'dash3', 13: 'stance', 14: 'stance', 15: 'point' }[hf];
+      o.s = 'people'; o.sc = 1;
+      o.f = `${HEROES[p.hero].id}C_` + (p.st === 'walk' ? 'walk' + (Math.floor(p.walk) % 6) : civ || 'stance');
+      o.r = hf === 13 ? -0.9 : hf === 14 ? -1.45 : hf === 7 ? -0.25 : 0;
+      delete o.wp;
+    }
+    if (S.L.stella && !p.civil) o.stl = 1;
     if (p.inv > 0 && p.st !== 'special' && p.st !== 'pose' && Math.floor(S.t * 20) % 2) o.a = 0.45;
     if (p.st === 'dead') o.a = +(Math.floor(p.t * 12) % 2 ? 0.3 : 1).toFixed(2);
     if (p.skin) o.sk = p.skin;

@@ -79,7 +79,7 @@ const Game = {
         <button id="howto">COME SI GIOCA</button>
         <button id="options">OPZIONI</button>
       </nav>
-      <div class="footer">IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.1</div>`, 'menu');
+      <div class="footer">IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.2</div>`, 'menu');
     UI.on('#play', () => { this.modeKind = 'campaign'; this.startLevel = 0; this.lobby(); });
     UI.on('#online', () => this.onlineMenu());
     UI.on('#extras', () => this.extras());
@@ -535,6 +535,12 @@ const Game = {
   },
   chapterStart(idx, checkpoint = 0, acc = null) {
     this.levelIdx = idx;
+    // II: from chapter 6 Rigel fights with the team (computer-controlled) if nobody plays him and there is room
+    this.players = this.players.filter((p) => p.device !== 'cpu');
+    if (this.modeKind === 'campaign' && idx >= 5 && this.players.length < 4 && !this.players.some((p) => p.hero === 5)) {
+      this.players.push({ id: 90, device: 'cpu', hero: 5, name: 'RIGEL', lives: 3, score: 0, skin: 0 });
+      this.showTags = true;
+    }
     this.chapAcc = acc || zeroAcc();
     if (!acc) this.chapterCont = 0;
     if (!checkpoint) this.writeSave(idx, 0);
@@ -629,11 +635,11 @@ const Game = {
     // II: the chapter's closing dialogue, then (for now) the end of the preview
     if (II_PREVIEW) {
       const L = LEVELS[this.levelIdx];
-      const cine = { 0: 'fuga' }[this.levelIdx];
-      const talk = (then) => this.dialog(L.outro || [], then);
-      const next = (then) => (cine ? this.playCine(cine, () => talk(then)) : talk(then));
+      const cn = II_CINES[this.levelIdx] || {};
+      const talk = (then) => this.dialog(L.outro || [], () => (cn.after ? this.playCine(cn.after, then) : then()));
+      const next = (then) => (cn.before ? this.playCine(cn.before, () => talk(then)) : talk(then));
       next(() => {
-        if (this.levelIdx >= LEVELS.length - 1) { if (this.modeKind === 'campaign' && !this.online) this.clearSave(); this.dialog(II_PREVIEW_END, () => this.menu()); }
+        if (this.levelIdx >= LEVELS.length - 1) { if (this.modeKind === 'campaign' && !this.online) this.clearSave(); this.setUnlock('story'); this.menu(); }
         else this.maybeInterlude(this.levelIdx, () => this.chapterStart(this.levelIdx + 1));
       });
       return;
@@ -716,7 +722,7 @@ const Game = {
   gatherInputs() {
     // called once per rendered frame: merge edges so that no press is lost
     for (const p of this.players) {
-      if (p.device === 'remote' || p.device === 'gone') continue;
+      if (p.device === 'remote' || p.device === 'gone' || p.device === 'cpu') continue;
       const c = Input.read(p.device);
       this.heldBuf[p.id] = c;
       const e = this.edgeBuf[p.id] || (this.edgeBuf[p.id] = {});
@@ -727,6 +733,13 @@ const Game = {
     const out = {};
     for (const p of this.players) {
       if (p.device === 'remote') { out[p.id] = Net.controlFor(p.id); continue; }
+      if (p.device === 'cpu') {
+        // II: Rigel joins the team as a computer-controlled ally when there is a free place
+        const sp = this.mode === 'stage' && this.S ? this.S.players.find((q) => q.id === p.id) : null;
+        this._cpuK = (this._cpuK || 0) + 1;
+        out[p.id] = sp ? cpuControl(this.S, sp, this._cpuK) : EMPTY_CTRL;
+        continue;
+      }
       const h = this.heldBuf[p.id] || EMPTY_CTRL;
       out[p.id] = { l: h.l, r: h.r, u: h.u, d: h.d, held: h.held, pressed: this.edgeBuf[p.id] || {} };
       this.edgeBuf[p.id] = {};
@@ -786,6 +799,12 @@ const Game = {
         if (Object.entries(c).some(([id, cc]) => cc.pressed.start && this.players.find((p) => p.id === +id && p.device !== 'remote'))) { this.pause(); break; }
         stepGiant(this.G, c, dt);
         this.pendingEv.push(...this.G.events);
+        // II cap. 2: the duel against Magnar cannot be won — it ends with the titans falling (story defeat)
+        if (this.G.conf.lose && (this.G.result === 'lose' || (!this.G.result && (this.G.pl.hp < this.G.pl.max * 0.3 || this.G.t > 45)))) {
+          this.G.result = null; this.carryScores(this.G.players); if (this.stats) this.stats.duel = null;
+          this.pendingEv.push({ t: 'flash', c: '#ffffff', v: 0.8 }, { t: 'snd', n: 'boom' });
+          this.levelClear(); break;
+        }
         if (this.G.result === 'win') { this.G.result = null; this.carryScores(this.G.players); if (this.stats && this.G.pl) this.stats.duel = { hp: clamp(this.G.pl.hp / (this.G.pl.max || 1), 0, 1), t: Math.round(this.G.t) }; this.levelClear(); }
         else if (this.G.result === 'lose') { this.G.result = null; this.gameOver('giant'); }
         break;

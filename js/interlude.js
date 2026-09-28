@@ -584,3 +584,6 @@ const MG_DRAW = {
     ptxt('VERDE: PERFETTO · GIALLO: BUONO · ROSSO: FUORI TEMPO', W / 2, 520, 8, '#9fb4c8', 'center');
   },
 };
+
+/* II: the civilian interludes of the first game belong to its story — the new ones will come with their own scenes */
+if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) for (const k in INTERLUDES) delete INTERLUDES[k];

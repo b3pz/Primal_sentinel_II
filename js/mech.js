@@ -5,7 +5,7 @@
    che cadono · 5 antenna da difendere · 6 generatori e presse ·
    7-8 gravità ridotta · livello bonus: la capsula oscura.
    ============================================================ */
-const BONUS_AFTER = [1, 3, 5];   // after chapters 2, 4 and 6
+const BONUS_AFTER = [];   // II: no capsule bonus stages (yet)   // after chapters 2, 4 and 6
 function bonusLevel(idx) {
   const bg = ['rail', 'theater', 'graveyard'][BONUS_AFTER.indexOf(idx)] || 'veil';
   return { n: 'BONUS', bonus: true, bg, place: 'LIVELLO BONUS', title: 'LA CAPSULA OSCURA', length: W + 100, music: 3, zones: [{ x: 380, name: 'DISTRUGGI LA CAPSULA!' }], intro: [], outro: [] };
@@ -17,7 +17,7 @@ const MECH_PROPS = {
   4: [['antenna', 3150, 520, 2]],
   5: [['generator', 780, 520, 0], ['generator', 1850, 520, 1], ['generator', 2900, 520, 2]],
 };
-const LOW_GRAVITY = [6, 7];
+const LOW_GRAVITY = [];   // II: set per chapter with L.lowGrav
 
 function mechInit(S) {
   S.haz = [];
@@ -28,8 +28,8 @@ function mechInit(S) {
     S.banner = { text: 'LIVELLO BONUS!', sub: 'DISTRUGGI LA CAPSULA OSCURA IN 30 SECONDI', t: 3 };
     return;
   }
-  for (const [type, x, y, zone] of MECH_PROPS[S.lvl] || []) S.props.push({ id: nid(), type, x, y, hp: PROPS[type].hp, max: PROPS[type].hp, shake: 0, zone, cd: 0, spawnT: 3 + Math.random() * 3 });
-  if (S.lvl === 5) S.haz.push({ id: nid(), type: 'press', x: 2250, y: 600, t: 0, zone: 1 });
+  for (const [type, x, y, zone] of (S.L.mechProps || [])) S.props.push({ id: nid(), type, x, y, hp: PROPS[type].hp, max: PROPS[type].hp, shake: 0, zone, cd: 0, spawnT: 3 + Math.random() * 3 });
+  if (S.L.press) S.haz.push({ id: nid(), type: 'press', x: 2250, y: 600, t: 0, zone: 1 });
 }
 
 /* props with special behaviour when hit; returns true when handled */
@@ -71,12 +71,12 @@ function stepMech(S, dt) {
   }
   const zone = S.zoneIdx, on = S.zoneOn;
   // ---- chapter 1: scooters crossing the street during the fights
-  if (S.lvl === 0 && on && zone < 3) {
+  if (S.L.scooters && on && zone < 3) {
     S.hazT -= dt;
     if (S.hazT <= 0) { S.hazT = rand(5, 8); S.haz.push({ id: nid(), type: 'scooter', x: S.cam + W + 120, y: rand(FLOOR_TOP + 20, FLOOR_BOTTOM - 10), t: -1.1, hit: new Set() }); sfx(S, 'siren'); }
   }
   // ---- chapter 4: stage spotlights fall on the players
-  if (S.lvl === 3 && on && zone < 3 && zone > 0) {
+  if (S.L.spots && on && zone < 3 && zone > 0) {
     S.hazT -= dt;
     if (S.hazT <= 0) { S.hazT = rand(5, 7); const p = pick(alivePlayers(S)); if (p) S.haz.push({ id: nid(), type: 'spot', x: p.x, y: p.y, t: 0 }); }
   }

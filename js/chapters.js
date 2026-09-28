@@ -431,6 +431,54 @@ CHAPTER_CINES.fuga = [
       ALL5.forEach((i) => heroAt(i, 0, 150 + i * 70, 640 + (i % 2) * 20, 0.85, 1));
     } },
 ];
+/* II, capitolo 3: i Cuori di Stella — ArMV3z diventa luce e le cinque armature nuove si accendono */
+function stellaRow(k, t, lit) {
+  const n = 5, gap = 205, x0 = W / 2 - gap * 2;
+  const order = [3, 1, 0, 2, 4];   // red in the middle
+  order.forEach((h, i) => {
+    const on = lit > i * 0.35;
+    const x = x0 + i * gap, y = 640;
+    if (on) glowAt(x, y - 170, 150, HEROES[h].color, 0.35 + Math.sin(t * 3 + i) * 0.08);
+    drawShadow(x, y, 50);
+    if (frameOf('stella', 'stella_' + h)) spr('stella', 'stella_' + h, x, y, { scale: 1, alpha: on ? 1 : 0.15 });
+  });
+}
+CHAPTER_CINES.stella = [
+  { d: 5, sub: ['ARMV3Z', '«Non sparisco. Divento stelle.»'], cues: [[0.5, 'team'], [3.4, 'special']],
+    draw(k, t) {
+      stillArt('story_cores', t, 0);
+      g.fillStyle = 'rgba(3,6,16,.45)'; g.fillRect(0, 0, W, H);
+      const a = clamp(1 - k / 4.2, 0, 1);
+      glowAt(W / 2, 330, 260 + k * 60, '#6fc8ff', 0.4 + (1 - a) * 0.4);
+      spr('mentors', 'argo_0', W / 2, 640, { scale: 1, alpha: a });
+      for (let i = 0; i < 40; i++) { const r = (i * 97 + k * 140) % 420; const ang = i * 2.39; g.fillStyle = `rgba(255,255,255,${0.6 * (1 - r / 420)})`; g.fillRect(W / 2 + Math.cos(ang) * r, 330 + Math.sin(ang) * r * 0.7 - k * 30, 3, 3); }
+      if (k > 4.3) { g.fillStyle = `rgba(255,255,255,${(k - 4.3) / 0.7})`; g.fillRect(0, 0, W, H); }
+    } },
+  { d: 6, sub: ['SIRIO', '«Cinque Cuori di Stella. E un po\' del fuoco del Drago in ognuno.»'], cues: [[0.3, 'morph'], [1, 'morph'], [1.7, 'morph'], [2.4, 'morph'], [3.1, 'team']],
+    draw(k, t) {
+      g.fillStyle = '#050a18'; g.fillRect(0, 0, W, H);
+      for (let i = 0; i < 90; i++) { g.fillStyle = `rgba(255,255,255,${0.2 + (i % 5) * 0.12})`; g.fillRect((i * 173) % W, (i * 97) % 440, 2, 2); }
+      stellaRow(k, t, k);
+      if (k > 3.2) ptitle('CUORI DI STELLA', W / 2, 110, 40, '#fff6d6', '#ffd35a');
+    } },
+];
+/* II, finale: i titoli di coda sopra l'Etna all'alba */
+CHAPTER_CINES.fine2 = [
+  { d: 6, sub: ['', 'All\'alba la nave del Sovrano non c\'è più. Sull\'Etna resta solo il fumo, e sei figure in piedi.'], cues: [[0.5, 'team']],
+    draw(k, t) {
+      stillArt('cine_dawn', t, 0);
+      g.fillStyle = 'rgba(255,170,110,.12)'; g.fillRect(0, 0, W, H);
+      stellaRow(k, t, 5);
+      drawShadow(1180, 650, 40); spr('rigel', 'rigel_0', 1180, 650, { scale: 1.05, face: -1 });
+    } },
+  { d: 9, sub: ['', ''], cues: [],
+    draw(k, t) {
+      g.fillStyle = '#04070f'; g.fillRect(0, 0, W, H);
+      spr('ferreaG', 'astrale_2', 1060, 700, { scale: 0.8, face: -1, alpha: 0.35 });
+      const credits = [['PRIMAL SENTINELS II', 'CUORI DI STELLA'], ['IDEATO E SVILUPPATO DA', 'b3pZ'], ['I SENTINELS', 'CIUSKY · BEPS · KATHY · KIKI · DILIK · RIGEL'], ['IL MENTORE', 'SIRIO · CON ASTRO E BORIS'], ['E PER SEMPRE TRA LE STELLE', 'ARMV3Z'], ['LA STORIA CONTINUA...', 'IL PROLOGO: LA NOTTE DEI CUORI RUBATI']];
+      credits.forEach(([a, b], i) => { const y = 760 - k * 105 + i * 150; if (y < -40 || y > H + 40) return; ptxt(a, W / 2, y, 12, '#ffcf7a', 'center'); ptitle(b, W / 2, y + 44, b.length > 30 ? 20 : 26, '#fff6d6', '#ffb03a'); });
+    } },
+];
 CHAPTER_CINES.union = [
   { d: 5.5, sub: ['PORTO AURORA IN FIAMME', 'Cinque Cuori chiamano. Cinque titani rispondono, attraversando la città.'], cues: [[0.5, 'stomp'], [1.6, 'stomp'], [2.7, 'stomp'], [3.8, 'stomp']],
     draw(k, t) { stillArt('cine_run', t, Math.max(0, Math.sin(t * 5.7)) * 3); } },
@@ -482,4 +530,4 @@ CHAPTER_CINES.final = [
 CHAPTER_CINES[7][2] = { d: 7.5, sub: ['', 'Kiki fa il turno di notte. Dilik scarica le navi. Sirio e Irene Valli restano nella Camera dei Cuori, con ArMV3z, Astro e Boris.'], cues: [[0.5, 'morph']],
   draw(k, t) { stillArt('cine_dawn', t); } };
 /* the Tiranno rosso now wakes up in the middle of chapter 3 (the heroes ride it), before the duel there is only the dialogue */
-const MID_CINE = { 2: null, 4: 'union', 7: 'final' };
+const MID_CINE = typeof II_PREVIEW !== 'undefined' && II_PREVIEW ? {} : { 2: null, 4: 'union', 7: 'final' };   // II: its own titan scenes will come with the new art

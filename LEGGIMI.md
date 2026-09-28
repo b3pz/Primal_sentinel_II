@@ -1,14 +1,35 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.1
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.2
 
-Un anno dopo la caduta di Vespera. Questa anteprima contiene il **capitolo 1, "La stella caduta"**:
-la festa del patrono a Porto Aurora, i soldati di Ferrea (Fante e Bruto), la capsula caduta sul molo
-e il primo scontro con **Rigel, il guerriero d'argento**, che poi fugge sul suo mecha Astrale.
+**Tutta la storia è giocabile, dal capitolo 1 al finale.** È una prima stesura "da vivere": la trama,
+i dialoghi, i boss e i duelli ci sono tutti, ma dal capitolo 2 molte immagini sono ancora quelle del primo
+gioco ricolorate, in attesa delle tavole nuove (vedi `PROMPT_IMMAGINI_II.md`, blocco 2).
 
-- Si gioca come il primo: da 1 a 4 giocatori, anche online (le stanze del II sono separate da quelle del I).
-- Salvataggi, record, opzioni e comandi sono **separati dal primo gioco**, anche se stanno sullo stesso sito.
-- Pronti ma non ancora in scena: Magnar (il Sovrano), il primo generale con i pezzi d'armatura da rompere,
-  Astrale in forma di guerriero e le armature dei Cuori di Stella. Arrivano con i capitoli 2 e 3.
-- Tavole sorgente in `assets/source`, ritagliate da `tools/build_ii.py`.
+| Cap. | Titolo | Dove | Boss | Duello dei titani |
+|---|---|---|---|---|
+| 1 | La stella caduta | Porto Aurora, la festa | Rigel | — (Rigel fugge su Astrale) |
+| 2 | La flotta di ferro | Porto Aurora sotto la flotta | Generale di Ferro (scudo e spallaccio da rompere) | Concordia contro Magnar: non si può vincere, i titani vengono catturati |
+| 3 | Senza armatura | Le strade del faro | — ondate fino alla fine | — poi la scena dei Cuori di Stella |
+| 4 | Il Leone di Venezia | Venezia | Rigel, secondo duello | Leone Alato contro l'Idra della laguna |
+| 5 | La Lupa e il ribelle | Roma | Centurione di Ferro | Lupa contro il Colosso di Ferrea |
+| 6 | Il canto dello Stretto | Reggio Calabria e la Fata Morgana | Vespera del Vuoto | Sirena contro il Mostro del Vuoto |
+| 7 | La forgia di ferro | Torino e Genova | Il Fabbro di Ferrea | Paladino contro il Tiranno Rosso in catene |
+| 8 | L'ultimo re | Catania e la nave sopra l'Etna | La Guardia del Re | Paladino Stellare contro il Re del Vuoto |
+
+Novità di gioco:
+- **Capitolo 3 senza armatura**: si combatte in borghese, più deboli, senza speciali né pistola né colpo di
+  squadra; si usano tubi, remi e assi trovati per strada.
+- **Generali con l'armatura a pezzi**: scudo e spallaccio assorbono i colpi finché non li rompi
+  ("SCUDO ROTTO!", "NUCLEO SCOPERTO!"); i colpi pesanti li rompono prima.
+- **Rigel**: dal capitolo 6 combatte con voi controllato dal computer se c'è un posto libero; finito il
+  capitolo 5 si sblocca anche nella scelta dei personaggi (il sesto Sentinel del II al posto di Sirio).
+- **Cuori di Stella**: dal capitolo 4 i Sentinels hanno una luce dorata (segnaposto fino alle tavole nuove).
+- Gli sfondi nuovi si attivano da soli: basta mettere `bg_flotta.jpg`, `bg_faro.jpg`, `bg_venezia.jpg`,
+  `bg_roma.jpg`, `bg_stretto.jpg`, `bg_forgia.jpg`, `bg_etna.jpg` in `assets/bg/`.
+- Salvataggi, record, opzioni e stanze online sono separati dal primo gioco.
+
+Da fare con le tavole nuove: armature Cuori di Stella a 16 pose, titani folk veri, Paladino, mostri e boss
+nuovi, borghese da combattimento, intervalli in borghese del II, Forma Stellare, colpi in coppia, droni da
+riprogrammare, acqua alta a Venezia.
 
 ---
 

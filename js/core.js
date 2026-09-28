@@ -102,6 +102,7 @@ function bossPSheet(s) { for (const sh of ['bosses2', 'rigel', 'ferrea']) if (fr
 function beastSheet(key) { return frameOf('giants', key) ? 'giants' : 'extra2'; }
 function heroSprite(h, f) {
   const H = HEROES[h] || HEROES[0];
+  if (H.sheet && H.sheet !== 'bosses' && frameOf(H.sheet, H.id + '_0')) return [H.sheet, `${H.id}_${f}`, 1.0, 0];   // II: Rigel's own sheet
   if (H.sheet && frameOf('heroes2', H.id + '_0')) return ['heroes2', `${H.id}_${f}`, 1.2, 0];   // his sheet stands in a low guard: bring him to the others' height   // his own 16-pose sheet
   if (H.sheet === 'bosses' && !frameOf('fighters', H.id + '_0') && frameOf('bosses2', H.id + 'P_0')) return ['bosses2', H.id + 'P_' + (KH_MAP2[f] ?? 0), 0.93, 0];
   if (H.sheet === 'bosses' && !frameOf('fighters', H.id + '_0')) return ['bosses', H.id + '_' + (KH_MAP[f] ?? 0), 0.93, f === 14 ? -1.45 : f === 13 ? -0.9 : 0];

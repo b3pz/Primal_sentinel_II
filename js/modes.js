@@ -26,7 +26,7 @@ Object.assign(Game, {
   unlocks() { try { return JSON.parse(localStorage.getItem(UNLOCK_KEY) || '{}'); } catch (e) { return {}; } },
   setUnlock(k) { try { const u = this.unlocks(); u[k] = 1; localStorage.setItem(UNLOCK_KEY, JSON.stringify(u)); } catch (e) {} },
   sigilTotal() { return Object.values(this.sigilsSaved()).reduce((a, l) => a + l.length, 0); },
-  heroCount() { return this.unlocks().story ? HEROES.length : CORE_HEROES; },
+  heroCount() { return this.unlocks().story || this.progress() >= 5 ? HEROES.length : CORE_HEROES; },   // II: Rigel after chapter 5
   skinsUnlocked() { const out = [0]; if (this.sigilTotal() >= 12) out.push(1); if (this.unlocks().story) out.push(2); return out; },
 
   /* ---------------- menu delle modalità extra ---------------- */

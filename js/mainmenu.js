@@ -5,7 +5,7 @@
    ai lati. Frecce/croce + ✕/INVIO, mouse o tocco.
    ============================================================ */
 const MM_ITEMS = [
-  { id: 'play', label: 'GIOCA', desc: 'CUORI DI STELLA · ANTEPRIMA: CAPITOLO 1 · DA 1 A 4 GIOCATORI' },
+  { id: 'play', label: 'GIOCA', desc: 'CUORI DI STELLA · LA STORIA IN 8 CAPITOLI · DA 1 A 4 GIOCATORI' },
   { id: 'online', label: 'COOPERATIVA ONLINE', desc: 'GIOCA CON GLI AMICI, OGNUNO SUL SUO PC O TELEFONO' },
   { id: 'extras', label: 'MODALITÀ EXTRA', desc: 'BOSS RUSH · SOPRAVVIVENZA · SFIDA A TEMPO' },
   { id: 'chapters', label: 'CAPITOLI', desc: 'RIPARTI DA UN CAPITOLO GIÀ SBLOCCATO' },
@@ -156,7 +156,7 @@ function drawMainMenu(M) {
   const desc = it.id === 'diff' ? (DIFF.desc || '').toUpperCase() + (Game.diffKey() === 'arcade' ? ' · NIENTE SALVATAGGI' : ' · SALVATAGGIO AUTOMATICO') : sv ? 'SALVATO: ' + Game.saveLabel(sv) : it.desc;
   ptxt(desc, W / 2, 646, 9, '#9fe8ff', 'center');
   ptxt(Touch.on ? 'TOCCA UNA VOCE' : '▲ ▼ SCEGLI · INVIO / ' + padName(0) + ' CONFERMA', W / 2, 690, 8, '#6f8aa2', 'center');
-  ptxt('IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.1', W - 20, H - 12, 7, '#56687a', 'right');
+  ptxt('IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.2', W - 20, H - 12, 7, '#56687a', 'right');
 }
 
 /* ============================================================

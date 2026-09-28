@@ -7,6 +7,12 @@
 const TITAN_KINDS = {
   rex: { key: 'rex_side', name: 'TIRANNO ROSSO', scale: 1.75, hp: 520, jab: 'MORSO', heavy: 'CODATA', fin: 'RUGGITO PRIMORDIALE', color: '#ff5b4f' },
   concordia: { key: 'concordia_side', name: 'CONCORDIA', scale: 1.22, hp: 620, jab: 'PUGNO ZANNA', heavy: 'CARICA DEL CORNO', fin: 'ARMA FINALE · CUORE UNITO', color: '#ffd35a' },
+  // Primal Sentinels II: the folk titans (placeholder art: Concordia recoloured until their sheets arrive)
+  leone: { base: 'concordia', name: 'LEONE ALATO', scale: 1.22, hp: 560, jab: 'ARTIGLIO DI BRONZO', heavy: 'VOLO DEL LEONE', fin: 'RUGGITO DI SAN MARCO', color: '#ff5b4f', tint: '#c8342a' },
+  lupa: { base: 'concordia', name: 'LUPA', scale: 1.22, hp: 540, jab: 'MORSO RAPIDO', heavy: 'BALZO DEI SETTE COLLI', fin: 'ULULATO DELLA LUPA', color: '#f7d046', tint: '#d8a820' },
+  sirena: { base: 'concordia', name: 'SIRENA DELLO STRETTO', scale: 1.22, hp: 560, jab: 'ONDA', heavy: 'CANTO DI SCILLA', fin: 'FATA MORGANA', color: '#ff78bb', tint: '#d0508f' },
+  paladino: { base: 'concordia', name: 'PALADINO', scale: 1.22, hp: 680, jab: 'SPADONE', heavy: 'CARICA DEL CAVALIERE', fin: 'DURLINDANA', color: '#ffd35a' },
+  paladinoS: { base: 'concordia', name: 'PALADINO STELLARE', finalName: 'PALADINO STELLARE', scale: 1.22, hp: 700, jab: 'SPADONE STELLARE', heavy: 'ALI D\'ARGENTO', fin: 'CUORI DI STELLA', color: '#bfe6ff', tint: '#dff4ff' },
 };
 
 function newGiant(levelIdx, players, prev) {
@@ -21,7 +27,7 @@ function newGiant(levelIdx, players, prev) {
     players: players.map((p, i) => ({ id: p.id, slot: i, hero: p.hero, name: p.name, score: p.score || 0, lives: p.lives ?? 3, act: 0 })),
     pl: { x: 330, hp: T.hp * (final ? 1.2 : 1), max: T.hp * (final ? 1.2 : 1), st: 'intro', t: 0, cool: 0, en: 40, guard: false, flash: 0, off: 0 },
     en: { x: 930, hp: E.hp * hpMul, max: E.hp * hpMul, st: 'intro', t: 0, bal: 100, cool: 2.2, move: null, flash: 0, off: 0, pat: 0, walk: 0 },
-    shots: [], result: null, banner: { text: final ? 'CONCORDIA ALBA' : T.name, sub: 'VS ' + E.name, t: 3 },
+    shots: [], result: null, banner: { text: final ? (T.finalName || 'CONCORDIA ALBA') : T.name, sub: 'VS ' + E.name, t: 3 },
   };
 }
 
@@ -325,7 +331,7 @@ function buildGiantView(G) {
   }
   if (P.st === 'hop') py -= Math.sin(Math.min(1, P.t / 0.6) * Math.PI) * 150;
   // real poses from the generated sheets
-  const rex = G.T === TITAN_KINDS.rex;
+  const rex = G.T === TITAN_KINDS.rex || G.T.base === 'rex';
   const heavyWind = P.st === 'heavy' && P.t < (P.super ? 0.35 : 0.5);
   const pf = {
     intro: rex ? 5 : 0, idle: 0, walk: [0, 1][Math.floor(G.t * 3) % 2], jab: 2,
@@ -337,13 +343,13 @@ function buildGiantView(G) {
   const ef = { wind: 1, atk: 2, recover: E.t < 0.35 ? 2 : 0, hurt: 3, stagger: 3, block: 1, clash: Math.floor(G.t * 10) % 2 ? 2 : 1, dead: E.t < 0.8 ? 3 : 4 }[E.st] ?? 0;
   return {
     m: 'giant', lv: G.lvl, bg: G.conf.bg, t: +G.t.toFixed(2),
-    pl: { k: rex ? 'rex' : 'concordia', f: (rex ? 'rexb_' : 'conc_') + pf, x: Math.round(px + P.off), y: Math.round(py + bob * 0.3), r: +prot.toFixed(3), sx: psx, gl: glow, fl: P.flash > 0 ? 1 : 0, gd: P.guard || P.st === 'guard' ? 1 : 0, fin: P.st === 'finisher' ? +P.t.toFixed(2) : 0, fz: G.final ? 1 : 0 },
-    en: { s: 'giants', f: `${eDef.sprite}G_${ef}`, st2: E.st, x: Math.round(E.x + E.off + (E.st === 'clash' ? Math.sin(G.t * 30 + 1) * 6 : 0)), y: 690, sc: 1, bk: E.st === 'block' ? 1 : 0, fl: E.flash > 0 || (E.st === 'dead' && Math.floor(E.t * 12) % 2) ? 1 : 0, wn: E.st === 'wind' ? E.move : 0, a: E.st === 'dead' ? +Math.max(0, 1 - Math.max(0, E.t - 2.2) / 0.8).toFixed(2) : 1, st: E.st === 'stagger' ? 1 : 0 },
+    pl: { k: G.conf.player, f: (rex ? 'rexb_' : 'conc_') + pf, x: Math.round(px + P.off), y: Math.round(py + bob * 0.3), r: +prot.toFixed(3), sx: psx, gl: glow, fl: P.flash > 0 ? 1 : 0, gd: P.guard || P.st === 'guard' ? 1 : 0, fin: P.st === 'finisher' ? +P.t.toFixed(2) : 0, fz: G.final ? 1 : 0 },
+    en: { s: eDef.sheet || 'giants', f: eDef.keys ? eDef.keys[ef] : `${eDef.sprite}G_${ef}`, ti: eDef.tint, ch: eDef.chains ? 1 : 0, st2: E.st, x: Math.round(E.x + E.off + (E.st === 'clash' ? Math.sin(G.t * 30 + 1) * 6 : 0)), y: 690, sc: 1, bk: E.st === 'block' ? 1 : 0, fl: E.flash > 0 || (E.st === 'dead' && Math.floor(E.t * 12) % 2) ? 1 : 0, wn: E.st === 'wind' ? E.move : 0, a: E.st === 'dead' ? +Math.max(0, 1 - Math.max(0, E.t - 2.2) / 0.8).toFixed(2) : 1, st: E.st === 'stagger' ? 1 : 0 },
     sh: G.shock ? Math.round(G.shock.x) : 0,
     rn: G.shots.map((s) => [Math.round(s.x), Math.round(s.y)]),
     hud: {
       p: G.players.map((p) => ({ h: p.hero, n: p.name, sc: p.score, act: p.act > 0 ? 1 : 0, lv: p.lives })),
-      thp: Math.round(P.hp), tmx: Math.round(P.max), ten: Math.round(P.en), tn: G.final ? 'CONCORDIA ALBA' : G.T.name,
+      thp: Math.round(P.hp), tmx: Math.round(P.max), ten: Math.round(P.en), tn: G.final ? (G.T.finalName || 'CONCORDIA ALBA') : G.T.name,
       ehp: Math.round(E.hp), emx: Math.round(E.max), en: G.E.name, bal: Math.round(E.bal), stg: E.st === 'stagger' ? 1 : 0,
       ban: G.banner ? { t: G.banner.text, s: G.banner.sub, k: +G.banner.t.toFixed(2), e: +((G.banner.tot || (G.banner.tot = G.banner.t)) - G.banner.t).toFixed(2), b: 1 } : null,
       moves: [G.T.jab, G.T.heavy, G.T.fin],

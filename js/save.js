@@ -199,3 +199,11 @@ function drawSaveBadge(dt) {
   ptxt('SALVATAGGIO', x + 32, y + 20, 8, '#dfffea');
   g.restore();
 }
+
+/* II: new chapter backgrounds (PROMPT_IMMAGINI_II.md, block 2 A) replace the recoloured ones as soon as they are in assets/bg/ */
+for (const L of LEVELS) if (L.bg2) {
+  const i = new Image();
+  i.onload = () => { IMG[L.bg2] = i; L.bg = L.bg2; L.tint = null; if (L.giant) L.giant.bg = L.bg2; };
+  i.onerror = () => {};
+  i.src = `assets/bg/${L.bg2}.jpg`;
+}

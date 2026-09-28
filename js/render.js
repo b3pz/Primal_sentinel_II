@@ -244,7 +244,7 @@ function drawDrawable(o, cam, t) {
       g.globalAlpha = 1; g.fillStyle = '#fff'; g.beginPath(); g.arc(x, y - z, r * 0.6, 0, 7); g.fill();
     } else if (o.sh2 === 'wave') {
       g.globalCompositeOperation = 'lighter';
-      g.fillStyle = '#d24a5a'; g.globalAlpha = 0.8;
+      g.fillStyle = o.c || '#d24a5a'; g.globalAlpha = 0.8;
       g.beginPath(); g.ellipse(x, y - 40, 22, 60, 0, 0, 7); g.fill();
       g.fillStyle = '#ffd0d8'; g.beginPath(); g.ellipse(x + o.fc * 6, y - 40, 8, 50, 0, 0, 7); g.fill();
     } else if (o.sh2 === 'bolt' || o.sh2 === 'dbolt') {
@@ -289,6 +289,7 @@ function drawDrawable(o, cam, t) {
   const gz = o.gz || 0;
   if (o.sh) drawShadow(x, y - gz, o.sh * (o.sc > 1 ? o.sc * 0.8 : 1), z - gz);
   if (o.sg) glowAt(x, y - z - 20, 60, '#ffd35a', 0.5 + Math.sin(t * 6) * 0.2);
+  if (o.stl) glowAt(x, y - z - 95, 62, '#fff1a6', 0.16 + Math.sin(t * 4 + x * 0.01) * 0.05);   // II: the Cuori di Stella (placeholder until the new armour sheets)
   if (o.au) {
     g.save(); g.globalCompositeOperation = 'lighter';
     const grd = g.createRadialGradient(x, y - 70 - z, 10, x, y - 70 - z, 120);
@@ -604,6 +605,7 @@ function renderStage(v) {
   g.save();
   if (FX.shake) g.translate(rand(-1, 1) * FX.shake, rand(-1, 1) * FX.shake);
   if (tr < 1) drawStageBackdrop(v.bg, cam);
+  if (tr < 1 && LEVELS[v.lv] && LEVELS[v.lv].tint && !v.demo) { g.fillStyle = LEVELS[v.lv].tint; g.fillRect(0, 0, W, H); }   // II: placeholder backgrounds recoloured per city
   if (tr < 1 && LEVELS[v.lv] && LEVELS[v.lv].train) drawConvoy(cam, t, 1 - tr);
   if (tr > 0) { drawTrain(cam, t, tr, v.hud.portal || 0); if (tr >= 1 && !IMG.train_roof) drawLocoRoof(cam, t); g.translate(Math.sin(t * 23) * tr * 1.2, Math.abs(Math.sin(t * 11)) * tr * 1.5); }
   if (v.hud.tun) drawTunnelBack(t, v.hud.tun);
@@ -863,7 +865,15 @@ function renderGiant(v) {
     ptitle(WARN[0], E.x - 60, 165, 22, '#ffffff', '#ff6a4a');
     txt(WARN[1], E.x - 60, 196, 16, '#ffe0c0', 'center', 800);
   }
-  spr('giants', E.f, E.x, E.y, { scale: E.sc, face: -1, flash: E.fl ? 0.7 : 0, alpha: E.a });
+  { const eo = { scale: E.sc, face: -1, flash: E.fl ? 0.7 : 0, alpha: E.a }; if (E.ti && !E.fl) eo.img = tinted(E.s || 'giants', E.f, E.ti, 'source-atop', 0.45); spr(E.s || 'giants', E.f, E.x, E.y, eo); }
+  if (E.ch) {
+    // II: the Sovereign's chains wrapped around the captured titan
+    g.save(); g.strokeStyle = '#3a3f48'; g.lineWidth = 9; g.setLineDash([14, 6]);
+    for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(E.x - 200, 380 + i * 60 + Math.sin(t * 3 + i) * 6); g.quadraticCurveTo(E.x, 410 + i * 60, E.x + 210, 360 + i * 64 + Math.cos(t * 3 + i) * 6); g.stroke(); }
+    g.setLineDash([]); g.strokeStyle = '#8a3aff'; g.globalAlpha = 0.35 + Math.sin(t * 6) * 0.15; g.lineWidth = 3;
+    for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(E.x - 200, 380 + i * 60); g.quadraticCurveTo(E.x, 410 + i * 60, E.x + 210, 360 + i * 64); g.stroke(); }
+    g.restore();
+  }
   if (E.bk) { g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.45 + Math.sin(t * 16) * 0.15; g.strokeStyle = '#ffd0a0'; g.lineWidth = 10; g.beginPath(); g.ellipse(E.x - 200, 400, 70, 260, 0, Math.PI - 1.3, Math.PI + 1.3); g.stroke(); g.restore(); }
   if (E.st) { g.save(); g.globalAlpha = 0.5 + Math.sin(t * 20) * 0.4; txt('✦ ✦ ✦', E.x, 170, 36, '#fff1a6', 'center', 900); g.restore(); }
   // titan
@@ -874,7 +884,7 @@ function renderGiant(v) {
     grd.addColorStop(0, P.fz ? '#ffe6a0' : T.color); grd.addColorStop(1, 'rgba(0,0,0,0)');
     g.globalAlpha = (P.gl ? 0.6 : 0.28) + Math.sin(t * 12) * 0.1; g.fillStyle = grd; g.fillRect(P.x - 360, 60, 720, 700); g.restore();
   }
-  spr('giants', P.f, P.x, P.y, { scale: P.k === 'rex' ? 1.22 : 1, face: 1, flash: P.fl ? 0.6 : 0 });
+  { const tk = TITAN_KINDS[P.k] || {}; const po = { scale: P.k === 'rex' || tk.base === 'rex' ? 1.22 : 1, face: 1, flash: P.fl ? 0.6 : 0 }; if (tk.tint && !P.fl) po.img = tinted('giants', P.f, tk.tint, 'source-atop', 0.4); spr('giants', P.f, P.x, P.y, po); }
   if (P.gd) {
     g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.4 + Math.sin(t * 14) * 0.15;
     g.strokeStyle = '#bfe6ff'; g.lineWidth = 8; g.beginPath(); g.ellipse(P.x + 200, 400, 60, 250, 0, -1.3, 1.3); g.stroke(); g.restore();
@@ -1410,7 +1420,7 @@ function drawBossVs([key, k, heroes]) {
   const f = frameOf(bs, bk);
   const bsc = f ? Math.min(2.2, 360 / f[3]) : 1.5;
   glowAt(sr + 960, 380, 220, '#ff5a3a', 0.3);
-  drawShadow(sr + 960, 560, 90); spr(bs, bk, sr + 960, 560, { scale: bsc, face: -1 });
+  drawShadow(sr + 960, 560, 90); spr(bs, bk, sr + 960, 560, { scale: bsc, face: -1, img: B.tint ? tinted(bs, bk, B.tint, 'source-atop', 0.62) : undefined });
   // VS
   if (k > 0.35) {
     const pop = clamp((k - 0.35) / 0.2, 0, 1), sc = 1 + (1 - pop) * 1.5;
