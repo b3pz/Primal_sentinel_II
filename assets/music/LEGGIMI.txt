@@ -1,0 +1,13 @@
+MUSICA MP3 (facoltativa)
+
+Metti qui i brani con questi nomi esatti (minuscolo, estensione .mp3).
+Se un file c'è il gioco lo usa, altrimenti suona la musica sintetizzata.
+
+  sigla.mp3       titolo, menu, classifiche, galleria
+  capitolo1.mp3   ... fino a capitolo8.mp3 (un brano per capitolo)
+  boss.mp3        quando compare un boss (e in Boss Rush)
+  titani.mp3      duelli giganti
+  finale.mp3      titoli di coda
+
+I brani vanno in loop: meglio se finiscono dove ricominciano.
+Il volume si regola da OPZIONI (MUSICA / EFFETTI).
