@@ -1,0 +1,97 @@
+/* Primal Sentinels — service worker (generato da tools/build_sw.py) */
+const CACHE = 'ps2-0.1';
+const FILES = [
+"./",
+"index.html",
+"style.css",
+"manifest.json",
+"js/atlas.js",
+"js/chapters.js",
+"js/cinema.js",
+"js/core.js",
+"js/cpu.js",
+"js/data.js",
+"js/extra.js",
+"js/fonts.js",
+"js/giant.js",
+"js/howto.js",
+"js/interlude.js",
+"js/logo.js",
+"js/main.js",
+"js/mainmenu.js",
+"js/mech.js",
+"js/modes.js",
+"js/music.js",
+"js/net.js",
+"js/padtest.js",
+"js/render.js",
+"js/save.js",
+"js/sim.js",
+"js/touch.js",
+"vendor/peerjs.min.js",
+"assets/sprites/bosses.png",
+"assets/sprites/bosses2.png",
+"assets/sprites/extra.png",
+"assets/sprites/extra2.png",
+"assets/sprites/faces.png",
+"assets/sprites/ferrea.png",
+"assets/sprites/ferreaG.png",
+"assets/sprites/fighters.png",
+"assets/sprites/giants.png",
+"assets/sprites/grabs.png",
+"assets/sprites/heroes2.png",
+"assets/sprites/items.png",
+"assets/sprites/mentors.png",
+"assets/sprites/people.png",
+"assets/sprites/poses.png",
+"assets/sprites/rigel.png",
+"assets/sprites/stella.png",
+"assets/sprites/titans.png",
+"assets/sprites/train.png",
+"assets/bg/base.jpg",
+"assets/bg/cine_cavern.jpg",
+"assets/bg/cine_cockpit.jpg",
+"assets/bg/cine_dawn.jpg",
+"assets/bg/cine_duel.jpg",
+"assets/bg/cine_rex.jpg",
+"assets/bg/cine_run.jpg",
+"assets/bg/dawn.jpg",
+"assets/bg/festa.jpg",
+"assets/bg/graveyard.jpg",
+"assets/bg/harbor.jpg",
+"assets/bg/loco_roof.png",
+"assets/bg/park.jpg",
+"assets/bg/port.jpg",
+"assets/bg/rail.jpg",
+"assets/bg/siege.jpg",
+"assets/bg/story_cores.jpg",
+"assets/bg/theater.jpg",
+"assets/bg/train_roof.jpg",
+"assets/bg/veil.jpg",
+"assets/ui/icon-192.png",
+"assets/ui/icon-512.png",
+"assets/ui/logo.png",
+"assets/ui/pad_ps.png",
+"assets/fonts/Bungee.woff2",
+"assets/fonts/Exo2-600.woff2",
+"assets/fonts/Exo2-800.woff2",
+"assets/fonts/PixelifySans-500-ext.woff2",
+"assets/fonts/PixelifySans-500.woff2",
+"assets/fonts/PixelifySans-700-ext.woff2",
+"assets/fonts/PixelifySans-700.woff2",
+"assets/fonts/PressStart2P-ext.woff2",
+"assets/fonts/PressStart2P.woff2"
+];
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE).then((c) => Promise.all(FILES.map((f) => c.add(f).catch(() => null)))).then(() => self.skipWaiting()));
+});
+self.addEventListener('activate', (e) => {
+  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
+});
+self.addEventListener('fetch', (e) => {
+  const u = new URL(e.request.url);
+  if (e.request.method !== 'GET' || u.origin !== location.origin) return;   // online play (PeerJS) goes straight to the network
+  const fresh = /\.(html|js|css|json)$|\/$/.test(u.pathname);   // code: network first (updates arrive at once), art/audio: cache first
+  const net = () => fetch(e.request).then((r) => { if (r.ok) { const copy = r.clone(); caches.open(CACHE).then((c) => c.put(e.request, copy)); } return r; });
+  e.respondWith(fresh ? net().catch(() => caches.match(e.request, { ignoreSearch: true })) : caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || net()));
+});

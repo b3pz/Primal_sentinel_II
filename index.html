@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#050c14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Primal Sentinels II">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/ui/icon-192.png">
+<link rel="apple-touch-icon" href="assets/ui/icon-192.png">
+<title>Primal Sentinels II · Cuori di Stella</title>
+<link rel="stylesheet" href="style.css">
+<script>
+/* II: salvataggi, record e opzioni separati dal primo gioco (anche se stanno sullo stesso sito) */
+(function () {
+  try {
+    const ls = window.localStorage, P = 'ps2:';
+    const store = { getItem: (k) => ls.getItem(P + k), setItem: (k, v) => ls.setItem(P + k, v), removeItem: (k) => ls.removeItem(P + k),
+      key: (i) => ls.key(i), get length() { return ls.length; }, clear: () => { for (let i = ls.length - 1; i >= 0; i--) { const k = ls.key(i); if (k && k.startsWith(P)) ls.removeItem(k); } } };
+    Object.defineProperty(window, 'localStorage', { value: store, configurable: true });
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<main>
+  <canvas id="game" width="1280" height="720" aria-label="Primal Sentinels, picchiaduro arcade"></canvas>
+  <div id="screen" class="hidden"></div>
+  <div id="loading">CARICAMENTO DI PORTO AURORA…</div>
+</main>
+<script src="vendor/peerjs.min.js"></script>
+<script src="js/fonts.js"></script>
+<script src="js/atlas.js"></script>
+<script src="js/logo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/music.js"></script>
+<script src="js/sim.js"></script>
+<script src="js/mech.js"></script>
+<script src="js/extra.js"></script>
+<script src="js/giant.js"></script>
+<script src="js/render.js"></script>
+<script src="js/cinema.js"></script>
+<script src="js/chapters.js"></script>
+<script src="js/howto.js"></script>
+<script src="js/net.js"></script>
+<script src="js/cpu.js"></script>
+<script src="js/main.js"></script>
+<script src="js/modes.js"></script>
+<script src="js/padtest.js"></script>
+<script src="js/mainmenu.js"></script>
+<script src="js/save.js"></script>
+<script src="js/interlude.js"></script>
+<script>
+  // installable app + offline play (only when served over http/https, not from a double-clicked file)
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+</script>
+</body>
+</html>

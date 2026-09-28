@@ -1,0 +1,125 @@
+*{box-sizing:border-box}
+html,body{margin:0;background:#050c14;color:#f1f6ed;font-family:Pixelify,"Trebuchet MS","Segoe UI",system-ui,sans-serif;height:100%;overflow:hidden}
+body{display:grid;place-items:center}
+main{width:min(100vw,177.777vh);aspect-ratio:16/9;position:relative;box-shadow:0 0 100px #112637;container-type:inline-size}
+canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+#screen{position:absolute;inset:0;padding:4.5% 6%;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(90deg,#05101bf2 0%,#05101bd0 45%,transparent 80%);overflow:auto}
+#screen.hidden{display:none}
+.eyebrow{color:#64dedb;font-size:clamp(10px,1.2cqw,16px);letter-spacing:.3em;font-weight:800}
+h1{font-size:clamp(28px,6cqw,84px);line-height:.92;margin:14px 0 6px;letter-spacing:-.04em;font-weight:900}
+h1 span{color:#f7b45c}
+h2{font-size:clamp(18px,2.8cqw,38px);margin:10px 0}
+h3{font-size:clamp(12px,1.3cqw,18px);margin:0 0 6px;color:#f7c77a}
+p{max-width:680px;line-height:1.6;font-size:clamp(11px,1.2cqw,17px);color:#c8d2dd;margin:6px 0}
+p.tag{color:#e8d9bd;font-weight:700}
+p.warn{color:#ffb4a4}
+button{font:800 clamp(11px,1.15cqw,16px) "Trebuchet MS",system-ui;color:#eff9ff;background:#152536;border:1px solid #395267;border-radius:5px;padding:clamp(7px,1cqw,13px) clamp(12px,1.8cqw,23px);cursor:pointer;transition:.12s;text-align:left;letter-spacing:.04em}
+button:hover,button:focus-visible,button:focus{background:#2b4555;border-color:#71e5de;outline:2px solid #71e5de;outline-offset:2px}
+button.primary{background:#eeb565;color:#151b22;border-color:#eeb565}
+button.primary:focus{background:#ffd08a}
+button:disabled{opacity:.4;cursor:default}
+nav{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+nav.col{flex-direction:column;align-items:flex-start;max-width:520px}
+nav.col button{width:100%}
+.center{align-items:center;text-align:center;background:#071321e0!important}
+.center nav.col{align-items:stretch;min-width:340px}
+.footer{position:absolute;bottom:3%;font-size:11px;color:#aab9c5;letter-spacing:.1em}
+kbd{border:1px solid #506273;border-bottom-width:2px;border-radius:3px;padding:0 5px;background:#0c1824;font-family:inherit;font-size:.9em}
+.helpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;max-width:1100px}
+.helpgrid p{font-size:clamp(10px,1.05cqw,15px);line-height:1.75}
+.chapters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:1100px;margin-top:10px}
+.chap{display:flex;flex-direction:column;gap:4px;min-height:clamp(60px,9cqw,120px)}
+.chap b{font-size:clamp(18px,2.4cqw,34px);color:#f7b45c}
+.chap span{font-size:clamp(10px,1.05cqw,14px)}
+.chap small{font-size:clamp(9px,.9cqw,12px);color:#9fb4c8;font-weight:600}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:14px;font-size:12px;letter-spacing:.2em;color:#9fb4c8;font-weight:800;max-width:360px}
+input{padding:10px 12px;background:#102331;color:white;border:1px solid #567;border-radius:5px;font:700 18px "Trebuchet MS",system-ui;letter-spacing:.12em}
+input:focus{outline:2px solid #71e5de}
+#loading{position:absolute;inset:0;display:grid;place-items:center;background:#081522;letter-spacing:.2em;font-weight:800;text-align:center;padding:20px}
+
+/* ---- arcade look (v1.1) ---- */
+#screen.menu{background:linear-gradient(90deg,#05101bf0 0%,#05101bb0 42%,transparent 70%)}
+img.logo{width:min(46cqw,620px);height:auto;margin:-1cqw 0 1cqw -1cqw;filter:drop-shadow(0 8px 18px #000a)}
+button{font-family:PressStart,Pixelify,monospace;font-weight:400;font-size:clamp(9px,1.02cqw,14px);letter-spacing:.02em;border-radius:0;border:3px solid #05070c;box-shadow:inset 0 -5px 0 #0008,inset 0 3px 0 #ffffff22;background:#1d3046;padding:clamp(9px,1.2cqw,16px) clamp(12px,1.6cqw,22px)}
+button:focus,button:hover,button:focus-visible{background:#2c4a66;outline:3px solid #ffd35a;outline-offset:0;border-color:#05070c}
+nav.arcade button::before{content:'';display:inline-block;width:1.4em}
+nav.arcade button:focus::before{content:'▶ ';color:#ffd35a}
+button.primary{background:#e89a2c;color:#10161e}
+button.primary:focus{background:#ffc05a;color:#10161e}
+.eyebrow{font-family:PressStart,monospace;font-weight:400;letter-spacing:.12em;font-size:clamp(8px,.9cqw,12px)}
+h2{font-family:PressStart,monospace;font-weight:400;font-size:clamp(14px,2cqw,28px);line-height:1.3;text-shadow:3px 3px 0 #05070c}
+p{font-size:clamp(12px,1.3cqw,19px)}
+.footer{font-family:PressStart,monospace;font-size:clamp(7px,.7cqw,10px)}
+.chap b{font-family:PressStart,monospace;font-weight:400}
+.chap span{font-family:PressStart,monospace;font-size:clamp(8px,.85cqw,12px);line-height:1.5}
+.field{font-family:PressStart,monospace;font-weight:400;font-size:10px}
+input{font-family:PressStart,monospace;font-size:14px;border-radius:0;border:3px solid #05070c;background:#0e1b28}
+kbd{font-family:PressStart,monospace;font-size:.75em;padding:2px 5px}
+#loading{font-family:PressStart,monospace;font-weight:400;font-size:12px}
+
+body,button,input{font-variant-ligatures:none;font-feature-settings:'liga' 0}
+
+/* ---- 1.6 ---- */
+nav.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:760px;align-items:stretch}
+nav.grid2 button{width:100%}
+nav.grid2 button.primary{grid-column:1 / span 2}
+.keygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:1000px;margin-top:10px}
+.keygrid button{display:flex;justify-content:space-between;gap:10px}
+.keygrid button b{color:#ffd35a;font-weight:400}
+
+/* ---------- 1.7: touch controls (phones & tablets) ---------- */
+body.touch{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+body.touch #screen{touch-action:pan-y}
+#touch{position:fixed;inset:0;pointer-events:none;z-index:20;font-family:Pixelify,"Trebuchet MS",sans-serif}
+#touch.hide{display:none}
+#touch .tzone{position:absolute;left:0;top:14%;bottom:0;width:48%;pointer-events:auto;touch-action:none}
+#touch .tbase{position:absolute;width:30vmin;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:2px solid #ffffff55;background:radial-gradient(circle,#ffffff14 0 45%,#ffffff08 70%);opacity:0;transition:opacity .12s}
+#touch .tbase.active{opacity:1}
+#touch .tknob{position:absolute;left:50%;top:50%;width:44%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#fff9 0,#ffffff40 45%,#ffffff22 100%);border:2px solid #ffffffaa}
+/* hint where the stick lives when not touched */
+#touch.game .tzone::after{content:"";position:absolute;left:max(15vmin,calc(50vw - 88.9vh + 17vmin));top:66%;width:22vmin;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:2px dashed #ffffff26}
+#touch .tbtn{position:absolute;aspect-ratio:1;border-radius:50%;transform:translate(50%,50%);opacity:.72;pointer-events:auto;touch-action:none;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ffffff38,#ffffff10 60%,#00000030);border:2px solid #ffffff70;box-shadow:0 0 0 2px #0006,inset 0 -4px 0 #0003;color:#fff;text-shadow:0 2px 0 #000}
+#touch .tbtn span{font-size:clamp(7px,2.3vmin,14px);letter-spacing:.04em;font-weight:700;opacity:.9}
+#touch .tbtn.down{opacity:1;transform:translate(50%,50%) scale(.9);background:radial-gradient(circle,#ffffff80,#ffffff30)}
+#touch .t-punch{border-color:#ffd35acc;background:radial-gradient(circle at 35% 30%,#ffd35a70,#ffd35a20 60%,#00000030)}
+#touch .t-jump{border-color:#5fe0ffcc;background:radial-gradient(circle at 35% 30%,#5fe0ff60,#5fe0ff18 60%,#00000030)}
+#touch .t-special{border-color:#ff7a5acc;background:radial-gradient(circle at 35% 30%,#ff7a5a60,#ff7a5a18 60%,#00000030)}
+#touch .t-shoot{border-color:#b9c7d6cc}
+#touch .t-dodge{border-color:#7bf0b1cc}
+#touch .t-team{border-color:#ff8ad8cc;background:radial-gradient(circle at 35% 30%,#ff8ad860,#ff8ad818 60%,#00000030)}
+#touch .tpause{border-radius:14px}
+#touch:not(.game) .t-shoot span::after{content:" / INDIETRO"}
+#touch:not(.game) .t-team,#touch:not(.game) .t-special,#touch:not(.game) .tpause{display:none}
+#rotate{display:none}
+@media (orientation:portrait){
+  body.touch #rotate{display:flex;position:fixed;inset:0;z-index:50;background:#050c14;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;color:#ffd35a;font-family:Pixelify,sans-serif}
+  body.touch #rotate b{font-size:26px;letter-spacing:.08em}
+  body.touch #rotate span{color:#c8d6e4;font-size:15px}
+  body.touch #rotate .phone{width:54px;height:92px;border:4px solid #ffd35a;border-radius:10px;animation:rot 2s ease-in-out infinite}
+}
+@keyframes rot{0%,20%{transform:rotate(0)}50%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+body.touch main{box-shadow:none}
+/* select screen: tap the Sentinels themselves; only a small BACK button stays */
+#touch.lobby .tbtn{display:none}
+#touch.lobby .t-shoot{display:grid;right:auto!important;left:9vmin;bottom:calc(100vh - 8vmin)!important;width:15vmin!important;aspect-ratio:2.2;transform:translate(-50%,50%);border-radius:12px}
+#touch.lobby .t-shoot span{font-size:0}
+#touch.lobby .t-shoot span::after{content:"◀ INDIETRO";white-space:nowrap;font-size:clamp(7px,2vmin,12px)}
+#touch.lobby .t-shoot.down{transform:translate(-50%,50%) scale(.9)}
+/* PlayStation symbols in the menus */
+.psg{font-style:normal;font-family:"Segoe UI Symbol","Apple Symbols",system-ui,sans-serif;font-size:1.45em;line-height:0;vertical-align:-.1em;font-weight:700}
+.ps0{color:#7fa8ff}.ps1{color:#ff5a5a}.ps2{color:#ff8ad8}.ps3{color:#4fe0b0}
+/* controller test: the picture is on the canvas, only the buttons are HTML */
+#screen.padtest{background:none;justify-content:flex-end;pointer-events:none;padding-bottom:1%}
+#screen.padtest nav{pointer-events:auto;justify-content:center}
+#screen.padtest nav button{font-size:max(9px,1.05cqw);padding:.5em 1em}
+/* ---------- 1.9: main menu, arcade cabinet layout ---------- */
+#screen.menu{align-items:center;justify-content:flex-start;padding:1.2% 6% 2.5%;background:radial-gradient(ellipse 42% 60% at 50% 58%,#040a14ee 0%,#040a14c8 55%,transparent 100%)}
+#screen.menu img.logo{width:min(33cqw,450px);margin:0 auto .2cqw;display:block}
+#screen.menu nav.grid2{width:52cqw;max-width:none;margin:0 auto;gap:.55cqw .8cqw}
+#screen.menu nav.grid2 button{padding:clamp(7px,1cqw,14px) clamp(6px,.9cqw,14px);text-align:left;white-space:nowrap;font-size:clamp(8px,.95cqw,13px)}
+#screen.menu nav.grid2 button.primary{text-align:center;font-size:clamp(11px,1.35cqw,19px);padding:clamp(10px,1.35cqw,19px);animation:menuPulse 1.6s ease-in-out infinite}
+#screen.menu nav.grid2 button.primary::before{display:none}
+@keyframes menuPulse{0%,100%{box-shadow:inset 0 -5px 0 #0008,inset 0 3px 0 #ffffff22,0 0 0 #ffb03a00}50%{box-shadow:inset 0 -5px 0 #0008,inset 0 3px 0 #ffffff22,0 0 22px #ffb03a88}}
+#screen.menu .footer{left:0;right:0;bottom:1.8%;text-align:center;color:#8aa0b4}
+/* 1.10: readable text in the menus' descriptions */
+p,.field,.helpgrid p,.chap small{font-family:Exo2,"Trebuchet MS",system-ui,sans-serif;font-weight:600}
