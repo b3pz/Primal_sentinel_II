@@ -191,7 +191,7 @@ function drawShadow(x, y, r, z = 0) {
 
 function drawWeaponOn(o, x, y) {
   const fw = frameOf('items', o.wp);
-  const fr = frameOf('fighters', o.f);
+  const fr = frameOf(o.s || 'fighters', o.f);
   if (!fw || !fr) return;
   const sc = o.sc;
   g.save();

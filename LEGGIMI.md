@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.14.1
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.15
+
+Nella 0.15: oggetti ridisegnati in HD e oggetti nuovi. Cibo italiano (arancino, cannolo, gelato, caffè che fa correre più veloce), e ogni città ha la sua specialità che cade più spesso (gelato a Venezia, caffè a Roma e al Nord, arancino a Reggio, cannolo a Catania). Nuovi: la stella cadente (energia piena e barra squadra), il chip di Ferrea che cade dai droni (punti e barra squadra; servirà a riprogrammarli), e l'ancora, un'arma pesante.
 
 Nella 0.14.1: nuova illustrazione dello scontro finale (sullo scudo del Paladino i cinque titani, nel Re del Vuoto i volti del Sovrano e di Vespera).
 

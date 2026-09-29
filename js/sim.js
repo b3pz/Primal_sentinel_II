@@ -186,7 +186,7 @@ function goDown(S, p) {
 function stepPlayer(S, p, c, dt) {
   const hero = heroOf(p);
   p.t += dt;
-  p.inv = Math.max(0, p.inv - dt);
+  p.inv = Math.max(0, p.inv - dt); if (p.boostT > 0) p.boostT -= dt;
   p.comboT = Math.max(0, p.comboT - dt);
   p.tapT = Math.max(0, p.tapT - dt);
   if (!S.L.noRegen) p.en = Math.min(100, p.en + dt * 1.8 * (p.enRate || 1));
@@ -298,7 +298,7 @@ function stepPlayer(S, p, c, dt) {
         break;
       }
       // movement
-      const sp = hero.speed * (p.run ? 1.55 : 1);
+      const sp = hero.speed * (p.run ? 1.55 : 1) * (p.boostT > 0 ? 1.3 : 1);
       const len = Math.hypot(dx, dy) || 1;
       tryMove(S, p, (dx / len) * sp * dt, (dy / len) * sp * 0.62 * dt);
       if (dx) p.face = dx;
@@ -460,6 +460,11 @@ function stepPlayer(S, p, c, dt) {
   collectItems(S, p, p.x, p.y, 46, 30, p.z);
 }
 /* consumables within (rx, ry) of a point go to player p — also used by the titan in chapter 3 */
+function localFood(S) {
+  const lf = LOCAL_FOOD[S.L && S.L.id];
+  if (lf && Math.random() < 0.5) return lf;
+  return pick(['pizza', 'pizza', 'arancino', 'cannolo', 'gelato', 'coffee']);
+}
 function collectItems(S, p, px, py, rx, ry, pz = 0) {
   for (const it of S.items) {
     const d = ITEMS[it.type];
@@ -473,6 +478,7 @@ function collectItems(S, p, px, py, rx, ry, pz = 0) {
           const h = Math.round(d.heal * 0.5); q.hp = Math.min(q.max, q.hp + h); floatText(S, q.x, q.y - 170, `CONDIVISO +${h}`, '#7bf0b1', 16);
         }
       }
+      if (d.boost) { p.boostT = d.boost; floatText(S, p.x, p.y - 200, 'SVEGLIO!', '#ffcf7a', 18); }
       if (d.energy) { p.en = Math.min(100, p.en + d.energy); floatText(S, p.x, p.y - 170, 'ENERGIA', '#77ceff'); }
       if (d.score) { p.score += d.score; floatText(S, p.x, p.y - 170, `+${d.score}`, '#ffd76a'); }
       if (d.team) S.team = Math.min(100, S.team + d.team);
@@ -601,7 +607,7 @@ function hitProp(S, o, who) {
   if (drops.length) {
     // a guaranteed useful drop, weighted by need
     const lowHp = S.players.some((p) => p.hp < p.max * 0.5);
-    let type = lowHp && Math.random() < 0.6 ? (Math.random() < 0.35 ? 'chicken' : 'pizza') : pick(drops);
+    let type = lowHp && Math.random() < 0.6 ? (Math.random() < 0.35 ? 'chicken' : localFood(S)) : pick(drops);
     const it = makeItem(type, o.x, o.y, 30); it.vz = 260; S.items.push(it);
   }
 }
@@ -677,8 +683,9 @@ function damageEnemy(S, p, e, dmg, opt = {}) {
     if (p && p.score !== undefined) { p.score += e.def.score; p.kos++; }
     // drops: every few KOs something useful
     S.koCount = (S.koCount || 0) + 1;
-    if (S.koCount % 3 === 0) { const it = makeItem(Math.random() < 0.5 ? 'ammo' : pick(['energy', 'coin', 'can', 'pizza']), e.x, e.y, 40); it.vz = 220; S.items.push(it); }
+    if (S.koCount % 3 === 0) { const it = makeItem(Math.random() < 0.5 ? 'ammo' : pick(['energy', 'coin', 'can', localFood(S)]), e.x, e.y, 40); it.vz = 220; S.items.push(it); }
     if (S.koCount % 9 === 0) { const it = makeItem('gem', e.x + 20, e.y, 40); it.vz = 260; S.items.push(it); }
+    if (e.def && e.def.sheet === 'drone2' && Math.random() < 0.4) { const it = makeItem('chip', e.x - 20, e.y + 10, 40); it.vz = 240; S.items.push(it); }
   }
 }
 

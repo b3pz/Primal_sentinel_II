@@ -146,11 +146,19 @@ const ITEMS = {
   sigil: { sigil: true, label: 'SIGILLO DEI TITANI' },
   pipe: { weapon: true, dmg: 1.7, reach: 42, uses: 14, label: 'TUBO D\'ACCIAIO' },
   oar: { weapon: true, dmg: 1.5, reach: 74, uses: 11, label: 'REMO' },
+  // 1.15 / II 0.15: Italian food, found everywhere (the local speciality more often)
+  arancino: { heal: 40, label: 'ARANCINO' },
+  cannolo: { heal: 22, label: 'CANNOLO' },
+  gelato: { heal: 18, label: 'GELATO' },
+  coffee: { heal: 8, boost: 8, label: 'CAFFÈ' },
+  star: { energy: 100, team: 30, label: 'STELLA CADENTE' },
+  chip: { score: 800, team: 20, label: 'CHIP DI FERREA' },
+  anchor: { weapon: true, dmg: 2.3, reach: 64, uses: 8, label: 'ANCORA' },
 };
 
 const PROPS = {
-  crate: { hp: 2, drops: ['pizza', 'can', 'coin', 'energy', 'chicken', 'ammo'] },
-  bin: { hp: 1, drops: ['can', 'coin', 'pizza'] },
+  crate: { hp: 2, drops: ['pizza', 'can', 'coin', 'energy', 'chicken', 'ammo', 'arancino', 'cannolo', 'gelato', 'coffee', 'star', 'anchor'] },
+  bin: { hp: 1, drops: ['can', 'coin', 'pizza', 'coffee', 'gelato'] },
   barrel: { hp: 1, explode: true, drops: [] },
   mirror: { hp: 6, drops: ['energy'], sheet: 'extra', sc: 0.9 },
   capsula: { hp: 9999, drops: [], sheet: 'ferrea', sc: 1, deco: true },
@@ -160,6 +168,8 @@ const PROPS = {
 };
 
 /* Walkable band (feet y). Backgrounds have been normalised so the floor starts at 465. */
+/* the speciality of each place: it drops more often there */
+const LOCAL_FOOD = { venezia: 'gelato', roma: 'coffee', stretto: 'arancino', forgia: 'coffee', etna: 'cannolo' };
 const FLOOR_TOP = 492, FLOOR_BOTTOM = 700;
 
 /* civ types available for background civilians */
