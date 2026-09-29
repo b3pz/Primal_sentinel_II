@@ -461,6 +461,27 @@ CHAPTER_CINES.catene = [
       g.fillStyle = `rgba(0,0,0,${Math.min(0.55, k * 0.12)})`; g.fillRect(0, 0, W, H);
     } },
 ];
+/* II, capitolo 8: prima del duello finale, il Paladino Stellare contro il Re del Vuoto sopra l'Etna */
+CHAPTER_CINES.paladino = [
+  { d: 4.5, sub: ['VESPERA', '«Io e il Sovrano, una cosa sola. Il Re del Vuoto!»'], cues: [[0.3, 'bosswind'], [2.5, 'laser']],
+    draw(k, t) {
+      // the camera starts on the King of the Void and slides towards the clash
+      coverImage('cine_paladino', 1.5, 0.95 - k * 0.1, 0.45);
+      g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.12 + Math.max(0, Math.sin(t * 6)) * 0.1; g.fillStyle = '#8a2aff'; g.fillRect(0, 0, W, H); g.restore();
+    } },
+  { d: 4.5, sub: ['CIUSKY', '«Cinque titani, una stella e sei Cuori. Adesso tocca a noi!»'], cues: [[0.3, 'team'], [2.8, 'special']],
+    draw(k, t) {
+      coverImage('cine_paladino', 1.5, 0.08 + k * 0.08, 0.35);
+      g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.12 + Math.max(0, Math.sin(t * 8)) * 0.1; g.fillStyle = '#6fc8ff'; g.fillRect(0, 0, W, H); g.restore();
+    } },
+  { d: 4, sub: ['', ''], cues: [[0.2, 'boom'], [0.9, 'boom']],
+    draw(k, t) {
+      g.save(); if (k < 1.2) g.translate(rand(-1, 1) * 8, rand(-1, 1) * 8);
+      coverImage('cine_paladino', 1.02 + k * 0.02, 0.5, 0.5); g.restore();
+      if (k < 0.5) { g.fillStyle = `rgba(255,255,255,${1 - k / 0.5})`; g.fillRect(0, 0, W, H); }
+      if (k > 1.2) ptitle('LO SCONTRO FINALE', W / 2, 110, 40, '#fff6d6', '#b77dff');
+    } },
+];
 /* II, capitolo 3: i Cuori di Stella — ArMV3z diventa luce e le cinque armature nuove si accendono */
 function stellaRow(k, t, lit) {
   const n = 5, gap = 205, x0 = W / 2 - gap * 2;
@@ -556,4 +577,4 @@ CHAPTER_CINES.final = [
 CHAPTER_CINES[7][2] = { d: 7.5, sub: ['', 'Kiki fa il turno di notte. Don scarica le navi. Sirio e Irene Valli restano nella Camera dei Cuori, con ArMV3z, Astro e Boris.'], cues: [[0.5, 'morph']],
   draw(k, t) { stillArt('cine_dawn', t); } };
 /* the Tiranno rosso now wakes up in the middle of chapter 3 (the heroes ride it), before the duel there is only the dialogue */
-const MID_CINE = typeof II_PREVIEW !== 'undefined' && II_PREVIEW ? {} : { 2: null, 4: 'union', 7: 'final' };   // II: its own titan scenes will come with the new art
+const MID_CINE = typeof II_PREVIEW !== 'undefined' && II_PREVIEW ? { 7: 'paladino' } : { 2: null, 4: 'union', 7: 'final' };   // II: its own titan scenes will come with the new art

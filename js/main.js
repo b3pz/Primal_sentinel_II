@@ -79,7 +79,7 @@ const Game = {
         <button id="howto">COME SI GIOCA</button>
         <button id="options">OPZIONI</button>
       </nav>
-      <div class="footer">IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.13</div>`, 'menu');
+      <div class="footer">IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.14</div>`, 'menu');
     UI.on('#play', () => { this.modeKind = 'campaign'; this.startLevel = 0; this.lobby(); });
     UI.on('#online', () => this.onlineMenu());
     UI.on('#extras', () => this.extras());
@@ -1013,7 +1013,7 @@ Input.init();
 Touch.init();
 const IMAGES = [
   ['fighters', 'assets/sprites/fighters.png'], ['bosses', 'assets/sprites/bosses.png'], ['titans', 'assets/sprites/titans.png'], ['giants', 'assets/sprites/giants.png'], ['titani', 'assets/sprites/titani.png'], ['titani2', 'assets/sprites/titani2.png'], ['extra', 'assets/sprites/extra.png'], ['bosses2', 'assets/sprites/bosses2.png'], ['heroes2', 'assets/sprites/heroes2.png'], ['mentors', 'assets/sprites/mentors.png'], ['pad_ps', 'assets/ui/pad_ps.png'], ['extra2', 'assets/sprites/extra2.png'], ['grabs', 'assets/sprites/grabs.png'], ['faces', 'assets/sprites/faces.png'], ['poses', 'assets/sprites/poses.png'], ['train', 'assets/sprites/train.png'], ['train_roof', 'assets/bg/train_roof.jpg'], ['loco_roof', 'assets/bg/loco_roof.png'], ['base', 'assets/bg/base.jpg'],
-  ['cine_run', 'assets/bg/cine_run.jpg'], ['cine_duel', 'assets/bg/cine_duel.jpg'], ['cine_rex', 'assets/bg/cine_rex.jpg'], ['cine_cavern', 'assets/bg/cine_cavern.jpg'], ['cine_cockpit', 'assets/bg/cine_cockpit.jpg'], ['cine_dawn', 'assets/bg/cine_dawn.jpg'], ['cine_flotta', 'assets/bg/cine_flotta.jpg'], ['cine_catene', 'assets/bg/cine_catene.jpg'], ['cine_stelle', 'assets/bg/cine_stelle.jpg'],
+  ['cine_run', 'assets/bg/cine_run.jpg'], ['cine_duel', 'assets/bg/cine_duel.jpg'], ['cine_rex', 'assets/bg/cine_rex.jpg'], ['cine_cavern', 'assets/bg/cine_cavern.jpg'], ['cine_cockpit', 'assets/bg/cine_cockpit.jpg'], ['cine_dawn', 'assets/bg/cine_dawn.jpg'], ['cine_flotta', 'assets/bg/cine_flotta.jpg'], ['cine_catene', 'assets/bg/cine_catene.jpg'], ['cine_stelle', 'assets/bg/cine_stelle.jpg'], ['cine_paladino', 'assets/bg/cine_paladino.jpg'],
   ['items', 'assets/sprites/items.png'], ['people', 'assets/sprites/people.png'],
   ['port', 'assets/bg/port.jpg'], ['harbor', 'assets/bg/harbor.jpg'], ['rail', 'assets/bg/rail.jpg'], ['park', 'assets/bg/park.jpg'],
   ['theater', 'assets/bg/theater.jpg'], ['siege', 'assets/bg/siege.jpg'], ['graveyard', 'assets/bg/graveyard.jpg'], ['veil', 'assets/bg/veil.jpg'],

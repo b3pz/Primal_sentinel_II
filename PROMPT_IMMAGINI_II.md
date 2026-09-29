@@ -127,7 +127,7 @@ terreno intorno. Larga come due uomini. Vista laterale. Niente testo, niente omb
 
 # BLOCCO 2 — l'upgrade grafico (quello che manca)
 
-Stato: **C (titani) FATTO** · da fare, in quest'ordine: **D → B → A → E**.
+Stato: **TUTTO FATTO** (A, B, C, D, E) — la grafica del II è completa.
 Nomi dei file: caricali pure con qualsiasi nome, basta che mi dici cosa sono.
 
 Regola d'oro per il salto di qualità del II: allega sempre come riferimento una tavola del II che ti è

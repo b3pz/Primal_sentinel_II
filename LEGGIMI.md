@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.13
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.14
+
+Nella 0.14: la grafica del II è completa. Prima del duello finale c'è la scena del Paladino Stellare contro il Re del Vuoto sopra l'Etna.
 
 Nella 0.13: la scena dei Cuori di Stella (fine del capitolo 3) usa la nuova illustrazione: ArMV3z che diventa luce e le cinque armature sui piedistalli.
 
