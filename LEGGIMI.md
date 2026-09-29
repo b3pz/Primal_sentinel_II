@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.11
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.12
+
+Nella 0.12: nuova scena animata alla fine del capitolo 2: i cinque dinosauri incatenati sollevati verso la flotta.
 
 Nella 0.11: nuova scena animata alla fine del capitolo 1: la flotta del Sovrano esce dalle nuvole sopra Porto Aurora.
 

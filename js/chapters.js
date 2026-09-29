@@ -446,6 +446,21 @@ CHAPTER_CINES.flotta = [
       if (k > 3.1 && k < 3.4) { g.fillStyle = 'rgba(255,255,255,.5)'; g.fillRect(0, 0, W, H); }
     } },
 ];
+/* II, fine del capitolo 2: i cinque dinosauri incatenati salgono verso la flotta */
+CHAPTER_CINES.catene = [
+  { d: 6, sub: ['', 'Le catene del Sovrano si stringono. Uno dopo l\'altro, i cinque titani vengono strappati alla città.'], cues: [[0.3, 'bosswind'], [1.6, 'stomp'], [3, 'stomp'], [4.4, 'bosswind']],
+    draw(k, t) {
+      // start low on the harbour, then tilt up while the titans rise
+      coverImage('cine_catene', 1.08 - k * 0.01, 0.5, 0.95 - k * 0.12);
+      g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.1 + Math.max(0, Math.sin(t * 7)) * 0.1; g.fillStyle = '#9a3aff'; g.fillRect(0, 0, W, H); g.restore();
+      if (Math.floor(t * 12) % 9 === 0) g.translate(rand(-1, 1) * 3, rand(-1, 1) * 3);
+    } },
+  { d: 4.5, sub: ['CIUSKY', '«Li stanno portando via... e noi siamo qui a guardare!»'], cues: [[0.5, 'hurt']],
+    draw(k, t) {
+      coverImage('cine_catene', 1.0, 0.5, 0.5);
+      g.fillStyle = `rgba(0,0,0,${Math.min(0.55, k * 0.12)})`; g.fillRect(0, 0, W, H);
+    } },
+];
 /* II, capitolo 3: i Cuori di Stella — ArMV3z diventa luce e le cinque armature nuove si accendono */
 function stellaRow(k, t, lit) {
   const n = 5, gap = 205, x0 = W / 2 - gap * 2;

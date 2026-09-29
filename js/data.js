@@ -413,7 +413,7 @@ const LEVELS_I = [
   },
 ];
 const II_PREVIEW = true;   // II flow: outro dialogues + chapter scenes below
-const II_CINES = { 0: { before: 'fuga', after: 'flotta' }, 2: { after: 'stella' }, 7: { after: 'fine2' } };
+const II_CINES = { 0: { before: 'fuga', after: 'flotta' }, 1: { after: 'catene' }, 2: { after: 'stella' }, 7: { after: 'fine2' } };
 const II_PREVIEW_END = [
   ['NARRATORE', 'Fine del capitolo 1. Il capitolo 2, LA FLOTTA DI FERRO, è in lavorazione.'],
   ['ASTRO', 'Tornate presto! Il radar non smette di suonare!']];
