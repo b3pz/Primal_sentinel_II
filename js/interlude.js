@@ -349,7 +349,11 @@ function drawInterScene(D, who, t, typing) {
     } else if (name === 'DOTT.SSA VALLI') {
       drawShadow(x, floor, 34); spr('people', on && typing && Math.floor(t * 3) % 3 === 0 ? 'scientist_point' : 'scientist_idle' + (Math.floor(t * 1.6) % 2), x, floor + bob, { scale: 1.9, face: -1 });
     } else if (name === 'SIRIO') {
-      drawShadow(x, floor, 40); heroSpr(5, 0, x, floor + bob, { scale: 1.0, face: -1 });
+      drawShadow(x, floor, 40);
+      if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) spr('heroes2', 'kharon_0', x, floor + bob, { scale: 1.15, face: -1 });   // II: Sirio is the mentor, in his green armour
+      else heroSpr(5, 0, x, floor + bob, { scale: 1.0, face: -1 });
+    } else if (name === 'RIGEL') {
+      drawShadow(x, floor, 40); spr('rigel', 'rigel_0', x, floor + bob, { scale: 1.02, face: -1 });
     } else if (name === 'ARMV3Z') {
       glowAt(x, floor - 170, 200, '#6fc8ff', 0.3 + Math.sin(t * 3) * 0.08);
       drawShadow(x, floor, 80); spr('mentors', on && typing && Math.floor(t * 7) % 2 ? 'argo_1' : 'argo_0', x, floor, { scale: 0.85, face: -1 });
@@ -586,4 +590,98 @@ const MG_DRAW = {
 };
 
 /* II: the civilian interludes of the first game belong to its story — the new ones will come with their own scenes */
-if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) for (const k in INTERLUDES) delete INTERLUDES[k];
+/* PRIMAL SENTINELS II: its own interludes, at the key moments of the new story */
+if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) {
+  for (const k in INTERLUDES) delete INTERLUDES[k];
+  for (const k in INTER_BG) delete INTER_BG[k];
+  Object.assign(INTERLUDES, {
+    2: {
+      title: 'LA MATTINA SENZA DI LUI', place: 'PORTO AURORA · LA PIZZERIA SUL LUNGOMARE · 6:40',
+      bg: 'festa', zoom: 1.1, ox: 0.15, tint: 'rgba(255,150,90,.18)', shade: 0.4,
+      cast: [['KATHY', 250], ['BEPS', 390], ['CIUSKY', 540], ['KIKI', 690], ['DON', 830], ['ASTRO', 1040], ['BORIS', 1150]],
+      amb: [['waiter', 60, 1]],
+      lines: [
+        ['NARRATORE', 'La mattina dopo. La Camera dei Cuori è silenziosa. Per la prima volta, ArMV3z non c\'è.'],
+        ['CIUSKY', 'Il forno è acceso. Lui diceva sempre che a stomaco vuoto non si salva nessuno.'],
+        ['KIKI', 'Non l\'ha mai detto. L\'hai detto tu, l\'anno scorso.'],
+        ['CIUSKY', '...Allora adesso lo dice lui. Mangiate.'],
+        ['DON', 'I nostri dinosauri sono lassù, in catene. E noi mangiamo pizza.'],
+        ['BEPS', 'Mangiamo pizza con cinque armature nuove. Per farle funzionare servono titani nuovi. Sirio dice che dormono in giro per l\'Italia.'],
+        ['KATHY', 'Un giro d\'Italia per trovare dei titani. Mia madre penserà che sono in gita.'],
+        ['ASTRO', 'Io ho già fatto i bagagli! Cioè, Boris mi ha messo in una valigia.'],
+        ['BORIS', 'Era l\'unico modo di farlo stare zitto.'],
+      ],
+      game: 'forno',
+      after: [
+        ['KIKI', 'Buona. Lui l\'avrebbe detto. Questo sì.'],
+        ['CIUSKY', 'Allora andiamo. Prima tappa: Venezia.'],
+      ],
+    },
+    3: {
+      title: 'UN OSPITE SCOMODO', place: 'VENEZIA · UN BACARO DIETRO SAN MARCO · NOTTE',
+      bg: 'bg_venezia', zoom: 1.08, ox: 0.4, tint: 'rgba(40,80,150,.18)', shade: 0.4,
+      cast: [['DON', 220], ['KIKI', 350], ['CIUSKY', 480], ['KATHY', 610], ['BEPS', 740], ['SIRIO', 960], ['BORIS', 1150]],
+      amb: [['tourist', 1220, -1]],
+      lines: [
+        ['NARRATORE', 'Venezia, a notte fonda. Il Leone Alato dorme di nuovo sulla colonna. In un bacaro, cinque ragazzi e un vecchio pilota.'],
+        ['BEPS', 'Rigel ci ha quasi fatti a pezzi. Poi ha combattuto accanto a noi. Poi se n\'è andato. Io non ci capisco niente.'],
+        ['KIKI', 'Ha detto "strega". Pensava che fossimo di Vespera. Per i Cuori.'],
+        ['SIRIO', 'Anch\'io, mille anni fa, pensavo che il nemico fosse chiunque avesse un\'armatura diversa dalla mia.'],
+        ['DON', 'E cosa ti ha fatto cambiare idea?'],
+        ['SIRIO', 'Qualcuno che non ha smesso di tendermi la mano. Anche quando gliela mordevo.'],
+        ['CIUSKY', 'Allora a Roma gli tendiamo la mano. Con i guanti, magari.'],
+        ['BORIS', 'Prima delle mani, i riflessi. In piedi. Sincronizziamo i Cuori nuovi.'],
+      ],
+      game: 'seq',
+      after: [
+        ['SIRIO', 'I Cuori di Stella vi ascoltano. Adesso andate a svegliare la Lupa.'],
+        ['KATHY', 'Finalmente tocca a me.'],
+      ],
+    },
+    5: {
+      title: 'IL SESTO', place: 'REGGIO CALABRIA · UN LIDO SUL LUNGOMARE · TRAMONTO',
+      bg: 'bg_stretto', zoom: 1.06, ox: 0.5, tint: 'rgba(255,110,90,.16)', shade: 0.3,
+      cast: [['KATHY', 230], ['DON', 360], ['KIKI', 490], ['CIUSKY', 620], ['BEPS', 750], ['RIGEL', 960], ['ASTRO', 1150]],
+      amb: [['elder', 1240, -1], ['kid', 40, 1]],
+      lines: [
+        ['NARRATORE', 'Lo Stretto, dopo la battaglia. Il miraggio è sparito; resta un lido con le sedie impilate e un vecchio cabinato.'],
+        ['RIGEL', 'Su Ferrea non ci sono tramonti. Il cielo è coperto dalle fabbriche del Sovrano.'],
+        ['KIKI', 'Allora questo è il tuo primo. Guardalo bene.'],
+        ['RIGEL', 'Mio fratello avrebbe voluto vederlo. Cantava, come te. Per questo il Sovrano l\'ha fatto tacere.'],
+        ['DON', 'Mi dispiace, Rigel.'],
+        ['RIGEL', 'Non dispiacerti. Aiutami a fermarlo. È quello che conta.'],
+        ['BEPS', 'Intanto c\'è un\'altra cosa che conta: Astro Invaders. Chi perde paga i gelati.'],
+        ['ASTRO', 'Il mio videogioco! Rigel, ti insegno io! Si spara ai cattivi, è facilissimo!'],
+        ['RIGEL', 'Sparare ai cattivi. Questo lo so fare.'],
+      ],
+      game: 'arcade',
+      after: [
+        ['RIGEL', 'Da solo sarei caduto, stanotte. Con voi... forse ce la facciamo.'],
+        ['CIUSKY', 'Niente forse. Adesso siamo sei.'],
+      ],
+    },
+    6: {
+      title: 'L\'ULTIMA NOTTE', place: 'CATANIA · I TETTI SOPRA VIA ETNEA · UN\'ORA PRIMA DELL\'ALBA',
+      bg: 'bg_etna', zoom: 1.05, ox: 0.5, tint: 'rgba(60,20,40,.25)', shade: 0.35,
+      cast: [['KIKI', 220], ['DON', 350], ['KATHY', 480], ['BEPS', 610], ['CIUSKY', 740], ['RIGEL', 930], ['SIRIO', 1110]],
+      amb: [],
+      lines: [
+        ['NARRATORE', 'Catania, un\'ora prima dell\'alba. Sopra l\'Etna la nave del Sovrano beve il fuoco del vulcano.'],
+        ['CIUSKY', 'Il Tiranno era ancora lì dentro. L\'ho sentito. Stanotte lo riporto a casa.'],
+        ['SIRIO', 'ArMV3z sarebbe fiero di voi. Io lo sono. E non sono bravo con queste frasi, quindi non fatemela ripetere.'],
+        ['RIGEL', 'Quando il Sovrano cadrà, il mio popolo sarà libero. Non l\'ho mai detto ad alta voce.'],
+        ['KIKI', 'Allora dillo con noi. Tutti insieme.'],
+        ['KATHY', 'Per mia madre, che adesso sa tutto e mi ha fatto un panino.'],
+        ['DON', 'Per il porto. E per i nostri dinosauri.'],
+        ['BEPS', 'Per le domande. Anche quelle a cui nessuno sa rispondere.'],
+        ['CIUSKY', 'Per chi non saprà mai chi siamo. E per chi è diventato stelle.'],
+      ],
+      game: 'oath',
+      after: [
+        ['SIRIO', 'I Cuori battono insieme. Sei battiti, uno solo.'],
+        ['RIGEL', 'Allora andiamo a prenderci l\'alba.'],
+      ],
+    },
+  });
+  for (const k in INTERLUDES) INTERLUDES[k].key = +k;
+}

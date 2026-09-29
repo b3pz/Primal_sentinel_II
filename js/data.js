@@ -524,7 +524,9 @@ const LEVELS = [
     intro: [
       ['SIRIO', 'Il primo titano dorme dove è nata la sua leggenda: il Leone Alato di Venezia. Ciusky, è tuo.'],
       ['CIUSKY', 'Un leone con le ali. Pensavo che il Tiranno fosse già abbastanza.'],
-      ['ASTRO', 'Radar: soldati di ferro in laguna. E... un segnale argento, da solo. È lui!'],
+      ['SIRIO', 'Le armature nuove hanno una stella sul petto. Riempitela combattendo, poi SPECIALE: FORMA STELLARE. E se due di voi lanciano la speciale insieme, vicini, i Cuori si uniscono.'],
+      ['DOTT.SSA VALLI', 'I droni di Ferrea perdono dei chip rossi. Raccoglietene uno: ve lo riprogrammo al volo e il drone combatte per voi.'],
+      ['ASTRO', 'Radar: soldati di ferro in laguna. E... un segnale argento, da solo. È lui! Ah, e stanotte c\'è l\'acqua alta: quando suona la sirena, saltate!'],
       ['BEPS', 'Il guerriero della festa. Questa volta ci facciamo spiegare cosa vuole.'],
       ['BORIS', 'Magari prima di fargli spiegare, parate.'],
     ],

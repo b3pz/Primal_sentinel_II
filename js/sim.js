@@ -155,6 +155,7 @@ function stepStage(S, ctrls, dt) {
 
   for (const p of S.players) stepPlayer(S, p, ctrls[p.id] || EMPTY_CTRL, dt);
   stepExtra(S, ctrls, dt);
+  stepII(S, dt);
   if (S.phase === 'morph' && S.players.every((p) => !p.civil)) { S.phase = 'stage'; S.banner = { text: L.place, sub: `CAPITOLO ${L.n} · ${L.title}`, t: 2.6 }; }
   tickCounters(S, dt);
   stepTeam(S, dt);
@@ -298,7 +299,7 @@ function stepPlayer(S, p, c, dt) {
         break;
       }
       // movement
-      const sp = hero.speed * (p.run ? 1.55 : 1) * (p.boostT > 0 ? 1.3 : 1);
+      const sp = hero.speed * (p.run ? 1.55 : 1) * (p.boostT > 0 ? 1.3 : 1) * (p.starT > 0 ? 1.2 : 1) * aqSlow(S);
       const len = Math.hypot(dx, dy) || 1;
       tryMove(S, p, (dx / len) * sp * dt, (dy / len) * sp * 0.62 * dt);
       if (dx) p.face = dx;
@@ -414,7 +415,7 @@ function stepPlayer(S, p, c, dt) {
     case 'throw': if (p.t > 0.3) p.st = 'idle'; break;
     case 'special': stepSpecial(S, p, dt); break;
     case 'pose': {
-      if (p.t > 2.6) { p.st = 'idle'; p.teamTo = null; }
+      if (p.t > 2.6) { p.st = 'idle'; p.teamTo = null; p.starPose = 0; }
       break;
     }
     case 'hurt': if (p.t > 0.32) p.st = 'idle'; break;
@@ -478,6 +479,7 @@ function collectItems(S, p, px, py, rx, ry, pz = 0) {
           const h = Math.round(d.heal * 0.5); q.hp = Math.min(q.max, q.hp + h); floatText(S, q.x, q.y - 170, `CONDIVISO +${h}`, '#7bf0b1', 16);
         }
       }
+      if (it.type === 'chip') reprogramDrone(S, p);
       if (d.boost) { p.boostT = d.boost; floatText(S, p.x, p.y - 200, 'SVEGLIO!', '#ffcf7a', 18); }
       if (d.energy) { p.en = Math.min(100, p.en + d.energy); floatText(S, p.x, p.y - 170, 'ENERGIA', '#77ceff'); }
       if (d.score) { p.score += d.score; floatText(S, p.x, p.y - 170, `+${d.score}`, '#ffd76a'); }
@@ -613,6 +615,7 @@ function hitProp(S, o, who) {
 }
 
 function damageEnemy(S, p, e, dmg, opt = {}) {
+  if (p && p.starT > 0 && dmg > 0) dmg *= 1.5;   // II: Forma Stellare
   // II: the generals carry armour pieces that must be broken first (they soak most of the damage)
   if (e.boss && e.parts && e.parts.length && dmg > 0) {
     const part = e.parts[0];
@@ -655,6 +658,7 @@ function damageEnemy(S, p, e, dmg, opt = {}) {
     p.score += dmg * 10; p.hits++;
     p.combo2 = (p.comboHitT > 0 ? (p.combo2 || 0) + 1 : 1); p.comboHitT = 1.4; p.maxCombo = Math.max(p.maxCombo, p.combo2);
     p.en = Math.min(100, p.en + (S.L.noRegen ? 2 : 4));
+    starGain(S, p, STAR_GAIN.hit);
     S.team = Math.min(100, S.team + dmg * 0.18);
   }
   const col = e.boss ? '#ffc052' : e.def && e.def.shade ? '#c79bff' : '#a58cff';
@@ -680,7 +684,7 @@ function damageEnemy(S, p, e, dmg, opt = {}) {
   }
   if (e.hp <= 0) {
     e.killer = p ? p.id : 0;
-    if (p && p.score !== undefined) { p.score += e.def.score; p.kos++; }
+    if (p && p.score !== undefined) { p.score += e.def.score; p.kos++; starGain(S, p, STAR_GAIN.ko); }
     // drops: every few KOs something useful
     S.koCount = (S.koCount || 0) + 1;
     if (S.koCount % 3 === 0) { const it = makeItem(Math.random() < 0.5 ? 'ammo' : pick(['energy', 'coin', 'can', localFood(S)]), e.x, e.y, 40); it.vz = 220; S.items.push(it); }
@@ -709,6 +713,7 @@ function hurtPlayer(S, p, dmg, opt = {}) {
   if (p.st === 'grab' || p.st === 'grabatk') {
     const e = S.enemies.find((e) => e.id === p.hold); if (e) { e.st = 'hurt'; e.t = 0; e.holder = 0; } p.hold = 0;
   }
+  if (p.starT > 0) dmg *= 0.5;   // II: Forma Stellare
   dmg = Math.max(1, Math.round(dmg * DIFF.dmg));
   p.hp -= dmg; S.dmgTaken += dmg; p.combo = 0; p.run = false; p.buffer = null;
   sparks(S, p.x, p.y - 95 - p.z, '#ff6a5e', 12);
@@ -726,11 +731,12 @@ function hurtPlayer(S, p, dmg, opt = {}) {
 /* ---------------- specials ---------------- */
 function special(S, p) {
   if (S.L.unarmored) { floatText(S, p.x, p.y - 190, 'NIENTE POTERI!', '#ff9a8a', 16); return; }
+  if (canStar(S, p)) { stellarForm(S, p); return; }   // II: a full star meter turns the special into the Forma Stellare
   const hero = heroOf(p);
   if (p.en < 40) {
     // desperation: costs health like classic arcades
     if (p.hp > 12) { p.hp -= 8; floatText(S, p.x, p.y - 170, '-8', '#ff8a7a', 16); } else { sfx(S, 'hurt'); return; }
-  } else p.en -= 40;
+  } else if (!(p.starT > 0)) p.en -= 40;   // II: specials are free in Forma Stellare
   // the special is always thrown into the arena: face the side with more enemies (or the centre when at a border)
   {
     const lo = S.cam + 40, hi = S.camLock !== null ? S.camLock + W - 40 : S.cam + W - 40;
@@ -744,6 +750,7 @@ function special(S, p) {
   sfx(S, 'special'); ev(S, { t: 'flash', c: hero.glow, v: 0.25 });
   ev(S, { t: 'pop', x: Math.round(p.x), y: Math.round(p.y - 200), s: hero.special + '!', c: hero.color, big: 1 });
   S.hitstop = 0.06;
+  tryPairSpecial(S, p);
 }
 function stepSpecial(S, p, dt) {
   const hero = heroOf(p);
@@ -915,7 +922,7 @@ function stepEnemy(S, e, dt) {
       const ddx = tx - e.x, ddy = ty - e.y;
       e.face = p.x > e.x ? 1 : -1;
       if (Math.abs(ddx) > 10 || Math.abs(ddy) > 8) {
-        const sp = d.speed * scale;
+        const sp = d.speed * scale * aqSlow(S);
         // cars, dumpsters and shelters are obstacles for the soldiers (they don't climb on them)
         const mx = clamp(ddx, -1, 1) * Math.min(Math.abs(ddx), sp * dt), my = clamp(ddy, -1, 1) * Math.min(Math.abs(ddy), sp * 0.6 * dt);
         if (groundAt(S, e.x + mx, e.y + my) <= 40 || (e.z || 0) > 40) { e.x += mx; e.y += my; }
@@ -1595,6 +1602,7 @@ function buildView(S) {
   }
   mechView(S, d, r);
   extraView(S, d, r);
+  iiView(S, d, r);
   for (const it of S.items) d.push({ i: it.id, s: 'items', f: it.type, x: r(it.x), y: r(it.y), z: r(it.z + (it.z === it.base && !ITEMS[it.type].weapon ? 4 + Math.sin(S.t * 4 + it.bob) * 3 : 0)), gz: r(it.base || 0), sc: ITEMS[it.type].weapon ? 1.1 : it.type === 'sigil' ? 1 : 1.15, sh: 18, sg: it.type === 'sigil' ? 1 : 0, a: it.life < 3 && !ITEMS[it.type].weapon ? (Math.floor(S.t * 10) % 2 ? 0.3 : 1) : 1, glow: ITEMS[it.type].weapon ? 0 : 1 });
   for (const c of S.civs) d.push({ i: c.id, s: 'people', f: civFrame(c), x: r(c.x), y: r(c.y), fc: c.face, sc: 1, sh: 26, cg: c.caged ? 1 : 0 });
   for (const e of S.enemies) {
@@ -1688,13 +1696,14 @@ function buildView(S) {
     if (star) {
       // II: the Cuori di Stella armour — its own 16-pose sheet (tools/build_stella.py)
       const hid = HEROES[p.hero].id, gf = String(o.f).split('_').pop();
-      const lead = p.st === 'pose' && p.teamTo && p.t >= 1.5 && p.teamLead;
+      const lead = p.st === 'pose' && (p.starPose || p.teamTo && p.t >= 1.5 && p.teamLead);
       o.s = 'stella2'; o.f = `${hid}S_${lead ? 'v' : p.st === 'special' && p.spk === 'ignis' && p.t < 0.16 ? 'sw' : gf}`;
       delete o.stl; delete o.sk;
     }
     if (!star && gi >= 0 && frameOf('grabs', `${HEROES[p.hero].id}_g${gi}`)) { o.s = 'grabs'; o.f = `${HEROES[p.hero].id}_g${gi}`; o.sc = +(HERO_SCALE * (HEROES[p.hero].sheet ? 1.15 : 1)).toFixed(3); o.r = 0; }
     if (p.weapon) { o.wp = p.weapon.type; o.wa = p.st === 'atk' && p.atk === 'swing' && p.t > 0.1 ? 1 : 0; }
     if (p.st === 'special' || p.st === 'pose') o.au = HEROES[p.hero].glow;
+    if (p.starT > 0) { o.au = '#ffd35a'; if (Math.floor(S.t * 10) % 3 === 0) o.gh = 1; }
     // personal weapon visible in the finisher, the running strike and the specials
     const hid = HEROES[p.hero].id;
     if (false) {
@@ -1723,6 +1732,7 @@ function buildView(S) {
       lvl: S.lvl, place: S.L.place,
       portal: S.L.train && S.bossT0 !== undefined ? +clamp((S.t - S.bossT0) / 150, 0.05, 1).toFixed(3) : 0,
       ...extraHud(S),
+      ...iiHud(S),
     },
     ev: S.events.slice(),
   };

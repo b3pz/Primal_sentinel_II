@@ -29,7 +29,7 @@ function applyEvents(evs, world = true) {
         FX.parts.push({ k: 'boom', x: e.x, y: e.y, life: 0.55, max: 0.55, s: e.big ? 2.2 : 1, world });
         for (let i = 0; i < (e.big ? 18 : 12); i++) FX.parts.push({ k: 'fire', x: e.x, y: e.y, vx: rand(-300, 300), vy: rand(-400, -50), life: rand(0.3, 0.7), max: 0.7, c: pick(['#ffd35a', '#ff8a3a', '#ff5a2a']), s: e.big ? 14 : 8, world });
         break;
-      case 'beam': FX.parts.push({ k: 'beam', x: e.x, y: e.y, dir: e.dir, len: e.len, c: e.c, life: e.big ? 0.8 : 0.4, max: e.big ? 0.8 : 0.4, big: e.big, world }); break;
+      case 'beam': FX.parts.push({ k: 'beam', x: e.x, y: e.y, dir: e.dir, len: e.len, c: e.c, w: e.w, life: e.big ? 0.8 : 0.4, max: e.big ? 0.8 : 0.4, big: e.big, world }); break;
       case 'crack': FX.parts.push({ k: 'crack', x: e.x, y: e.y, life: 1.2, max: 1.2, seed: Math.random() * 1000, world }); break;
       case 'txt': FX.parts.push({ k: 'txt', x: e.x, y: e.y, s: e.s, c: e.c, size: e.size || 22, life: e.fixed ? 2 : 1.1, max: e.fixed ? 2 : 1.1, world: !e.fixed && world }); break;
       case 'debris':
@@ -95,7 +95,7 @@ function drawParts(cam, layer) {
         break;
       }
       case 'beam': {
-        const w = (p.big ? 90 : 40) * k;
+        const w = (p.w || (p.big ? 90 : 40)) * k;
         const x2 = x + p.dir * p.len;
         g.globalCompositeOperation = 'lighter';
         g.globalAlpha = 0.6 * k; g.fillStyle = p.c; g.fillRect(Math.min(x, x2), y - w, Math.abs(x2 - x), w * 2);
@@ -612,6 +612,7 @@ function renderStage(v) {
   if (v.hud.esc !== undefined) drawCollapseBack(cam, t, v.hud.esc);
   if (FX.team && FX.team.arena) { const k = FX.team.t, fade = clamp(Math.min(k * 4, (TEAM_LEN - k) * 4), 0, 1); g.fillStyle = `rgba(4,6,14,${0.5 * fade})`; g.fillRect(-20, -20, W + 40, H + 40); }
   const list = v.d.slice().sort((a, b) => ((a.sy ?? a.y) - (b.sy ?? b.y)) || ((a.z || 0) - (b.z || 0)));
+  if (v.hud.aq) drawAcquaAlta(v.hud.aq, t, cam);   // II: the flooded floor, under the fighters
   for (const o of list) drawDrawable(o, cam, t);
   drawParts(cam);
   if (tr > 0 && !v.hud.tun) drawTrainForeground(cam, t, tr);
@@ -691,6 +692,12 @@ function drawHUD(h, t) {
       const f = frameOf('items', 'w_gun');
       if (f) g.drawImage(IMG.items, f[0], f[1], f[2], f[3], x + 92, y + 74, f[2] * 0.5, f[3] * 0.5);
       ptxt(`×${p.am ?? 0}`, x + 92 + (f ? f[2] * 0.5 + 4 : 0), y + 86, 9, p.am > 0 ? '#bfe6ff' : '#ff8a7a');
+    }
+    if (h.st && h.st[i] !== undefined && h.st[i] !== -1) {
+      // II: the star meter of the Forma Stellare
+      const sv = h.st[i], bx = x + 150, bw = pw - 230;
+      if (sv <= -2) { segBar(bx, y + 78, bw, 7, (-sv - 1) / STAR_TIME, 0, Math.floor(t * 8) % 2 ? '#fff1a6' : '#ffd35a', 6); ptxt('★ STELLARE', bx + bw + 4, y + 86, 8, '#ffd35a'); }
+      else { segBar(bx, y + 78, bw, 7, sv / 100, 0, sv >= 100 ? (Math.floor(t * 6) % 2 ? '#fff1a6' : '#ffb03a') : '#c9a032', 6); ptxt(sv >= 100 ? '★ SPECIALE!' : '★', bx + bw + 4, y + 86, 8, sv >= 100 ? '#fff1a6' : '#c9a032'); }
     }
     if (p.cb > 1) ptxt(`${p.cb} COLPI!`, x + pw - 14, y + 88, 11, Math.floor(t * 10) % 2 ? '#fff1c6' : '#ffb03a', 'right');
   });

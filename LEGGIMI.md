@@ -1,4 +1,11 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.15
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.16
+
+Nella 0.16: le meccaniche nuove del II.
+- **Forma Stellare** (dal capitolo 4, con l'armatura Cuori di Stella): sotto l'energia c'è la barra ★. Si riempie colpendo e mettendo KO i nemici (la stella cadente la riempie subito). Quando lampeggia "★ SPECIALE!", premi SPECIALE: per 12 secondi fai il 50% di danni in più, ne prendi la metà, corri più veloce e le speciali non costano energia.
+- **Mosse di coppia**: se due Sentinels lanciano la speciale quasi insieme e vicini, i Cuori si uniscono in un colpo ad area con un nome per ogni coppia (Ciusky + Beps: ALI DI FUOCO, Kathy + Don: CARICA DEI SETTE COLLI, con Rigel: LAMA DELLE DUE STELLE…).
+- **Droni riprogrammati**: i droni lasciano un chip rosso. Raccoglilo e il drone più vicino passa dalla vostra parte (se non ce ne sono, ne arriva uno): vola accanto a te e spara ai nemici per 22 secondi. Al massimo tre alla volta.
+- **Acqua alta a Venezia**: ogni mezzo minuto suona la sirena e la laguna allaga la piazza per una decina di secondi: tutti, nemici compresi, si muovono più lenti.
+- **Intervalli del II**, con i minigiochi: dopo il capitolo 3 (la pizzeria, la mattina senza ArMV3z), dopo Venezia (un bacaro con Sirio), dopo Reggio (il lido con Rigel e il cabinato) e prima dell'Etna (i tetti di Catania, il giuramento).
 
 Nella 0.15: oggetti ridisegnati in HD e oggetti nuovi. Cibo italiano (arancino, cannolo, gelato, caffè che fa correre più veloce), e ogni città ha la sua specialità che cade più spesso (gelato a Venezia, caffè a Roma e al Nord, arancino a Reggio, cannolo a Catania). Nuovi: la stella cadente (energia piena e barra squadra), il chip di Ferrea che cade dai droni (punti e barra squadra; servirà a riprogrammarli), e l'ancora, un'arma pesante.
 
