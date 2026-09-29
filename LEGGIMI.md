@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.10.1
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.11
+
+Nella 0.11: nuova scena animata alla fine del capitolo 1: la flotta del Sovrano esce dalle nuvole sopra Porto Aurora.
 
 Nella 0.10.1: nuova tavola dei ritratti (Kiki con la pinna da sirena, Ciusky col leone sul casco).
 

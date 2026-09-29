@@ -431,6 +431,21 @@ CHAPTER_CINES.fuga = [
       ALL5.forEach((i) => heroAt(i, 0, 150 + i * 70, 640 + (i % 2) * 20, 0.85, 1));
     } },
 ];
+/* II, fine del capitolo 1: all'alba la flotta del Sovrano esce dalle nuvole sopra Porto Aurora */
+CHAPTER_CINES.flotta = [
+  { d: 5.5, sub: ['', 'All\'alba il cielo di Porto Aurora si apre. Dalle nuvole escono le navi di ferro.'], cues: [[0.4, 'siren'], [2.2, 'bosswind']],
+    draw(k, t) {
+      // slow push-in from the crowd on the quay up to the flagship
+      coverImage('cine_flotta', 1.0 + k * 0.035, 0.5, 0.75 - k * 0.07);
+      g.fillStyle = `rgba(0,0,0,${Math.max(0, 0.5 - k * 0.2)})`; g.fillRect(0, 0, W, H);
+    } },
+  { d: 5, sub: ['ASTRO', '«Radar pieno! Decine di segnali, tutti bianco argento... e tutti ENORMI!»'], cues: [[0.3, 'laser'], [1.8, 'laser'], [3.2, 'boom']],
+    draw(k, t) {
+      coverImage('cine_flotta', 1.22, 0.55, 0.22);
+      g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.18 + Math.max(0, Math.sin(t * 9)) * 0.12; const gr = g.createLinearGradient(0, 0, 0, H * 0.6); gr.addColorStop(0, '#ff3a2a'); gr.addColorStop(1, 'rgba(255,58,42,0)'); g.fillStyle = gr; g.fillRect(0, 0, W, H * 0.6); g.restore();
+      if (k > 3.1 && k < 3.4) { g.fillStyle = 'rgba(255,255,255,.5)'; g.fillRect(0, 0, W, H); }
+    } },
+];
 /* II, capitolo 3: i Cuori di Stella — ArMV3z diventa luce e le cinque armature nuove si accendono */
 function stellaRow(k, t, lit) {
   const n = 5, gap = 205, x0 = W / 2 - gap * 2;
