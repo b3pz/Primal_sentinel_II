@@ -165,7 +165,7 @@ Object.assign(Game, {
         if (ed.some((e) => e.dir)) { I.sel = 1 - I.sel; this.interSnd('select'); }
         if (this.anyPress(ctrls, 'punch', 'jump', 'start')) {
           this.interSnd('confirm');
-          if (I.sel === 0) { I.ph = 'play'; I.t = 0; I.game = MG_INIT[D.game](this.players.filter((p) => p.device !== 'gone')); if (D.game === 'arcade') Audio.playSong(3); }
+          if (I.sel === 0) { I.ph = 'play'; I.t = 0; I.game = MG_INIT[D.game](this.players.filter((p) => p.device !== 'gone' && p.device !== 'cpu')); if (D.game === 'arcade') Audio.playSong(3); }
           else { I.ph = 'after'; I.t = 0; I.i = 0; }
         }
         break;
@@ -602,9 +602,9 @@ if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) {
       amb: [['waiter', 60, 1]],
       lines: [
         ['NARRATORE', 'La mattina dopo. La Camera dei Cuori è silenziosa. Per la prima volta, ArMV3z non c\'è.'],
-        ['CIUSKY', 'Il forno è acceso. Lui diceva sempre che a stomaco vuoto non si salva nessuno.'],
+        ['CIUSKY', 'La friggitrice è accesa. Lui diceva sempre che a stomaco vuoto non si salva nessuno.'],
         ['KIKI', 'Non l\'ha mai detto. L\'hai detto tu, l\'anno scorso.'],
-        ['CIUSKY', '...Allora adesso lo dice lui. Mangiate.'],
+        ['CIUSKY', '...Allora adesso lo dice lui. Arancini per tutti: prendeteli al volo, escono bollenti.'],
         ['DON', 'I nostri dinosauri sono lassù, in catene. E noi mangiamo pizza.'],
         ['BEPS', 'Mangiamo pizza con cinque armature nuove. Per farle funzionare servono titani nuovi. Sirio dice che dormono in giro per l\'Italia.'],
         ['KATHY', 'Un giro d\'Italia per trovare dei titani. Mia madre penserà che sono in gita.'],
@@ -630,7 +630,7 @@ if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) {
         ['DON', 'E cosa ti ha fatto cambiare idea?'],
         ['SIRIO', 'Qualcuno che non ha smesso di tendermi la mano. Anche quando gliela mordevo.'],
         ['CIUSKY', 'Allora a Roma gli tendiamo la mano. Con i guanti, magari.'],
-        ['BORIS', 'Prima delle mani, i riflessi. In piedi. Sincronizziamo i Cuori nuovi.'],
+        ['BORIS', 'Prima delle mani, le braccia. Fuori c\'è una gondola: cinque remi, un solo ritmo. Sincronizzate i Cuori nuovi.'],
       ],
       game: 'seq',
       after: [
@@ -650,9 +650,9 @@ if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) {
         ['RIGEL', 'Mio fratello avrebbe voluto vederlo. Cantava, come te. Per questo il Sovrano l\'ha fatto tacere.'],
         ['DON', 'Mi dispiace, Rigel.'],
         ['RIGEL', 'Non dispiacerti. Aiutami a fermarlo. È quello che conta.'],
-        ['BEPS', 'Intanto c\'è un\'altra cosa che conta: Astro Invaders. Chi perde paga i gelati.'],
-        ['ASTRO', 'Il mio videogioco! Rigel, ti insegno io! Si spara ai cattivi, è facilissimo!'],
-        ['RIGEL', 'Sparare ai cattivi. Questo lo so fare.'],
+        ['BEPS', 'Intanto c\'è un\'altra cosa che conta: un pallone e un lido vuoto. Chi lo fa cadere paga i gelati.'],
+        ['ASTRO', 'Palleggi! Rigel, il pallone si colpisce piano. Piano! Non si distrugge!'],
+        ['RIGEL', 'Colpire senza distruggere. Questo è nuovo. Guardo prima voi.'],
       ],
       game: 'arcade',
       after: [
@@ -678,7 +678,7 @@ if (typeof II_PREVIEW !== 'undefined' && II_PREVIEW) {
       ],
       game: 'oath',
       after: [
-        ['SIRIO', 'I Cuori battono insieme. Sei battiti, uno solo.'],
+        ['SIRIO', 'Avete visto? Le stelle vi seguono. Sei stelle, un solo cielo.'],
         ['RIGEL', 'Allora andiamo a prenderci l\'alba.'],
       ],
     },

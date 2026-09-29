@@ -1,4 +1,10 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.16
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.17
+
+Nella 0.17: minigiochi tutti nuovi negli intervalli, diversi dal primo gioco.
+- Dopo il capitolo 3: **Il banco degli arancini**, prendi al volo arancini e cannoli col vassoio, quelli bruciati no (monete).
+- Dopo Venezia: **La gondola**, remate a ritmo ◀ ▶ quando la freccia arriva sul quadrato (barra squadra piena).
+- Dopo Reggio: **Palleggi al lido**, non far cadere il pallone mentre Rigel guarda (monete).
+- Prima dell'Etna: **Il volo delle stelle**, guida la tua stella tra le braci del vulcano e raccogli le scintille (vita in più).
 
 Nella 0.16: le meccaniche nuove del II.
 - **Forma Stellare** (dal capitolo 4, con l'armatura Cuori di Stella): sotto l'energia c'è la barra ★. Si riempie colpendo e mettendo KO i nemici (la stella cadente la riempie subito). Quando lampeggia "★ SPECIALE!", premi SPECIALE: per 12 secondi fai il 50% di danni in più, ne prendi la metà, corri più veloce e le speciali non costano energia.
