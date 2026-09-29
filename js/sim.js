@@ -1662,7 +1662,15 @@ function buildView(S) {
     }
     // 1.8: real grab poses (the held enemy is drawn separately): 0 presa · 1 ginocchiata · 2 sollevamento · 3 lancio
     const gi = p.civil ? -1 : p.st === 'grab' ? 0 : p.st === 'grabatk' ? (p.t > 0.06 && p.t < 0.22 ? 1 : 0) : p.st === 'throw' ? (p.t < 0.1 ? 2 : 3) : p.st === 'pairslam' ? (p.t < 0.3 ? 2 : 3) : -1;
-    if (gi >= 0 && frameOf('grabs', `${HEROES[p.hero].id}_g${gi}`)) { o.s = 'grabs'; o.f = `${HEROES[p.hero].id}_g${gi}`; o.sc = +(HERO_SCALE * (HEROES[p.hero].sheet ? 1.15 : 1)).toFixed(3); o.r = 0; }
+    const star = S.L.stella && !p.civil && !HEROES[p.hero].sheet && frameOf('stella2', `${HEROES[p.hero].id}S_0`);
+    if (star) {
+      // II: the Cuori di Stella armour — its own 16-pose sheet (tools/build_stella.py)
+      const hid = HEROES[p.hero].id, gf = String(o.f).split('_').pop();
+      const lead = p.st === 'pose' && p.teamTo && p.t >= 1.5 && p.teamLead;
+      o.s = 'stella2'; o.f = `${hid}S_${lead ? 'v' : p.st === 'special' && p.spk === 'ignis' && p.t < 0.16 ? 'sw' : gf}`;
+      delete o.stl; delete o.sk;
+    }
+    if (!star && gi >= 0 && frameOf('grabs', `${HEROES[p.hero].id}_g${gi}`)) { o.s = 'grabs'; o.f = `${HEROES[p.hero].id}_g${gi}`; o.sc = +(HERO_SCALE * (HEROES[p.hero].sheet ? 1.15 : 1)).toFixed(3); o.r = 0; }
     if (p.weapon) { o.wp = p.weapon.type; o.wa = p.st === 'atk' && p.atk === 'swing' && p.t > 0.1 ? 1 : 0; }
     if (p.st === 'special' || p.st === 'pose') o.au = HEROES[p.hero].glow;
     // personal weapon visible in the finisher, the running strike and the specials

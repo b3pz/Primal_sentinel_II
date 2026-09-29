@@ -15,15 +15,42 @@ def best_cut(proj, centre, span):
     return lo + int(idx[len(idx) // 2])     # middle of the emptiest stretch
 
 
-def cut_grid(name, rows=2, cols=4, thr=110, merge=30, span=None):
+def dp_cuts(proj, cols, wmin, wmax):
+    """cols-1 cuts minimising the opaque pixels crossed, each cell between wmin and wmax wide"""
+    W = len(proj); INF = float('inf')
+    cost = proj.astype(float)
+    best = np.full((cols + 1, W + 1), INF); prev = np.zeros((cols + 1, W + 1), int)
+    best[0][0] = 0
+    for k in range(1, cols + 1):
+        for x in range(W + 1):
+            lo, hi = max(0, x - wmax), x - wmin
+            if hi < lo: continue
+            seg = best[k - 1][lo:hi + 1]
+            j = int(np.argmin(seg)); v = seg[j]
+            if v == INF: continue
+            best[k][x] = v + (cost[x] if x < W else 0); prev[k][x] = lo + j
+    cuts = [W]; x = W
+    for k in range(cols, 0, -1):
+        x = prev[k][x]; cuts.append(x)
+    return cuts[::-1]
+
+
+def cut_grid(name, rows=2, cols=4, thr=110, merge=30, span=None, wmin=None, wmax=None, xcuts=None):
     rgba = np.array(Image.open(SRC + name).convert('RGBA'))
     H, W = rgba.shape[:2]
     mask = rgba[..., 3] > thr
+    solid = ndi.binary_erosion(rgba[..., 3] >= 250, iterations=2)   # bodies without the soft glows
     rc = [0] + [best_cut(mask.sum(1), H * r // rows, H // 6) for r in range(1, rows)] + [H]
     out = {}
     for r in range(rows):
         band = mask[rc[r]:rc[r + 1]]
-        cc = [0] + [best_cut(band.sum(0), W * c // cols, span or W // 12) for c in range(1, cols)] + [W]
+        if xcuts: cc = [0] + list(xcuts[r]) + [W]
+        elif wmin:
+            sb = solid[rc[r]:rc[r + 1]]
+            rows_on = np.nonzero(sb.any(1))[0]; bot = rows_on.max() if len(rows_on) else sb.shape[0]
+            feet = sb[max(0, bot - 70):bot + 1].sum(0)          # the feet never overlap: cutting there is expensive
+            cc = dp_cuts(sb.sum(0) + feet * 25, cols, wmin, wmax)
+        else: cc = [0] + [best_cut(band.sum(0), W * c // cols, span or W // 12) for c in range(1, cols)] + [W]
         for c in range(cols):
             y0, y1, x0, x1 = rc[r], rc[r + 1], cc[c], cc[c + 1]
             m = mask[y0:y1, x0:x1]
