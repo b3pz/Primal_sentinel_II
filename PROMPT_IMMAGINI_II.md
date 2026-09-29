@@ -125,99 +125,110 @@ terreno intorno. Larga come due uomini. Vista laterale. Niente testo, niente omb
 ---
 ---
 
-# BLOCCO 2 — l'upgrade grafico di tutto il gioco (capitoli 2–8)
+# BLOCCO 2 — l'upgrade grafico (quello che manca)
 
-Il gioco adesso è completo dall'inizio alla fine, ma dal capitolo 2 usa ancora molte immagini del primo
-(sfondi ricolorati, titani ricolorati, boss ricolorati). Queste tavole le sostituiscono una per una: basta
-caricarle con il nome indicato e le metto al posto giusto. **Ordine consigliato: A → B → C → D → E.**
+Stato: **C (titani) FATTO** · da fare, in quest'ordine: **D → B → A → E**.
+Nomi dei file: caricali pure con qualsiasi nome, basta che mi dici cosa sono.
 
-Regola d'oro per il salto di qualità del II: rispetto al primo gioco chiedi sempre
-*"più dettaglio, luce più drammatica, colori più saturi, contorno netto"* e allega come riferimento
-le tavole del II che ti sono già piaciute (Rigel, Magnar, il generale, la festa).
+Regola d'oro per il salto di qualità del II: allega sempre come riferimento una tavola del II che ti è
+piaciuta (il **Leone alato** o il **Toro** nuovi) e aggiungi al prompt:
+*"stesso livello di dettaglio dell'immagine allegata: piastre incise, finiture oro lavorate, luce
+drammatica, colori saturi, contorno netto"*.
 
-## A. Gli sfondi dei capitoli (JPG 1920x1080, pavimento libero dal 64% in giù, ripetibile in orizzontale)
-Base comune:
-```
-Fondale di pixel art HD a 16 bit per un picchiaduro a scorrimento anni '90, qualità superiore alla media,
-luce drammatica, molti dettagli, stessa palette ricca dell'immagine allegata (la festa di Porto Aurora).
-Inquadratura laterale ad altezza d'uomo. Il pavimento occupa la fascia in basso dal 64% dell'altezza in
-giù, libero e ripetibile in orizzontale. Nessun personaggio in primo piano, nessun testo.
-```
-Poi il luogo:
-- `bg_flotta.jpg` — **cap. 2**: la stessa città di mare del sud Italia all'alba, il cielo coperto da decine
-  di navi da guerra di ferro nero e rame con occhi rossi, raggi bianco argento che scendono sui tetti, fumo.
-- `bg_faro.jpg` — **cap. 3**: di notte, una stradina in salita che porta a un faro bianco e rosso sul
-  promontorio, scalinate di pietra, lampioni spenti, il porto sotto, le navi di ferro in cielo lontane.
-- `bg_venezia.jpg` — **cap. 4**: Venezia di notte, fondamenta lungo un canale, un ponte di pietra, gondole
-  ormeggiate, palazzi gotici con finestre accese, acqua con riflessi, nebbia bassa sul canale.
-- `bg_roma.jpg` — **cap. 5**: Roma di sera, rovine antiche, colonne spezzate, archi, in fondo un grande
-  anfiteatro illuminato, pini marittimi, luna piena.
-- `bg_stretto.jpg` — **cap. 6**: il lungomare di Reggio Calabria al tramonto, palme, la balaustra sul mare,
-  sullo Stretto la Fata Morgana: città sospese e rovesciate nel cielo, riflessi rosa e viola, la costa
-  siciliana all'orizzonte.
-- `bg_forgia.jpg` — **cap. 7**: una fabbrica gigantesca tra Torino e il porto di Genova: altiforni accesi,
-  colate di metallo, catene enormi che pendono, gru portuali, scintille, luce arancione.
-- `bg_etna.jpg` — **cap. 8**: Catania di notte con l'Etna in eruzione sullo sfondo e sopra il vulcano
-  l'enorme nave del Sovrano di ferro nero e oro che assorbe il fuoco con fasci di luce.
+## D. Mostri giganti e boss — I PIÙ URGENTI
+Adesso sono i mostri del primo gioco ricolorati: accanto ai titani nuovi si vede.
 
-## B. I Sentinels con l'armatura Cuori di Stella — 5 tavole a 16 pose (le più importanti)
-Allega `cuori_di_stella_design.png` (la tavola che hai già fatto) e `fighters.png` del primo gioco.
-Una tavola per Sentinel: `stella_ignis.png`, `stella_azur.png`, `stella_lyra.png`, `stella_aura.png`,
-`stella_onyx.png`. Cambia solo **[EROE]**: ranger ROSSO col leone sul casco e spada fiammeggiante ·
-ranger BLU col grifone sul casco e lancia · ranger GIALLO col casco da lupa e due pugnali · ranger ROSA
-col casco a sirena e arco · ranger NERO-ARGENTO col casco a corna di toro e ascia.
+### Mostri giganti (per i duelli dei titani) — 5 pose in riga, rivolti a SINISTRA
+Allega il Leone alato (per scala e qualità).
 ```
 Sprite sheet di pixel art HD a 16 bit per un picchiaduro arcade anni '90, sfondo trasparente, qualità
-superiore: più dettaglio e luce più brillante. Soggetto: [EROE], nella nuova armatura "Cuori di Stella"
-esattamente come nell'immagine allegata (piastre bianche e oro sulle spalle e sugli avambracci, stella
-luminosa sul petto). Vista laterale, rivolto verso DESTRA, stessa altezza dei ranger di fighters.png.
-Griglia 4x4 con le 16 pose in quest'ordine: in guardia; camminata (3 fotogrammi); accovacciato pronto;
-pugno; calcio volante; colpito; carica l'arma; colpo d'arma; mossa speciale con scia di luce dorata;
-spara con la pistola; salto; sbalzato all'indietro; a terra; presa con le braccia avanti.
-Contorno scuro, luce da sinistra in alto, niente testo, niente ombra per terra.
+superiore: stesso livello di dettaglio dell'immagine allegata (piastre incise, luce drammatica, colori
+saturi, contorno netto). Soggetto: [MOSTRO], un mostro gigante alto quanto il titano allegato. Vista
+laterale, rivolto verso SINISTRA. Una riga di 5 pose, stessa scala: 1) fermo minaccioso; 2) carica il
+colpo; 3) colpisce; 4) colpito, piegato all'indietro; 5) sconfitto, crollato a terra.
+Niente testo, niente ombra per terra.
+```
+[MOSTRO]:
+- **IDRA DELLA LAGUNA** (Venezia): idra di ferro arrugginito e rame con tre teste di serpente, alghe e acqua
+  verde della laguna che cola dalle giunture, occhi rossi.
+- **COLOSSO DI FERREA** (Roma): colosso di ferro brunito e rame come una statua romana meccanica, elmo da
+  centurione, un solo grande occhio rosso sul petto.
+- **MOSTRO DEL VUOTO** (Reggio Calabria): creatura fatta di ombra viola e nera e cristalli taglienti,
+  senza volto, braccia lunghe come lame, nebbia che si stacca dal corpo.
+- **TIRANNO IN CATENE** (Torino/Genova): un tirannosauro meccanico rosso, avvolto da enormi catene di ferro
+  nero, occhi viola, collare di ferro col simbolo del Sovrano. (Allega anche il Tiranno Rosso del primo gioco.)
+- **RE DEL VUOTO** (Etna, finale): il Sovrano Magnar fuso con Vespera: re di ferro nero e oro, enorme, con
+  ali di ombra viola e il volto di Vespera incastonato nel petto, corona spezzata. (Allega `magnar.png`.)
+
+### Boss dei capitoli — 8 pose, come il Generale di ferro
+Allega `generale_ferro.png` (per il formato) e il Leone alato (per la qualità).
+```
+Sprite sheet di pixel art HD a 16 bit per un picchiaduro arcade anni '90, sfondo trasparente, qualità
+superiore: stesso livello di dettaglio dell'immagine allegata. Soggetto: [BOSS]. Vista laterale, rivolto
+verso SINISTRA, altezza come il generale allegato. Griglia 2x4 con 8 pose: 1) fermo; 2) passo; 3) carica
+il colpo; 4) attacco; 5) mossa speciale con effetto di luce; 6) colpito; 7) a terra; 8) in ginocchio
+sconfitto. Niente testo, niente ombra per terra.
+```
+[BOSS]:
+- **VESPERA DEL VUOTO** (cap. 6): Vespera del primo gioco, ora con metà corpo di ferro dorato e crepe viola
+  luminose. (Allega Vespera del primo gioco.)
+- **CENTURIONE DI FERRO** (cap. 5): il generale di Roma, armatura da legionario romano di ferro e rame,
+  scudo rettangolare, gladio incandescente.
+- **FABBRO DI FERREA** (cap. 7): il generale della forgia, enorme, grembiule di cuoio e piastre di ferro,
+  martello incandescente, scintille.
+- **GUARDIA DEL RE** (cap. 8): armatura nera e oro, mantello viola, lancia a tre punte.
+
+## B. Le Sentinelle con l'armatura Cuori di Stella — 16 pose ciascuno
+Allega `cuori_di_stella_design.png` (le armature viste di fronte), una tavola degli eroi del primo gioco
+(per l'ordine delle pose) e il Leone alato (per la qualità). Una tavola per Sentinella. Cambia solo **[EROE]**:
+- **CIUSKY** — Sentinella ROSSA, leone sul casco, spada fiammeggiante
+- **BEPS** — Sentinella BLU, ali del grifone sul casco, lancia
+- **KATHY** — Sentinella GIALLA, casco con orecchie da lupa, due pugnali
+- **KIKI** — Sentinella ROSA, casco a pinna di sirena, arco
+- **DON** — Sentinella NERA, casco con corna di toro, ascia
+```
+Sprite sheet di pixel art HD a 16 bit per un picchiaduro arcade anni '90, sfondo trasparente, qualità
+superiore: stesso livello di dettaglio della terza immagine allegata (piastre incise, finiture oro
+lavorate, luce brillante). Soggetto: [EROE], nell'armatura "Cuori di Stella" esattamente come nella prima
+immagine allegata (piastre bianche e oro su spalle e avambracci, stella dorata luminosa sul petto).
+Vista laterale, rivolto verso DESTRA. Griglia 4x4 con le 16 pose in quest'ordine: in guardia; camminata
+(3 fotogrammi); accovacciato pronto; pugno; calcio volante; colpito; carica l'arma; colpo d'arma; mossa
+speciale con scia di luce dorata; spara con la pistola; salto; sbalzato all'indietro; a terra; presa con
+le braccia avanti. Contorno scuro, luce da sinistra in alto, niente testo, niente ombra per terra.
 ```
 
-## C. I nuovi titani (per i duelli giganti) — 8 pose ciascuno
-Allega la tavola dei titani del primo gioco e `astrale.png` per la scala. Nomi: `titano_leone.png`,
-`titano_grifone.png`, `titano_lupa.png`, `titano_sirena.png`, `titano_toro.png`, `paladino.png`,
-`paladino_stellare.png`.
+## A. Gli sfondi dei capitoli (orizzontali, larghi)
+Allega lo sfondo della festa (quello del capitolo 1).
 ```
-Sprite sheet di pixel art HD a 16 bit, sfondo trasparente, qualità superiore. Soggetto: [TITANO], un
-titano meccanico gigante ispirato a una leggenda italiana, costruito come un'armatura da guerra: metallo,
-pietra antica e fuoco, niente di buffo, maestoso e serio. Vista laterale, rivolto verso DESTRA.
-Griglia 2x4, stessa scala: 1) in guardia; 2) passo avanti; 3) colpo veloce; 4) colpo pesante caricato;
-5) parata; 6) colpito; 7) colpo finale con esplosione di luce; 8) a terra.
-Contorno scuro, luce da sinistra in alto, niente testo, niente ombra per terra.
+Fondale di pixel art HD a 16 bit per un picchiaduro a scorrimento anni '90, qualità superiore, luce
+drammatica, molti dettagli, stessa palette ricca dell'immagine allegata. Inquadratura laterale ad altezza
+d'uomo, formato molto largo. Il pavimento occupa la fascia in basso (dal 64% dell'altezza in giù), libero
+e ripetibile in orizzontale. Nessun personaggio in primo piano, nessun testo. Luogo: [LUOGO]
 ```
-[TITANO]:
-- LEONE ALATO: leone di bronzo e rosso con grandi ali, un libro-scudo sul braccio che diventa lama (Venezia).
-- GRIFONE: aquila e leone insieme, blu e argento, ali taglienti, artigli (Genova).
-- LUPA: lupa gigante gialla e bronzo, agile, zanne d'acciaio (Roma).
-- SIRENA DELLO STRETTO: guerriera marina rosa e madreperla, coda che diventa gambe corazzate, onde sonore (Reggio Calabria).
-- TORO DI FERRO: toro nero e argento a due zampe come un lottatore, corna d'acciaio, martello (Torino).
-- PALADINO: i cinque titani uniti in un CAVALIERE dell'Opera dei Pupi siciliana: armatura a piastre
-  dipinte, elmo col pennacchio, scudo con i cinque stemmi (leone, grifone, lupa, sirena, toro), spadone.
-- PALADINO STELLARE: il Paladino con agganciato ASTRALE (allegato) come ali e cannoni sulle spalle,
-  bianco argento e oro, stella luminosa sul petto.
+[LUOGO]:
+- **cap. 2 — la flotta**: la città di mare del sud all'alba, il cielo coperto da decine di navi da guerra di
+  ferro nero e rame con occhi rossi, raggi bianco argento che scendono sui tetti, fumo.
+- **cap. 3 — il faro**: di notte, una stradina in salita verso un faro bianco e rosso sul promontorio,
+  scalinate di pietra, lampioni spenti, il porto sotto, le navi di ferro lontane nel cielo.
+- **cap. 4 — Venezia**: di notte, fondamenta lungo un canale, un ponte di pietra, gondole ormeggiate, palazzi
+  gotici con finestre accese, riflessi sull'acqua, nebbia bassa.
+- **cap. 5 — Roma**: di sera, rovine antiche, colonne spezzate, archi, in fondo il Colosseo illuminato, pini
+  marittimi, luna piena.
+- **cap. 6 — Reggio Calabria**: il lungomare al tramonto, palme, la balaustra sul mare; sullo Stretto la Fata
+  Morgana: città sospese e rovesciate nel cielo, riflessi rosa e viola, la Sicilia all'orizzonte.
+- **cap. 7 — la forgia**: una fabbrica gigantesca tra Torino e il porto di Genova, altiforni accesi, colate
+  di metallo, catene enormi, gru portuali, scintille, luce arancione.
+- **cap. 8 — Catania e l'Etna**: Catania di notte con l'Etna in eruzione e sopra il vulcano l'enorme nave del
+  Sovrano di ferro nero e oro che assorbe il fuoco con fasci di luce.
 
-## D. Mostri giganti e boss
-Mostri (5 pose in riga: fermo; carica; colpo; colpito; sconfitto — rivolti a SINISTRA): `idra.png` (idra di
-ferro della laguna, tre teste, acqua verde), `colosso_ferrea.png` (colosso di ferro brunito e rame con occhio
-rosso), `mostro_vuoto.png` (creatura viola e nera fatta di ombra e cristalli), `tiranno_catene.png` (il
-Tiranno Rosso del primo gioco avvolto da catene di ferro con occhi viola), `re_del_vuoto.png` (Magnar
-fuso con Vespera: il re di ferro e oro con ali di ombra viola e il volto di Vespera sul petto, enorme).
-Boss (8 pose come il generale: fermo; passo; carica; attacco; speciale; colpito; a terra; in ginocchio):
-`vespera_vuoto.png` (Vespera del primo gioco, ora con metà corpo di ferro dorato e crepe viola),
-`centurione.png` (il generale di Roma, armatura da legionario di ferro), `fabbro.png` (il generale della
-forgia, martello incandescente), `guardia_del_re.png` (armatura nera e oro, lancia a tre punte).
-
-## E. Scene e ritratti
-- `borghese_lotta.png`: i 5 ragazzi in borghese in 8 pose da combattimento (guardia, pugno, calcio, colpito,
-  salto, a terra, con un tubo in mano, colpo col tubo) — per il capitolo 3 "Senza armatura".
-- `drone_ferrea.png`: 6 pose di un drone volante di ferro e rame con occhio rosso (vola, spara, colpito, cade).
-- Ritratti per i dialoghi (busto, sfondo trasparente): `ritratto_rigel.png`, `ritratto_magnar.png`,
-  `ritratto_sirio_mentore.png` (Sirio senza elmo, capelli bianchi, mantello verde), `ritratti_stella.png`
-  (i 5 caschi nuovi, come `volti.png`).
-- Cinematiche (JPG 1920x1080): `cine_flotta.jpg` (la flotta sopra Porto Aurora), `cine_catene.jpg`
-  (i cinque dinosauri incatenati sollevati verso le navi), `cine_stelle.jpg` (ArMV3z che diventa luce
-  nella Camera dei Cuori), `cine_paladino.jpg` (il Paladino Stellare contro il Re del Vuoto sopra l'Etna).
+## E. Scene e ritratti (per ultimi)
+- **I cinque ragazzi in borghese che lottano** (cap. 3 "Senza armatura"): Ciusky, Beps, Kathy, Kiki e Don
+  vestiti normali, 8 pose ciascuno (guardia, pugno, calcio, colpito, salto, a terra, con un tubo in mano,
+  colpo col tubo). Allega la tavola dei civili del primo gioco.
+- **Drone di Ferrea**: 6 pose di un drone volante di ferro e rame con occhio rosso (vola, vola, spara,
+  colpito, cade, a pezzi a terra).
+- **Ritratti per i dialoghi** (busto, sfondo trasparente): Rigel, Magnar, Sirio da mentore (senza elmo,
+  capelli bianchi, mantello verde), i 5 caschi Cuori di Stella.
+- **Immagini delle scene animate** (orizzontali, larghe): la flotta sopra la città; i cinque dinosauri
+  incatenati sollevati verso le navi; ArMV3z che diventa luce nella Camera dei Cuori; il Paladino Stellare
+  contro il Re del Vuoto sopra l'Etna.
