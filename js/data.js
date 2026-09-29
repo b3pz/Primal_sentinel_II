@@ -6,19 +6,19 @@
 
 const HEROES = [
   { id: 'ignis', name: 'CIUSKY', civil: 'Ciusky', role: 'Equilibrato', color: '#ff5b4f', glow: '#ff8a5a', power: 1.0, speed: 250, hp: 120,
-    special: 'LAMA DI FUOCO', weapon: 'SPADA ZANNA', specialText: 'Onda di fuoco in avanti (media distanza)', titan: 'Tiranno rosso',
+    special: 'LAMA DI FUOCO', weapon: 'SPADA ZANNA', specialText: 'Onda di fuoco in avanti (media distanza)', titan: 'Leone alato',
     trait: 'FIAMMA: i colpi di spada incendiano i nemici', pro: 'Equilibrato, danni nel tempo', con: 'Nessun vantaggio in difesa' },
   { id: 'azur', name: 'BEPS', civil: 'Beps', role: 'Tecnico', color: '#5d9bff', glow: '#8cc4ff', power: 0.95, speed: 262, hp: 115,
-    special: 'CARICA DEL TRICORNO', weapon: 'LANCIA TRICORNO', specialText: 'Affondo in carica (media distanza)', titan: 'Triceratopo blu',
+    special: 'CARICA DEL TRICORNO', weapon: 'LANCIA TRICORNO', specialText: 'Affondo in carica (media distanza)', titan: 'Grifone',
     trait: 'PORTATA: la lancia colpisce più lontano', pro: 'Tiene i nemici a distanza', con: 'Meno vita di Ciusky' },
   { id: 'lyra', name: 'KATHY', civil: 'Kathy', role: 'Veloce', color: '#f7d046', glow: '#ffe98a', power: 0.85, speed: 300, hp: 105,
-    special: 'DANZA DEI PUGNALI', weapon: 'PUGNALI FELINI', specialText: 'Raffica di fendenti (da vicino)', titan: 'Felino giallo',
+    special: 'DANZA DEI PUGNALI', weapon: 'PUGNALI FELINI', specialText: 'Raffica di fendenti (da vicino)', titan: 'Lupa',
     trait: 'DOPPIO SALTO: salta di nuovo in aria', pro: 'La più veloce, agilissima', con: 'Poca vita, colpi leggeri' },
   { id: 'aura', name: 'KIKI', civil: 'Kiki', role: 'Distanza', color: '#ff78bb', glow: '#ffb2da', power: 0.9, speed: 268, hp: 110,
-    special: 'PIOGGIA D\'ALA', weapon: 'ARCO D\'ALA', specialText: 'Tre frecce alate (da lontano)', titan: 'Pterosauro rosa',
+    special: 'PIOGGIA D\'ALA', weapon: 'ARCO D\'ALA', specialText: 'Tre frecce alate (da lontano)', titan: 'Sirena dello Stretto',
     trait: 'PLANATA: tieni SALTO in aria per planare', pro: 'Colpisce da lontano, ottima contro i droni', con: 'Debole nel corpo a corpo' },
   { id: 'onyx', name: 'DON', civil: 'Don', role: 'Potente', color: '#b9c6d4', glow: '#e3ecf5', power: 1.25, speed: 222, hp: 140,
-    special: 'SCURE TELLURICA', weapon: 'ASCIA ZANNA', specialText: 'Colpo d\'ascia che spacca il suolo (da vicino)', titan: 'Mastodonte nero',
+    special: 'SCURE TELLURICA', weapon: 'ASCIA ZANNA', specialText: 'Colpo d\'ascia che spacca il suolo (da vicino)', titan: 'Toro di ferro',
     trait: 'CORAZZA: i colpi leggeri non lo fermano', pro: 'Il più forte e resistente', con: 'Il più lento' },
   // sbloccabile: finisci la storia una volta
   // il sesto Sentinel: liberato dalla corazza di Vespera, Kharon indossa l'armatura verde del primo pilota
@@ -32,6 +32,9 @@ const CORE_HEROES = 5;
 /* titano evocabile da ogni eroe (fotogrammi beast_<nome>_run/roar dell'atlante giants) */
 const BEAST_OF = ['rex', 'tri', 'cat', 'ptero', 'mammoth', 'dragon'];
 const BEAST_NAME = { rex: 'TIRANNO ROSSO', tri: 'TRICERATOPO BLU', cat: 'FELINO GIALLO', ptero: 'PTEROSAURO ROSA', mammoth: 'MASTODONTE NERO', dragon: 'DRAGO VERDE' };
+// II: each Sentinel's folk titan, and the chapter where it is born (it can be summoned from the next one)
+const FOLK_OF = ['leone', 'grifone', 'lupa', 'sirena', 'toro', 'astrale'];
+const FOLK_FROM = { leone: 3, lupa: 4, sirena: 5, grifone: 6, toro: 6, astrale: -1 };
 /* costumi alternativi (ricolorazioni) */
 const SKINS = [
   { name: 'ORIGINALE' },

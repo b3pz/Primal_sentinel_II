@@ -281,7 +281,7 @@ Object.assign(Game, {
       { name: 'ALLEATI', items: [{ kind: 'ally', a: 'argo', name: 'ARMV3Z', ok: true }, { kind: 'ally', a: 'sette', name: 'ASTRO', ok: true }, { kind: 'ally', a: 'boris', name: 'BORIS', ok: true }, { kind: 'ally', a: 'valli', name: 'DOTT.SSA VALLI', ok: prog >= 2 }] },
       { name: 'NEMICI', items: Object.keys(ENEMIES).map((k) => ({ kind: 'enemy', k, name: ENEMIES[k].name.toUpperCase(), ok: true })) },
       { name: 'BOSS', items: Object.keys(BOSSES).filter((k) => k !== 'kharon2').map((k, i) => ({ kind: 'boss', k, name: BOSSES[k].name, ok: prog >= i || !!u.story })) },
-      { name: 'TITANI', items: [...BEASTS.map((b) => ({ kind: 'beast', b, name: BEAST_NAME[b], ok: prog >= 2 })), { kind: 'beast', b: 'dragon', name: BEAST_NAME.dragon, ok: this.heroCount() > CORE_HEROES }, { kind: 'conc', name: 'CONCORDIA', ok: prog >= 4 }, ...Object.keys(GIANTS).map((k, i) => ({ kind: 'giant', k, name: GIANTS[k].name, ok: prog >= [2, 4, 7][i] }))] },
+      { name: 'TITANI', items: [...['leone', 'grifone', 'lupa', 'sirena', 'toro', 'paladino', 'paladinoS'].map((k) => ({ kind: 'folk', k, name: TITAN_KINDS[k].name, ok: !!u.story || prog > ({ paladino: 6, paladinoS: 7 }[k] ?? FOLK_FROM[k]) })), ...Object.keys(GIANTS).filter((k) => LEVELS.some((L) => L.giant && L.giant.enemy === k)).map((k) => ({ kind: 'giant', k, name: GIANTS[k].name, ok: !!u.story || prog > LEVELS.findIndex((L) => L.giant && L.giant.enemy === k) }))] },
       { name: 'CINEMATICHE', items: cines.map((c) => ({ kind: 'cine', ...c })) },
       { name: 'LUOGHI', items: ['port', 'rail', 'park', 'theater', 'siege', 'graveyard', 'veil', 'dawn', 'story_cores', 'cine_cavern', 'cine_rex', 'cine_run', 'cine_cockpit', 'cine_duel', 'cine_dawn'].map((b, i) => ({ kind: 'bg', b, name: i < 8 ? LEVELS[i].place : ['LA CAMERA DEI CUORI', 'LA CAVERNA DEI TITANI', 'IL TIRANNO ROSSO', 'LA CORSA DEI TITANI', 'LA CABINA DI CONCORDIA', 'IL DUELLO', 'L\'ALBA'][i - 8], ok: i >= 8 ? prog >= 2 || i === 8 : prog >= i })) },
     ];
@@ -520,13 +520,18 @@ function drawGallery(v) {
     drawShadow(cx, cy, 120); spr(beastSheet(`beast_${it.b}_${pose}`), `beast_${it.b}_${pose}`, cx, cy, { scale: 1.3, face: 1 });
     const hi = BEAST_OF.indexOf(it.b);
     info([`IL TITANO DI ${HEROES[hi].name}`, 'Si risveglia con il Cuore del suo Sentinel. Con 3 Sigilli dei Titani puoi evocarlo una volta per capitolo: tieni premuto COLPO DI SQUADRA.']);
+  } else if (it.kind === 'folk') {
+    const T = TITAN_KINDS[it.k], f = Math.floor(t * 1.5) % 8, hi = FOLK_OF.indexOf(it.k);
+    drawShadow(cx, cy, 160); spr(T.sheet, `${T.pre}_${f}`, cx, cy, { scale: 0.8, face: 1 });
+    info([hi >= 0 ? `IL TITANO DI ${HEROES[hi].name}` : 'I CINQUE TITANI UNITI', `${T.jab} · ${T.heavy} · ${T.fin}`, hi >= 0 ? 'Con 3 Sigilli puoi evocarlo una volta per capitolo: tieni premuto COLPO DI SQUADRA.' : 'Nei duelli giganti lo pilotate tutti insieme.']);
   } else if (it.kind === 'conc') {
     const f = [0, 1, 2, 3, 4, 5, 6, 7][Math.floor(t * 1.5) % 8];
     drawShadow(cx, cy, 160); spr('giants', `conc_${f}`, cx, cy, { scale: 0.95, face: 1 });
     info(['I CINQUE TITANI UNITI', 'Pugno Zanna, Carica del Corno e l\'arma finale Cuore Unito. Nei duelli giganti la pilotate tutti insieme.']);
   } else if (it.kind === 'giant') {
     const f = Math.floor(t * 1.5) % 5;
-    drawShadow(cx, cy, 160); spr('giants', `${GIANTS[it.k].sprite}G_${f}`, cx, cy, { scale: 0.95, face: -1 });
+    const E = GIANTS[it.k], sh = E.sheet || 'giants', key = E.keys ? E.keys[f] : `${E.sprite}G_${f}`;
+    drawShadow(cx, cy, 160); spr(sh, key, cx, cy, { scale: 0.95, face: -1, img: E.tint ? tinted(sh, key, E.tint, 'source-atop', 0.45) : undefined });
     info(['MOSTRO GIGANTE', `Vita ${GIANTS[it.k].hp}. Sbilancialo con i colpi pesanti, poi arma finale.`]);
   } else if (it.kind === 'cine') {
     g.save(); g.beginPath(); g.rect(320, 200, 560, 315); g.clip(); g.translate(320, 200); g.scale(560 / W, 315 / H);

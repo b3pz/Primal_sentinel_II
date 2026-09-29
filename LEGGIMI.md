@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.3
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.4
+
+Nella 0.4: arrivano i titani veri. Leone alato, Grifone, Lupa, Sirena dello Stretto, Toro di ferro, Paladino e Paladino Stellare hanno le loro tavole a 8 pose nei duelli giganti (al posto di Concordia ricolorata). L'evocazione con 3 Sigilli ora chiama il titano del tuo Sentinel (Rigel chiama Astrale) solo dopo che quel titano è nato nella storia; prima arriva l'ultimo titano che la squadra ha. Nella galleria, sezione TITANI, ci sono i sette titani e i mostri giganti di questo gioco.
 
 Nella 0.3: i Sentinels si chiamano solo Ciusky, Beps, Kathy, Kiki e Don (più Rigel); nessun vecchio nome.
 

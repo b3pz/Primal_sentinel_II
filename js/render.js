@@ -884,7 +884,7 @@ function renderGiant(v) {
     grd.addColorStop(0, P.fz ? '#ffe6a0' : T.color); grd.addColorStop(1, 'rgba(0,0,0,0)');
     g.globalAlpha = (P.gl ? 0.6 : 0.28) + Math.sin(t * 12) * 0.1; g.fillStyle = grd; g.fillRect(P.x - 360, 60, 720, 700); g.restore();
   }
-  { const tk = TITAN_KINDS[P.k] || {}; const po = { scale: P.k === 'rex' || tk.base === 'rex' ? 1.22 : 1, face: 1, flash: P.fl ? 0.6 : 0 }; if (tk.tint && !P.fl) po.img = tinted('giants', P.f, tk.tint, 'source-atop', 0.4); spr('giants', P.f, P.x, P.y, po); }
+  { const tk = TITAN_KINDS[P.k] || {}; const po = { scale: P.k === 'rex' || tk.base === 'rex' ? 1.22 : 1, face: 1, flash: P.fl ? 0.6 : 0 }; const sh = P.s || 'giants'; if (tk.tint && !P.fl) po.img = tinted(sh, P.f, tk.tint, 'source-atop', 0.4); spr(sh, P.f, P.x, P.y, po); }
   if (P.gd) {
     g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.4 + Math.sin(t * 14) * 0.15;
     g.strokeStyle = '#bfe6ff'; g.lineWidth = 8; g.beginPath(); g.ellipse(P.x + 200, 400, 60, 250, 0, -1.3, 1.3); g.stroke(); g.restore();

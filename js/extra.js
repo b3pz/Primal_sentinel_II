@@ -31,15 +31,22 @@ function pairSlam(S, p, e) {
 }
 
 /* ---------------- evocazione del titano ---------------- */
+// II: the Sentinel's own titan once it has been born, otherwise the last one the team has
+function folkFor(hero, lvl) {
+  const own = FOLK_OF[hero];
+  if (own && FOLK_FROM[own] < lvl) return own;
+  return Object.keys(FOLK_FROM).filter((k) => k !== 'astrale' && FOLK_FROM[k] < lvl).sort((a, b) => FOLK_FROM[b] - FOLK_FROM[a])[0] || null;
+}
 function summonTitan(S, p) {
-  const b = BEAST_OF[p.hero] || 'rex';
+  const b = folkFor(p.hero, S.lvl) || BEAST_OF[p.hero] || 'rex';
   S.summonUsed = true;
   S.summon = { id: nid(), b, t: 0, by: p.id, x: S.cam - 380, y: 640, hit: new Set() };
   for (const q of alivePlayers(S)) q.inv = Math.max(q.inv, 2.8);
   p.st = 'pose'; p.t = 1.6;
   ev(S, { t: 'flash', c: heroOf(p).glow, v: 0.7 }); shake(S, 10);
   ev(S, { t: 'pop', x: Math.round(p.x), y: Math.round(p.y - 230), s: 'EVOCAZIONE!', c: heroOf(p).color, big: 1 });
-  S.banner = { text: BEAST_NAME[b] + '!', sub: 'IL TITANO DI ' + heroOf(p).name + ' ACCORRE IN AIUTO', t: 2.2 };
+  const own = b === FOLK_OF[p.hero];
+  S.banner = { text: (TITAN_KINDS[b] ? TITAN_KINDS[b].name : BEAST_NAME[b]) + '!', sub: own ? 'IL TITANO DI ' + heroOf(p).name + ' ACCORRE IN AIUTO' : 'UN TITANO ACCORRE IN AIUTO', t: 2.2 };
   sfx(S, 'team'); sfx(S, 'bosswind');
 }
 function stepSummon(S, dt) {
@@ -346,7 +353,9 @@ function extraView(S, d, r) {
   const R = S.ride;
   if (R) d.push({ i: R.id, s: 'giants', f: rideFrame(R), x: r(R.x), y: r(R.y), fc: R.face, sc: RIDE_SC, sh: 120, fl: R.flash > 0 ? 1 : 0, a: R.alpha < 1 ? +R.alpha.toFixed(2) : undefined, au: R.st === 'roar' && R.t > 0.25 && R.t < 0.7 ? '#ff5b4f' : undefined });
   const m = S.summon;
-  if (m) d.push({ i: m.id, s: beastSheet(`beast_${m.b}_run`), f: `beast_${m.b}_${m.t < 0.45 ? 'roar' : 'run'}`, x: r(m.x), y: m.y, z: m.b === 'ptero' ? 150 : 0, fc: 1, sc: 1.3, sh: 110, gh: 1, au: BEAST_COL[BEASTS.indexOf(m.b)] || (m.b === 'dragon' ? '#3fd06a' : '#ff5b4f') });
+  const fk = m && TITAN_KINDS[m.b];
+  if (fk) { const run = fk.run || [0, 1]; d.push({ i: m.id, s: fk.sheet, f: `${fk.pre}_${m.t < 0.45 ? (fk.roar ?? 6) : run[Math.floor(m.t * 6) % 2]}`, x: r(m.x), y: m.y, fc: 1, sc: 0.78, sh: 130, gh: 1, au: fk.color }); }
+  else if (m) d.push({ i: m.id, s: beastSheet(`beast_${m.b}_run`), f: `beast_${m.b}_${m.t < 0.45 ? 'roar' : 'run'}`, x: r(m.x), y: m.y, z: m.b === 'ptero' ? 150 : 0, fc: 1, sc: 1.3, sh: 110, gh: 1, au: BEAST_COL[BEASTS.indexOf(m.b)] || (m.b === 'dragon' ? '#3fd06a' : '#ff5b4f') });
   for (const h of S.haz) {
     if (h.type === 'beam' && h.t >= 0) d.push({ i: h.id, bm: h.kind, x: r(h.x), y: h.kind === 'high' ? 721 : 466 });
     else if (h.type === 'debris') {

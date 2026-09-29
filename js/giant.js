@@ -7,12 +7,15 @@
 const TITAN_KINDS = {
   rex: { key: 'rex_side', name: 'TIRANNO ROSSO', scale: 1.75, hp: 520, jab: 'MORSO', heavy: 'CODATA', fin: 'RUGGITO PRIMORDIALE', color: '#ff5b4f' },
   concordia: { key: 'concordia_side', name: 'CONCORDIA', scale: 1.22, hp: 620, jab: 'PUGNO ZANNA', heavy: 'CARICA DEL CORNO', fin: 'ARMA FINALE · CUORE UNITO', color: '#ffd35a' },
-  // Primal Sentinels II: the folk titans (placeholder art: Concordia recoloured until their sheets arrive)
-  leone: { base: 'concordia', name: 'LEONE ALATO', scale: 1.22, hp: 560, jab: 'ARTIGLIO DI BRONZO', heavy: 'VOLO DEL LEONE', fin: 'RUGGITO DI SAN MARCO', color: '#ff5b4f', tint: '#c8342a' },
-  lupa: { base: 'concordia', name: 'LUPA', scale: 1.22, hp: 540, jab: 'MORSO RAPIDO', heavy: 'BALZO DEI SETTE COLLI', fin: 'ULULATO DELLA LUPA', color: '#f7d046', tint: '#d8a820' },
-  sirena: { base: 'concordia', name: 'SIRENA DELLO STRETTO', scale: 1.22, hp: 560, jab: 'ONDA', heavy: 'CANTO DI SCILLA', fin: 'FATA MORGANA', color: '#ff78bb', tint: '#d0508f' },
-  paladino: { base: 'concordia', name: 'PALADINO', scale: 1.22, hp: 680, jab: 'SPADONE', heavy: 'CARICA DEL CAVALIERE', fin: 'DURLINDANA', color: '#ffd35a' },
-  paladinoS: { base: 'concordia', name: 'PALADINO STELLARE', finalName: 'PALADINO STELLARE', scale: 1.22, hp: 700, jab: 'SPADONE STELLARE', heavy: 'ALI D\'ARGENTO', fin: 'CUORI DI STELLA', color: '#bfe6ff', tint: '#dff4ff' },
+  // Primal Sentinels II: the folk titans — their own sheets (tools/build_titani.py), same 8 poses as Concordia
+  leone: { sheet: 'titani', pre: 'leone', name: 'LEONE ALATO', scale: 1.22, hp: 560, jab: 'ARTIGLIO DI BRONZO', heavy: 'VOLO DEL LEONE', fin: 'RUGGITO DI SAN MARCO', color: '#ff5b4f' },
+  grifone: { sheet: 'titani', pre: 'grifone', name: 'GRIFONE', scale: 1.22, hp: 540, jab: 'ARTIGLIO D\'AQUILA', heavy: 'PICCHIATA', fin: 'VENTO DELLA LANTERNA', color: '#4f8bff' },
+  lupa: { sheet: 'titani', pre: 'lupa', name: 'LUPA', scale: 1.22, hp: 540, jab: 'MORSO RAPIDO', heavy: 'BALZO DEI SETTE COLLI', fin: 'ULULATO DELLA LUPA', color: '#f7d046' },
+  sirena: { sheet: 'titani', pre: 'sirena', name: 'SIRENA DELLO STRETTO', scale: 1.22, hp: 560, jab: 'ONDA', heavy: 'CANTO DI SCILLA', fin: 'FATA MORGANA', color: '#ff78bb' },
+  toro: { sheet: 'titani2', pre: 'toro', name: 'TORO DI FERRO', scale: 1.22, hp: 600, jab: 'MARTELLO', heavy: 'CARICA DEL TORO', fin: 'MAGLIO DELLA MOLE', color: '#e8e2d0' },
+  paladino: { sheet: 'titani2', pre: 'paladino', name: 'PALADINO', scale: 1.22, hp: 680, jab: 'SPADONE', heavy: 'CARICA DEL CAVALIERE', fin: 'DURLINDANA', color: '#ffd35a' },
+  paladinoS: { sheet: 'titani2', pre: 'paladinoS', name: 'PALADINO STELLARE', finalName: 'PALADINO STELLARE', scale: 1.22, hp: 700, jab: 'SPADONE STELLARE', heavy: 'ALI D\'ARGENTO', fin: 'CUORI DI STELLA', color: '#bfe6ff' },
+  astrale: { sheet: 'ferreaG', pre: 'astrale', name: 'ASTRALE', color: '#8fd8ff', run: [2, 2], roar: 3 },
 };
 
 function newGiant(levelIdx, players, prev) {
@@ -343,7 +346,7 @@ function buildGiantView(G) {
   const ef = { wind: 1, atk: 2, recover: E.t < 0.35 ? 2 : 0, hurt: 3, stagger: 3, block: 1, clash: Math.floor(G.t * 10) % 2 ? 2 : 1, dead: E.t < 0.8 ? 3 : 4 }[E.st] ?? 0;
   return {
     m: 'giant', lv: G.lvl, bg: G.conf.bg, t: +G.t.toFixed(2),
-    pl: { k: G.conf.player, f: (rex ? 'rexb_' : 'conc_') + pf, x: Math.round(px + P.off), y: Math.round(py + bob * 0.3), r: +prot.toFixed(3), sx: psx, gl: glow, fl: P.flash > 0 ? 1 : 0, gd: P.guard || P.st === 'guard' ? 1 : 0, fin: P.st === 'finisher' ? +P.t.toFixed(2) : 0, fz: G.final ? 1 : 0 },
+    pl: { k: G.conf.player, s: G.T.sheet, f: G.T.pre ? `${G.T.pre}_${pf}` : (rex ? 'rexb_' : 'conc_') + pf, x: Math.round(px + P.off), y: Math.round(py + bob * 0.3), r: +prot.toFixed(3), sx: psx, gl: glow, fl: P.flash > 0 ? 1 : 0, gd: P.guard || P.st === 'guard' ? 1 : 0, fin: P.st === 'finisher' ? +P.t.toFixed(2) : 0, fz: G.final ? 1 : 0 },
     en: { s: eDef.sheet || 'giants', f: eDef.keys ? eDef.keys[ef] : `${eDef.sprite}G_${ef}`, ti: eDef.tint, ch: eDef.chains ? 1 : 0, st2: E.st, x: Math.round(E.x + E.off + (E.st === 'clash' ? Math.sin(G.t * 30 + 1) * 6 : 0)), y: 690, sc: 1, bk: E.st === 'block' ? 1 : 0, fl: E.flash > 0 || (E.st === 'dead' && Math.floor(E.t * 12) % 2) ? 1 : 0, wn: E.st === 'wind' ? E.move : 0, a: E.st === 'dead' ? +Math.max(0, 1 - Math.max(0, E.t - 2.2) / 0.8).toFixed(2) : 1, st: E.st === 'stagger' ? 1 : 0 },
     sh: G.shock ? Math.round(G.shock.x) : 0,
     rn: G.shots.map((s) => [Math.round(s.x), Math.round(s.y)]),
