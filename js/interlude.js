@@ -11,20 +11,20 @@
    Tutto lo stato è JSON semplice: l'host lo invia così com'è agli
    ospiti online (vista { m: 'inter' }).
    ============================================================ */
-const CIVIL_OF = { CIUSKY: 0, BEPS: 1, KATHY: 2, KIKI: 3, DILIK: 4 };
+const CIVIL_OF = { CIUSKY: 0, BEPS: 1, KATHY: 2, KIKI: 3, DON: 4 };
 const INTERLUDES = {
   1: {
     title: 'LA MATTINA DOPO', place: 'PORTO AURORA · LA PIZZERIA SUL LUNGOMARE · 6:40',
     bg: 'port', zoom: 1.1, ox: 0.08, tint: 'rgba(255,150,90,.20)', shade: 0.3,
-    cast: [['KATHY', 250], ['BEPS', 390], ['CIUSKY', 540], ['KIKI', 690], ['DILIK', 830], ['DOTT.SSA VALLI', 1040]],
+    cast: [['KATHY', 250], ['BEPS', 390], ['CIUSKY', 540], ['KIKI', 690], ['DON', 830], ['DOTT.SSA VALLI', 1040]],
     amb: [['waiter', 60, 1], ['fisher', 1220, -1]],
     lines: [
       ['NARRATORE', 'Porto Aurora, 6:40. La città dorme ancora. In una pizzeria del lungomare il forno è già acceso.'],
       ['CIUSKY', 'Colazione per tutti. Pizza fritta: l\'unica cosa che so fare meglio che prendere a pugni i mostri.'],
       ['KATHY', 'Quindi sei tu quello rosso. Ti facevo più alto.'],
-      ['BEPS', 'Ieri notte eravamo cinque armature, stamattina cinque sconosciuti. Io sono Beps: ripariamo motori, io e mio padre.'],
-      ['KIKI', 'Kiki. Studio canto al conservatorio. E, a quanto pare, sparo raggi rosa.'],
-      ['DILIK', 'Dilik. Faccio il fabbro. Non parlo molto.'],
+      ['BEPS', 'Ieri notte eravamo cinque armature, stamattina cinque sconosciuti. Io sono Beps, studio ingegneria. Avevo un esame stamattina.'],
+      ['KIKI', 'Kiki. Faccio l\'infermiera, turno di notte. E, a quanto pare, sparo raggi rosa.'],
+      ['DON', 'Don. Scarico le navi al porto. Non parlo molto.'],
       ['DOTT.SSA VALLI', 'Siete così giovani... Quando trovai quei cristalli pensavo che avrebbero cambiato il mondo. Non immaginavo così.'],
       ['CIUSKY', 'Allora mangi, dottoressa. Il mondo lo cambiamo dopo colazione.'],
     ],
@@ -37,7 +37,7 @@ const INTERLUDES = {
   3: {
     title: 'CREPE', place: 'LA CAMERA DEI CUORI, SOTTO IL FARO · NOTTE',
     bg: 'base', zoom: 1.0, ox: 0.5, tint: 'rgba(40,60,140,.18)', shade: 0.35,
-    cast: [['DILIK', 230], ['KIKI', 360], ['CIUSKY', 490], ['KATHY', 610], ['BEPS', 740], ['ARMV3Z', 960], ['BORIS', 1140], ['ASTRO', 1215]],
+    cast: [['DON', 230], ['KIKI', 360], ['CIUSKY', 490], ['KATHY', 610], ['BEPS', 740], ['ARMV3Z', 960], ['BORIS', 1140], ['ASTRO', 1215]],
     amb: [],
     lines: [
       ['NARRATORE', 'La Camera dei Cuori, sotto il faro. È notte fonda, ma nessuno ha voglia di dormire.'],
@@ -45,7 +45,7 @@ const INTERLUDES = {
       ['ARMV3Z', 'Ve l\'avrei detto. Aspettavo che foste pronti.'],
       ['BEPS', 'Nessuno è pronto per una cosa del genere. Nemmeno tu, mi sa.'],
       ['KIKI', 'Beps... neanche i titani hanno scelto chi erano. Come Kharon.'],
-      ['DILIK', 'Io non ho bisogno di sapere tutto. Mi basta sapere da che parte stiamo stanotte.'],
+      ['DON', 'Io non ho bisogno di sapere tutto. Mi basta sapere da che parte stiamo stanotte.'],
       ['BORIS', 'Stanotte state dalla parte di chi si allena. In piedi. Tutti e cinque.'],
       ['ASTRO', 'Boris dice così quando è preoccupato. Lo so, lo conosco da trecento anni!'],
     ],
@@ -59,12 +59,12 @@ const INTERLUDES = {
   5: {
     title: 'MESSAGGI A CASA', place: 'IL MOLO DI PORTO AURORA · TRAMONTO',
     bg: 'harbor', zoom: 1.05, ox: 0.35, tint: 'rgba(255,110,60,.24)', shade: 0.25,
-    cast: [['KATHY', 260], ['DILIK', 400], ['KIKI', 540], ['CIUSKY', 680], ['BEPS', 820], ['BORIS', 1060], ['ASTRO', 1150]],
+    cast: [['KATHY', 260], ['DON', 400], ['KIKI', 540], ['CIUSKY', 680], ['BEPS', 820], ['BORIS', 1060], ['ASTRO', 1150]],
     amb: [['elder', 1240, -1], ['kid', 40, 1]],
     lines: [
       ['NARRATORE', 'Il molo, al tramonto. Tra un\'ora il varco di Kharon si aprirà sulla Dimensione Oscura.'],
       ['KATHY', 'Ho scritto a mia madre che dormo da un\'amica. Non so neanche se l\'ha letto.'],
-      ['DILIK', 'Io ho lasciato le chiavi dell\'officina al vicino. Così, per sicurezza.'],
+      ['DON', 'Io ho lasciato le chiavi del magazzino al capoturno. Così, per sicurezza.'],
       ['KIKI', 'Non parlate così. Torniamo tutti. È una promessa, va bene?'],
       ['CIUSKY', 'Va bene. E chi torna per ultimo paga le pizze a tutti.'],
       ['BEPS', 'Il bar del porto ha ancora il cabinato di Astro Invaders. Un\'ultima partita, prima di andare?'],
@@ -80,15 +80,15 @@ const INTERLUDES = {
   6: {
     title: 'L\'ULTIMA ORA', place: 'I TETTI DI PORTO AURORA · UN\'ORA PRIMA DELL\'ALBA',
     bg: 'siege', zoom: 1.05, ox: 0.5, tint: 'rgba(30,40,110,.30)', shade: 0.35,
-    cast: [['KIKI', 220], ['DILIK', 350], ['KATHY', 480], ['BEPS', 610], ['CIUSKY', 740], ['SIRIO', 930], ['ARMV3Z', 1120]],
+    cast: [['KIKI', 220], ['DON', 350], ['KATHY', 480], ['BEPS', 610], ['CIUSKY', 740], ['SIRIO', 930], ['ARMV3Z', 1120]],
     amb: [],
     lines: [
       ['NARRATORE', 'I tetti di Porto Aurora, un\'ora prima dell\'alba. Laggiù, i cinque titani camminano verso la fortezza.'],
       ['SIRIO', 'Mille anni in quella corazza. E la prima cosa che vedo da libero è la città che volevo salvare... che brucia.'],
       ['ARMV3Z', 'L\'hai già salvata una volta, Sirio. Con loro la salverai di nuovo.'],
       ['SIRIO', 'Ragazzi, non vi conosco. Ma vi ho combattuti, e so una cosa: voi non vi arrendete mai. Perché?'],
-      ['KIKI', 'Perché abbiamo qualcosa da proteggere. La mia scuola, le mie amiche, questa città.'],
-      ['DILIK', 'La mia officina. E la gente che ci passa davanti ogni mattina.'],
+      ['KIKI', 'Perché abbiamo qualcosa da proteggere. Il mio reparto, i miei pazienti, questa città.'],
+      ['DON', 'Il porto. E la gente che ci lavora ogni notte.'],
       ['KATHY', 'Mia madre. Che ancora non sa niente di tutto questo.'],
       ['BEPS', 'Mio padre. E il diritto di fare domande.'],
       ['CIUSKY', 'Tutti quanti. Anche quelli che non sapranno mai chi siamo.'],

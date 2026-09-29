@@ -502,8 +502,8 @@ function resetKeymaps() {
 const VOICES = {   // [base Hz, wave, volume, jitter]
   ASTRO: [760, 'square', 0.018, 0.25], BORIS: [150, 'sawtooth', 0.022, 0.08], ARMV3Z: [180, 'triangle', 0.035, 0.12],
   VESPERA: [300, 'sine', 0.04, 0.2], KHARON: [120, 'sawtooth', 0.022, 0.1], SIRIO: [150, 'triangle', 0.035, 0.12], TRIVOR: [90, 'sawtooth', 0.03, 0.15],
-  'DOTT.SSA VALLI': [290, 'triangle', 0.035, 0.18], IGNIS: [220, 'square', 0.016, 0.15], AZUR: [200, 'triangle', 0.035, 0.1], LYRA: [340, 'square', 0.015, 0.2],
-  AURA: [320, 'triangle', 0.035, 0.18], ONYX: [140, 'triangle', 0.04, 0.08], RIGEL: [170, 'square', 0.014, 0.35],
+  'DOTT.SSA VALLI': [290, 'triangle', 0.035, 0.18], CIUSKY: [220, 'square', 0.016, 0.15], BEPS: [200, 'triangle', 0.035, 0.1], KATHY: [340, 'square', 0.015, 0.2],
+  KIKI: [320, 'triangle', 0.035, 0.18], DON: [140, 'triangle', 0.04, 0.08], RIGEL: [170, 'square', 0.014, 0.35],
 };
 const PAD_NAMES_PS = ['✕', '○', '□', '△', 'L1', 'R1', 'L2', 'R2', 'SELECT', 'START', 'L3', 'R3', '↑', '↓', '←', '→', 'PS'];
 const PAD_NAMES_XB = ['A', 'B', 'X', 'Y', 'LB', 'RB', 'LT', 'RT', 'VIEW', 'MENU', 'L3', 'R3', '↑', '↓', '←', '→', 'XBOX'];

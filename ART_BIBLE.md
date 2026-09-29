@@ -8,17 +8,17 @@ Non generare nuovi ritratti autonomamente senza un confronto con questo atlante.
 
 | Eroe | Colore | Casco | Ruolo |
 |---|---|---|---|
-| Ignis | Rosso | Cresta arretrata | Equilibrato |
-| Azur | Blu | Due corna corte | Tecnico |
-| Lyra | Giallo | Orecchie feline | Veloce |
-| Aura | Rosa | Pinne arretrate | Energia |
-| Onyx | Carbone | Calotta squadrata | Potente |
+| Ciusky | Rosso | Cresta arretrata | Equilibrato |
+| Beps | Blu | Due corna corte | Tecnico |
+| Kathy | Giallo | Orecchie feline | Veloce |
+| Kiki | Rosa | Pinne arretrate | Energia |
+| Don | Carbone | Calotta squadrata | Potente |
 
 Elementi condivisi: visiera nera, corazza a V argento, cintura con fibbia circolare,
 guanti/stivali argento, sottotuta scura. La visuale opposta nel gioco è specchiata.
 Le differenze estetiche minori dell'atlante generato richiedono ancora una passata
 manuale: questa è una baseline, non una certificazione pixel per pixel.
-Il fotogramma 8 della riga di Onyx è escluso perché contiene un dettaglio errato.
+Il fotogramma 8 della riga di Don è escluso perché contiene un dettaglio errato.
 
 ## Ritaglio degli sprite
 Le tavole sorgente restano in `assets/source`. Gli sprite si ritagliano con `tools/build_all.py`
@@ -27,8 +27,8 @@ tronca calci, pugni, armi e magie che escono dalla cella.
 
 ## Civili ed eroi in borghese
 Pixel art a pixel doppio (`tools/people.py`), contorno scuro, luce dall'alto a sinistra.
-Colori in borghese coerenti con l'armatura: Ignis giacca rossa, Azur felpa blu,
-Lyra giacca gialla, Aura cardigan rosa, Onyx giacca nera.
+Colori in borghese coerenti con l'armatura: Ciusky giacca rossa, Beps felpa blu,
+Kathy giacca gialla, Kiki cardigan rosa, Don giacca nera.
 
 ## Cinematiche
 Usare composizioni dei fondali con gli stessi sprite ritagliati dagli atlanti. Evitare il ritratto pittorico dei cinque eroi nel quadrante inferiore destro

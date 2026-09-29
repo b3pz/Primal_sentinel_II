@@ -1,7 +1,7 @@
 """Rigenera sw.js (service worker per giocare offline / app installata) con l'elenco dei file del gioco."""
 import os, json
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-VERSION = 'ps2-0.2'
+VERSION = 'ps2-0.3'
 files = ['./', 'index.html', 'style.css', 'manifest.json']
 for d in ['js', 'vendor', 'assets/sprites', 'assets/bg', 'assets/ui', 'assets/fonts', 'assets/music']:
     p = os.path.join(ROOT, d)

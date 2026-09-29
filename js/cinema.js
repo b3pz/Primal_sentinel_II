@@ -12,7 +12,7 @@ const INTRO_SUBS = [
   [22.5, 31, 'LA DIMENSIONE OSCURA', '«Trovate i Cuori. Riportatemi i miei titani.» — Vespera, la Regina Oscura'],
   [31.5, 34.9, 'LA CAMERA DEI CUORI', '«Cuori, svegliatevi. Scegliete chi è pronto a proteggere gli altri.» — ArMV3z'],
   [35.1, 38, 'SOTTO LA CITTÀ', 'Cinque titani addormentati da mille anni aprirono gli occhi.'],
-  [38.5, 45, '', 'E i Cuori scelsero: Ciusky, il pizzaiolo. Beps, lo studente. Kathy, la corriera. Kiki, l\'infermiera. Dilik, lo scaricatore del porto.'],
+  [38.5, 45, '', 'E i Cuori scelsero: Ciusky, il pizzaiolo. Beps, lo studente. Kathy, la corriera. Kiki, l\'infermiera. Don, lo scaricatore del porto.'],
   [45.2, 52, '', ''],
 ];
 const INTRO_CUES = [[0.1, 'crowd'], [9, 'stomp'], [9.4, 'siren'], [10.8, 'boom'], [11.5, 'siren'], [14, 'laser'], [15, 'laser'], [16.2, 'laser'], [17, 'crowd'], [18.5, 'crowd'], [23, 'laser'], [26.5, 'special'], [32, 'morph'], [44.5, 'confirm'], [45.3, 'morph'], [47.2, 'boom'], [49, 'team']];
@@ -367,7 +367,7 @@ function drawEnding(t, heroes) {
   const credits = [
     ['PRIMAL SENTINELS', 'IL CUORE DEI TITANI'],
     ['IDEATO E SVILUPPATO DA', 'b3pZ'],
-    ['I SENTINELS', 'CIUSKY · BEPS · KATHY · KIKI · DILIK · SIRIO'],
+    ['I SENTINELS', 'CIUSKY · BEPS · KATHY · KIKI · DON · SIRIO'],
     ['I TITANI', 'TIRANNO · TRICERATOPO · FELINO · PTEROSAURO · MASTODONTE · DRAGO'],
     ['LA CAMERA DEI CUORI', 'ARMV3Z · ASTRO · BORIS · IRENE VALLI'],
     ['I TITANI DORMONO', 'MA SE IL VARCO SI RIAPRIRÀ, I CUORI SAPRANNO CHI CHIAMARE'],

@@ -314,7 +314,7 @@ function stepPlayer(S, p, c, dt) {
       p.jdx = lerp(p.jdx, dx * (p.run ? 1.35 : 1), Math.min(1, dt * 8)); p.jdy = lerp(p.jdy, dy, Math.min(1, dt * 8));
       if (dx) p.face = dx;
       tryMove(S, p, p.jdx * hero.speed * 1.05 * dt, p.jdy * hero.speed * 0.55 * dt);
-      // traits: Lyra jumps again in mid air, Aura glides holding the jump button
+      // traits: Kathy jumps again in mid air, Kiki glides holding the jump button
       if (hero.id === 'lyra' && c.pressed.jump && !p.dbl && p.t > 0.08) { p.dbl = true; p.vz = 470; sfx(S, 'jump'); sparks(S, p.x, p.y - p.z, hero.glow, 8, 'trail'); }
       if (hero.id === 'aura' && c.held.jump && p.vz < -60) { p.vz = -60; p.glide = true; if (Math.random() < 0.4) sparks(S, p.x - p.face * 30, p.y - p.z - 80, hero.glow, 1, 'trail'); } else p.glide = false;
       if (c.pressed.punch && !p.airDone) { p.airDone = true; p.atk = 'air'; p.hit = new Set(); sfx(S, 'kick'); }
@@ -693,7 +693,7 @@ function hurtPlayer(S, p, dmg, opt = {}) {
     p.inv = 0.3; S.team = Math.min(100, S.team + 4);
     return false;
   }
-  // trait: Onyx doesn't flinch under light blows and takes a bit less damage
+  // trait: Don doesn't flinch under light blows and takes a bit less damage
   if (hid === 'onyx' && !opt.knock && dmg <= 12 && p.hp > dmg && p.z <= 0 && !['grab', 'grabatk'].includes(p.st)) {
     dmg = Math.max(1, Math.round(dmg * DIFF.dmg * 0.8)); p.hp -= dmg; S.dmgTaken += dmg; p.inv = 0.35;
     sparks(S, p.x, p.y - 95, '#e3ecf5', 8); sfx(S, 'hit'); p.flash = 0.1;

@@ -166,7 +166,7 @@ const CHAPTER_CINES = [
         }));
         ALL5.forEach((i) => heroAt(i, 7, 250 + i * 190, 690, 0.9, 1, 0.95));
       } },
-    { d: 5, sub: ['LYRA', '«...Non può essere vero.»'], cues: [],
+    { d: 5, sub: ['KATHY', '«...Non può essere vero.»'], cues: [],
       draw(k, t) {
         coverImage('theater', 1.3, 0.5, 0.6);
         tintScreen('#000', 0.45);
@@ -369,7 +369,7 @@ CHAPTER_CINES.awake = [
       if (k > 1.8) glowAt(760, 300, 90, '#ffe060', 0.4);
       ALL5.forEach((i) => heroAt(i, 0, 150 + i * 70, 690, 0.7));
     } },
-  { d: 5.5, sub: ['IGNIS', '«Ha risposto al mio Cuore! TIRANNO ROSSO, IN PIEDI!»'], cues: [[0.3, 'boom'], [0.5, 'team']],
+  { d: 5.5, sub: ['CIUSKY', '«Ha risposto al mio Cuore! TIRANNO ROSSO, IN PIEDI!»'], cues: [[0.3, 'boom'], [0.5, 'team']],
     draw(k, t) { stillArt('cine_rex', t, k < 1 ? (1 - k) * 10 : 0); } },
 ];
 /* chapter 2: the convoy leaves the station and the Sentinels jump on the last wagon */
@@ -402,7 +402,7 @@ CHAPTER_CINES.board = [
       });
       for (let s = 0; s < 14; s++) { g.fillStyle = 'rgba(255,220,160,.12)'; g.fillRect((s * 97 - t * 900) % W + W, 200 + s * 21, 140, 2); }
     } },
-  { d: 4, sub: ['LYRA', '«Tutti a bordo! Adesso tocca a noi.»'], cues: [[0.3, 'confirm']],
+  { d: 4, sub: ['KATHY', '«Tutti a bordo! Adesso tocca a noi.»'], cues: [[0.3, 'confirm']],
     draw(k, t) {
       // on the roof the train and the heroes move together: only the landscape rushes by (fixed camera)
       drawTrain(1760, t, 1, 0);
@@ -475,7 +475,7 @@ CHAPTER_CINES.fine2 = [
     draw(k, t) {
       g.fillStyle = '#04070f'; g.fillRect(0, 0, W, H);
       spr('ferreaG', 'astrale_2', 1060, 700, { scale: 0.8, face: -1, alpha: 0.35 });
-      const credits = [['PRIMAL SENTINELS II', 'CUORI DI STELLA'], ['IDEATO E SVILUPPATO DA', 'b3pZ'], ['I SENTINELS', 'CIUSKY · BEPS · KATHY · KIKI · DILIK · RIGEL'], ['IL MENTORE', 'SIRIO · CON ASTRO E BORIS'], ['E PER SEMPRE TRA LE STELLE', 'ARMV3Z'], ['LA STORIA CONTINUA...', 'IL PROLOGO: LA NOTTE DEI CUORI RUBATI']];
+      const credits = [['PRIMAL SENTINELS II', 'CUORI DI STELLA'], ['IDEATO E SVILUPPATO DA', 'b3pZ'], ['I SENTINELS', 'CIUSKY · BEPS · KATHY · KIKI · DON · RIGEL'], ['IL MENTORE', 'SIRIO · CON ASTRO E BORIS'], ['E PER SEMPRE TRA LE STELLE', 'ARMV3Z'], ['LA STORIA CONTINUA...', 'IL PROLOGO: LA NOTTE DEI CUORI RUBATI']];
       credits.forEach(([a, b], i) => { const y = 760 - k * 105 + i * 150; if (y < -40 || y > H + 40) return; ptxt(a, W / 2, y, 12, '#ffcf7a', 'center'); ptitle(b, W / 2, y + 44, b.length > 30 ? 20 : 26, '#fff6d6', '#ffb03a'); });
     } },
 ];
@@ -527,7 +527,7 @@ CHAPTER_CINES.final = [
     draw(k, t) { stillArt('cine_cockpit', t); tintScreen('#ffcf6a', 0.12, 'lighter'); } },
 ];
 // the finale ends on the five titans at dawn
-CHAPTER_CINES[7][2] = { d: 7.5, sub: ['', 'Kiki fa il turno di notte. Dilik scarica le navi. Sirio e Irene Valli restano nella Camera dei Cuori, con ArMV3z, Astro e Boris.'], cues: [[0.5, 'morph']],
+CHAPTER_CINES[7][2] = { d: 7.5, sub: ['', 'Kiki fa il turno di notte. Don scarica le navi. Sirio e Irene Valli restano nella Camera dei Cuori, con ArMV3z, Astro e Boris.'], cues: [[0.5, 'morph']],
   draw(k, t) { stillArt('cine_dawn', t); } };
 /* the Tiranno rosso now wakes up in the middle of chapter 3 (the heroes ride it), before the duel there is only the dialogue */
 const MID_CINE = typeof II_PREVIEW !== 'undefined' && II_PREVIEW ? {} : { 2: null, 4: 'union', 7: 'final' };   // II: its own titan scenes will come with the new art

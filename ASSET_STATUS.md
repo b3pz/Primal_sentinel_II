@@ -12,7 +12,7 @@
 
 Ogni fotogramma ha il punto d'appoggio ai piedi: le pose con estensioni (calci, spade, magie)
 non vengono più troncate e non "saltano" quando cambiano larghezza.
-Correzione: il fotogramma di danno di Onyx aveva la gemma viola del soldato; ora è ridipinto.
+Correzione: il fotogramma di danno di Don aveva la gemma viola del soldato; ora è ridipinto.
 
 ## Fondali (`assets/bg`)
 port (capitolo 1), rail, park, theater, siege, graveyard, veil, dawn (capitoli 2–8),

@@ -1,4 +1,7 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.2
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.3
+
+Nella 0.3: i Sentinels si chiamano solo Ciusky, Beps, Kathy, Kiki e Don (più Rigel); nessun vecchio nome.
+
 
 **Tutta la storia è giocabile, dal capitolo 1 al finale.** È una prima stesura "da vivere": la trama,
 i dialoghi, i boss e i duelli ci sono tutti, ma dal capitolo 2 molte immagini sono ancora quelle del primo
@@ -102,8 +105,8 @@ quando servono: colpo di squadra pronto, "SPRIGIONA IL TUO POTERE!", "AFFERRALO!
 - **Pistola**: 8 colpi a inizio capitolo, massimo 12; i caricatori escono dalle casse e dai nemici.
 - **Prese**: quando un nemico è stordito compare "PRESA!": attacco lo afferra, attacco = ginocchiate,
   indietro + attacco = lancio alle spalle, salto = lancio in avanti contro gli altri.
-- **Speciali in base all'arma**: Aura (arco) tre frecce da lontano; Ignis (spada) onda di fuoco e Azur
-  (lancia) affondo a media distanza; Onyx (ascia) e Lyra (pugnali) da vicino.
+- **Speciali in base all'arma**: Kiki (arco) tre frecce da lontano; Ciusky (spada) onda di fuoco e Beps
+  (lancia) affondo a media distanza; Don (ascia) e Kathy (pugnali) da vicino.
 - **Colpo di squadra**: la squadra si riunisce, le cinque armi diventano il Cannone Primordiale.
 - I fusti rossi esplodono. Senza energia lo speciale costa un po' di vita, come nei cabinati.
 
@@ -134,7 +137,7 @@ Quando la barra "equilibrio" del mostro si svuota, speciale lancia l'arma finale
 
 ## Novità della 1.14 — intervalli in borghese
 Nei quattro momenti chiave della storia i Sentinels si tolgono l'armatura: una scena tranquilla con
-Ciusky, Beps, Kathy, Kiki e Dilik in borghese (chi sono, cosa provano, cosa rischiano) e poi
+Ciusky, Beps, Kathy, Kiki e Don in borghese (chi sono, cosa provano, cosa rischiano) e poi
 un'attività **facoltativa** con un premio per il capitolo dopo:
 - dopo il cap. 2 · **La mattina dopo** (pizzeria sul lungomare) → *Il forno di Ciusky*: sforna ogni pizza
   al punto giusto; le mance diventano monete per il negozio di Boris.
@@ -177,7 +180,7 @@ Sfondi dedicati facoltativi: vedi PROMPT_IMMAGINI.md, sezione 11.
   profondo…); i Sentinels gridano quando fanno la speciale; i boss ruggiscono al cambio di fase.
 - **Sirio in squadra**: se giochi un capitolo con il sesto Sentinel, dice la sua prima della partenza.
   Il Sentinel verde si chiama **Sirio** e ha la stessa altezza degli altri (prima sembrava più piccolo).
-- **Dialoghi**: il nome del Sentinel è seguito da quello civile (IGNIS · CIUSKY…). **Finale aperto** verso il
+- **Dialoghi**: il nome del Sentinel è seguito da quello civile (CIUSKY · CIUSKY…). **Finale aperto** verso il
   prologo e il capitolo successivo: "LA STORIA CONTINUA...".
 - **Continua nei duelli giganti**: riparti subito, il mostro resta ferito.
 - **Pressa** (capitolo 6): scorre su una rotaia e insegue i giocatori, si ferma sopra il bersaglio (cerchio rosso)
@@ -209,7 +212,7 @@ Sfondi dedicati facoltativi: vedi PROMPT_IMMAGINI.md, sezione 11.
 
 ## Novità della 1.10 — la storia
 - **Storia riscritta** (sceneggiatura completa nel documento condiviso): i Sentinels hanno un nome e un mestiere
-  (Ciusky, Beps, Kathy, Kiki, Dilik), Kharon è **Sirio**, il primo pilota dei titani; il mentore è **ArMV3z**,
+  (Ciusky, Beps, Kathy, Kiki, Don), Kharon è **Sirio**, il primo pilota dei titani; il mentore è **ArMV3z**,
   i robot sono due: **Astro** (radar, allarmi) e **Boris** (riparazioni e bottega). I nemici vengono dalla
   **Dimensione Oscura** e Vespera è la **Regina Oscura**. Nuovi testi per intro, dialoghi, scene animate e titoli di coda.
 - **Testi leggibili**: dialoghi, didascalie e descrizioni usano un carattere chiaro (Exo 2) più grande;
@@ -236,7 +239,7 @@ Sfondi dedicati facoltativi: vedi PROMPT_IMMAGINI.md, sezione 11.
 ## Novità della 1.9
 - **Menu principale ridisegnato**: logo al centro, GIOCA in evidenza, le altre voci su due colonne,
   i Sentinels ai due lati.
-- **Scelta dei Sentinels**: Ignis (rosso) al centro, gli altri ai lati e più vicini, tutti più grandi;
+- **Scelta dei Sentinels**: Ciusky (rosso) al centro, gli altri ai lati e più vicini, tutti più grandi;
   ◀ ▶ si muove nell'ordine in cui li vedi. Nelle schede in basso c'è il ritratto del Sentinel scelto.
 
 ## Novità della 1.8.1 / 1.8.2
@@ -276,8 +279,8 @@ L1 squadra · START pausa · levetta sinistra o croce per muoversi.
 - **Nuova scelta dei Sentinels** in stile sala giochi: tutti i Sentinels in fila nella Camera dei Cuori,
   Argo dietro nel suo cilindro; quello scelto avanza sul disco con l'emblema del suo titano e le frecce
   1P/2P/3P/4P lo indicano. In basso, per ogni giocatore, la dote del Sentinel con pregio e difetto.
-- **Doti dei Sentinels**: Ignis FIAMMA (i colpi di spada incendiano), Azur PORTATA (la lancia arriva più
-  lontano), Lyra DOPPIO SALTO, Aura PLANATA (tieni salto per scendere piano), Onyx CORAZZA (i colpi
+- **Doti dei Sentinels**: Ciusky FIAMMA (i colpi di spada incendiano), Beps PORTATA (la lancia arriva più
+  lontano), Kathy DOPPIO SALTO, Kiki PLANATA (tieni salto per scendere piano), Don CORAZZA (i colpi
   leggeri non lo interrompono), Kharon PARATA (schivata da fermo = parata).
 - **Presentazione dei boss**: prima di ogni boss lo schermo VS con i suoi **punti di forza** e i suoi
   **punti deboli** (come batterlo). Attacco/salto per saltarla.
