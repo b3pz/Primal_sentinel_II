@@ -1,5 +1,5 @@
 /* Primal Sentinels — service worker (generato da tools/build_sw.py) */
-const CACHE = 'ps2-0.10';
+const CACHE = 'ps2-0.10.1';
 const FILES = [
 "./",
 "index.html",
