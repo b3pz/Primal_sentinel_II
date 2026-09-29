@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.14
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.14.1
+
+Nella 0.14.1: nuova illustrazione dello scontro finale (sullo scudo del Paladino i cinque titani, nel Re del Vuoto i volti del Sovrano e di Vespera).
 
 Nella 0.14: la grafica del II è completa. Prima del duello finale c'è la scena del Paladino Stellare contro il Re del Vuoto sopra l'Etna.
 
