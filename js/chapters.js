@@ -476,19 +476,15 @@ function stellaRow(k, t, lit) {
 CHAPTER_CINES.stella = [
   { d: 5, sub: ['ARMV3Z', '«Non sparisco. Divento stelle.»'], cues: [[0.5, 'team'], [3.4, 'special']],
     draw(k, t) {
-      stillArt('story_cores', t, 0);
-      g.fillStyle = 'rgba(3,6,16,.45)'; g.fillRect(0, 0, W, H);
-      const a = clamp(1 - k / 4.2, 0, 1);
-      glowAt(W / 2, 330, 260 + k * 60, '#6fc8ff', 0.4 + (1 - a) * 0.4);
-      spr('mentors', 'argo_0', W / 2, 640, { scale: 1, alpha: a });
-      for (let i = 0; i < 40; i++) { const r = (i * 97 + k * 140) % 420; const ang = i * 2.39; g.fillStyle = `rgba(255,255,255,${0.6 * (1 - r / 420)})`; g.fillRect(W / 2 + Math.cos(ang) * r, 330 + Math.sin(ang) * r * 0.7 - k * 30, 3, 3); }
+      // close on the mentor's face, then the camera pulls back while he turns into light
+      coverImage('cine_stelle', 2.1 - k * 0.2, 0.5, 0.12 + k * 0.03);
+      for (let i = 0; i < 40; i++) { const r = (i * 97 + k * 140) % 420; const ang = i * 2.39; g.fillStyle = `rgba(255,230,160,${0.6 * (1 - r / 420)})`; g.fillRect(W / 2 + Math.cos(ang) * r, 300 + Math.sin(ang) * r * 0.7 - k * 30, 3, 3); }
       if (k > 4.3) { g.fillStyle = `rgba(255,255,255,${(k - 4.3) / 0.7})`; g.fillRect(0, 0, W, H); }
     } },
   { d: 6, sub: ['SIRIO', '«Cinque Cuori di Stella. E un po\' del fuoco del Drago in ognuno.»'], cues: [[0.3, 'morph'], [1, 'morph'], [1.7, 'morph'], [2.4, 'morph'], [3.1, 'team']],
     draw(k, t) {
-      g.fillStyle = '#050a18'; g.fillRect(0, 0, W, H);
-      for (let i = 0; i < 90; i++) { g.fillStyle = `rgba(255,255,255,${0.2 + (i % 5) * 0.12})`; g.fillRect((i * 173) % W, (i * 97) % 440, 2, 2); }
-      stellaRow(k, t, k);
+      coverImage('cine_stelle', 1.12 - Math.min(k, 3) * 0.04, 0.5, 0.55);
+      if (k < 0.6) { g.fillStyle = `rgba(255,255,255,${1 - k / 0.6})`; g.fillRect(0, 0, W, H); }
       if (k > 3.2) ptitle('CUORI DI STELLA', W / 2, 110, 40, '#fff6d6', '#ffd35a');
     } },
 ];

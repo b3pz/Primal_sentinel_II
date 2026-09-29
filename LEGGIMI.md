@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.12
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.13
+
+Nella 0.13: la scena dei Cuori di Stella (fine del capitolo 3) usa la nuova illustrazione: ArMV3z che diventa luce e le cinque armature sui piedistalli.
 
 Nella 0.12: nuova scena animata alla fine del capitolo 2: i cinque dinosauri incatenati sollevati verso la flotta.
 
