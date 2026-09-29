@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.7
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.8
+
+Nella 0.8: nel capitolo 3 "Senza armatura" Ciusky, Beps, Kathy, Kiki e Don combattono in borghese con pose vere (guardia, pugno, calcio, colpito, salto, a terra e, se raccolgono un'arma, il colpo col tubo).
 
 Nella 0.7: mostri giganti e boss veri. Nei duelli dei titani: Idra della Laguna, Colosso di Ferrea, Mostro del Vuoto, Tiranno Rosso in catene e il Re del Vuoto. Boss dei capitoli: Centurione di ferro (Roma), Vespera del Vuoto (Reggio), il Fabbro di Ferrea (Torino/Genova) e la Guardia del Re (Catania). Niente più mostri del primo gioco ricolorati.
 

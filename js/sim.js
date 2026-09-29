@@ -1642,6 +1642,16 @@ function buildView(S) {
     if (p.civil && !p.morphT) o.hint = 'morph';
     if (p.st === 'fall') o.a = +Math.max(0, 1 - p.t / 0.7).toFixed(2);
     if (p.civil) { o.s = 'people'; o.sc = 1; o.r = 0; o.f = `${HEROES[p.hero].id}C_` + (p.st === 'walk' ? 'walk' + (Math.floor(p.walk) % 6) : p.morphT > 0 ? 'raise' : 'idle' + (Math.floor(S.t * 2) % 2)); delete o.wp; }
+    else if (S.L.unarmored && frameOf('borghese', `${HEROES[p.hero].id}B_0`)) {
+      // II cap. 3: fighting in civilian clothes — their own sheet (tools/build_borghese.py)
+      const hid = HEROES[p.hero].id, hf = +String(o.f).split('_').pop();
+      const armed = !!p.weapon;
+      const bf = { 5: 1, 6: 2, 7: 3, 8: armed ? 6 : 0, 9: armed ? 7 : 1, 10: 1, 11: 1, 12: 4, 13: 3, 14: 5, 15: 1 }[hf] ?? (armed ? 6 : 0);
+      if (p.st === 'walk' && frameOf('people', `${hid}C_walk0`)) { o.s = 'people'; o.f = `${hid}C_walk${Math.floor(p.walk) % 6}`; }
+      else { o.s = 'borghese'; o.f = `${hid}B_${bf}`; }
+      o.sc = 1; o.r = 0;
+      delete o.wp;
+    }
     else if (S.L.unarmored && frameOf('people', `${HEROES[p.hero].id}C_idle0`)) {
       // II cap. 3: fighting in civilian clothes (placeholder poses until the dedicated sheet arrives)
       const hf = +String(o.f).split('_').pop();
