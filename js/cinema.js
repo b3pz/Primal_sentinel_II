@@ -336,6 +336,10 @@ function drawDialog(v) {
   const col = sp ? sp[2] : '#ffcf7a';
   g.fillStyle = col; g.fillRect(60, H - 190, W - 120, 3);
   let pk = PORTRAIT[who];
+  { // II: from the chapter of the Cuori di Stella armours the Sentinels speak with the new helmets
+    const hh = HEROES.find((h) => h.name === who);
+    if (hh && LEVELS[v.lv] && LEVELS[v.lv].stella && frameOf('ritratti2', `rt_${hh.id}S`)) pk = `ritratti2:rt_${hh.id}S`;
+  }
   if (who === 'KHARON' && (v.lv >= 6 || (v.lv === 5 && /libero|pilota|corazza/i.test(text)))) pk = 'pt_kharon_face';
   const tx = pk ? 300 : 90;
   if (pk) {

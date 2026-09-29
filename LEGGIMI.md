@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.9
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.10
+
+Nella 0.10: ritratti nuovi nei dialoghi per Rigel, Magnar e Sirio (da mentore, senza elmo); dal capitolo 4 le Sentinelle parlano col casco Cuori di Stella.
 
 Nella 0.9: il drone di Ferrea ha la sua tavola vera (volo, sparo dall'occhio, colpito, caduta, rottami a terra).
 

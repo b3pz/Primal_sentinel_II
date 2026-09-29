@@ -686,7 +686,7 @@ const SPEAKERS = {
   'RIGEL': ['rigel', 'rigel_0', '#9fdcff'], 'MAGNAR': ['ferreaG', 'magnarG_0', '#ffd35a'],
 };
 /* illustrated dialogue portraits */
-const PORTRAIT = { RIGEL: 'rigel:rigel_0', MAGNAR: 'ferreaG:magnarG_0', ARMV3Z: 'mentors:argo_7', ASTRO: 'mentors:sette_2', BORIS: 'mentors:sette_2', SIRIO: 'faces:face_5', CIUSKY: 'pt_ignis', BEPS: 'pt_azur', KATHY: 'pt_lyra', KIKI: 'pt_aura', DON: 'pt_onyx', VESPERA: 'pt_vespera', KHARON: 'pt_kharon', 'DOTT.SSA VALLI': 'pt_valli', MASTICE: 'pt_mastice' };
+const PORTRAIT = { RIGEL: 'ritratti2:rt_rigel', MAGNAR: 'ritratti2:rt_magnar', ARMV3Z: 'mentors:argo_7', ASTRO: 'mentors:sette_2', BORIS: 'mentors:sette_2', SIRIO: 'ritratti2:rt_sirio', CIUSKY: 'pt_ignis', BEPS: 'pt_azur', KATHY: 'pt_lyra', KIKI: 'pt_aura', DON: 'pt_onyx', VESPERA: 'pt_vespera', KHARON: 'pt_kharon', 'DOTT.SSA VALLI': 'pt_valli', MASTICE: 'pt_mastice' };
 
 /* ------------------------------------------------------------
    DIFFICOLTÀ · crediti = quante volte la squadra può continuare
