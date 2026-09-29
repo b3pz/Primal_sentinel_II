@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.6
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.6.1
+
+Nella 0.6.1: nuovo sfondo di Reggio Calabria (col lungomare, la statua sul molo e la Fata Morgana).
 
 Nella 0.6: i sette sfondi nuovi dei capitoli 2-8 (la flotta sopra il porto, il faro, Venezia, Roma col Colosseo, Reggio con la Fata Morgana, la forgia di Torino e Genova, Catania con l'Etna e la nave del Sovrano), usati anche nei duelli dei titani.
 

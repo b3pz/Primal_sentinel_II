@@ -156,7 +156,7 @@ function drawMainMenu(M) {
   const desc = it.id === 'diff' ? (DIFF.desc || '').toUpperCase() + (Game.diffKey() === 'arcade' ? ' · NIENTE SALVATAGGI' : ' · SALVATAGGIO AUTOMATICO') : sv ? 'SALVATO: ' + Game.saveLabel(sv) : it.desc;
   ptxt(desc, W / 2, 646, 9, '#9fe8ff', 'center');
   ptxt(Touch.on ? 'TOCCA UNA VOCE' : '▲ ▼ SCEGLI · INVIO / ' + padName(0) + ' CONFERMA', W / 2, 690, 8, '#6f8aa2', 'center');
-  ptxt('IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.6', W - 20, H - 12, 7, '#56687a', 'right');
+  ptxt('IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.6.1', W - 20, H - 12, 7, '#56687a', 'right');
 }
 
 /* ============================================================
