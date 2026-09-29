@@ -501,8 +501,9 @@ function drawGallery(v) {
     else { drawShadow(cx, cy, 40); spr('people', Math.floor(t) % 3 ? 'scientist_idle0' : 'scientist_point', cx, cy, { scale: 2 }); info(['SCIENZIATA', 'Irene Valli ha studiato le armature per vent\'anni. Liberata dal convoglio, scopre dove dormono i titani.']); }
   } else if (it.kind === 'enemy') {
     const d = ENEMIES[it.k];
-    const f = d.sheet === 'extra' || d.villain ? [0, 1, 0, 2, 3, 4, 5][Math.floor(t * 3) % 7] : [0, 1, 2, 3, 4, 5, 6, 7][Math.floor(t * 3) % 8];
-    const sheet = d.sheet === 'extra' ? 'extra' : d.villain ? 'bosses' : 'fighters';
+    const own = d.sheet === 'ferrea' || d.sheet === 'drone2';
+    const f = own ? [0, 1, 0, 2, 3, 4, 5][Math.floor(t * 3) % 7] % (d.sheet === 'drone2' ? 6 : 6) : d.sheet === 'extra' || d.villain ? [0, 1, 0, 2, 3, 4, 5][Math.floor(t * 3) % 7] : [0, 1, 2, 3, 4, 5, 6, 7][Math.floor(t * 3) % 8];
+    const sheet = own ? d.sheet : d.sheet === 'extra' ? 'extra' : d.villain ? 'bosses' : 'fighters';
     const key = d.shade ? `${HEROES[Math.floor(t / 3) % 5].id}_${f}` : `${d.pre}_${f}`;
     drawShadow(cx, cy, 50);
     spr(sheet, key, cx, cy - (d.flying ? 120 : 0), { scale: 1.6 * (d.scale / 0.86), face: -1, img: d.shade ? tinted(sheet, key, '#3a1466', 'source-atop', 0.62) : undefined });

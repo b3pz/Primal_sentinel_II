@@ -59,7 +59,7 @@ const ENEMIES = {
   ninja: { sheet: 'extra', pre: 'ninja', name: 'Ninja Oscuro', hp: 60, speed: 175, dmg: 12, reach: 104, scale: 0.86, score: 500, wind: 0.38, aggro: 1.3, blink: true },
   // Primal Sentinels II: i soldati di Ferrea
   fante: { sheet: 'ferrea', pre: 'fante', name: 'Fante di Ferrea', hp: 58, speed: 115, dmg: 10, reach: 110, scale: 0.86, score: 220, wind: 0.5, aggro: 1.05, lunge: true },
-  dronef: { sheet: 'extra', pre: 'drone', name: 'Drone di Ferrea', hp: 34, speed: 175, dmg: 9, reach: 420, scale: 0.8, score: 350, wind: 0.55, aggro: 1, flying: true, tint: '#b87333' },
+  dronef: { sheet: 'drone2', pre: 'droneF', name: 'Drone di Ferrea', hp: 34, speed: 175, dmg: 9, reach: 420, scale: 1.05, score: 350, wind: 0.55, aggro: 1, flying: true },
   bruto: { sheet: 'ferrea', pre: 'bruto', name: 'Bruto di Ferrea', hp: 140, speed: 78, dmg: 18, reach: 112, scale: 0.86, score: 480, wind: 0.8, aggro: 0.8, heavy: true },
   shade: { sheet: 'fighters', pre: 'HERO', name: 'Copia oscura', hp: 70, speed: 150, dmg: 12, reach: 96, scale: 0.86, score: 500, wind: 0.42, aggro: 1.3, shade: true },
 };

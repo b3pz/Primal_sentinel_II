@@ -1504,6 +1504,11 @@ function enemyFrame(e) {
     return [`${s}_${f}`, 0];
   }
   const d = e.def;
+  if (d.sheet === 'drone2') {
+    // II: the Ferrea drone — 0-1 volo · 2 spara · 3 colpito · 4 cade · 5 a pezzi
+    const f = { wind: 2, atk: 2, hurt: 3, held: 3, block: 3, knock: 4, thrown: 4, fall: 4, down: 5, dead: 5 }[e.st] ?? Math.floor((e.walk || 0) + e.t * 6) % 2;
+    return [`${d.pre}_${f}`, 0, 'drone2'];
+  }
   if (d.sheet === 'ferrea') {
     // II: 0 fermo · 1-2 passo · 3 carica · 4 attacco · 5 colpito · down (a terra, disegnato)
     let f = 0, rot = 0;

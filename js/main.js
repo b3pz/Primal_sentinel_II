@@ -79,7 +79,7 @@ const Game = {
         <button id="howto">COME SI GIOCA</button>
         <button id="options">OPZIONI</button>
       </nav>
-      <div class="footer">IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.8</div>`, 'menu');
+      <div class="footer">IDEATO E SVILUPPATO DA b3pZ · II · ANTEPRIMA 0.9</div>`, 'menu');
     UI.on('#play', () => { this.modeKind = 'campaign'; this.startLevel = 0; this.lobby(); });
     UI.on('#online', () => this.onlineMenu());
     UI.on('#extras', () => this.extras());
@@ -1017,7 +1017,7 @@ const IMAGES = [
   ['items', 'assets/sprites/items.png'], ['people', 'assets/sprites/people.png'],
   ['port', 'assets/bg/port.jpg'], ['harbor', 'assets/bg/harbor.jpg'], ['rail', 'assets/bg/rail.jpg'], ['park', 'assets/bg/park.jpg'],
   ['theater', 'assets/bg/theater.jpg'], ['siege', 'assets/bg/siege.jpg'], ['graveyard', 'assets/bg/graveyard.jpg'], ['veil', 'assets/bg/veil.jpg'],
-  ['dawn', 'assets/bg/dawn.jpg'], ['festa', 'assets/bg/festa.jpg'], ['rigel', 'assets/sprites/rigel.png'], ['ferrea', 'assets/sprites/ferrea.png'], ['ferreaG', 'assets/sprites/ferreaG.png'], ['stella', 'assets/sprites/stella.png'], ['stella2', 'assets/sprites/stella2.png'], ['mostri', 'assets/sprites/mostri.png'], ['boss2', 'assets/sprites/boss2.png'], ['borghese', 'assets/sprites/borghese.png'], ['story_cores', 'assets/bg/story_cores.jpg'], ['logo', 'assets/ui/logo.png'],
+  ['dawn', 'assets/bg/dawn.jpg'], ['festa', 'assets/bg/festa.jpg'], ['rigel', 'assets/sprites/rigel.png'], ['ferrea', 'assets/sprites/ferrea.png'], ['ferreaG', 'assets/sprites/ferreaG.png'], ['stella', 'assets/sprites/stella.png'], ['stella2', 'assets/sprites/stella2.png'], ['mostri', 'assets/sprites/mostri.png'], ['boss2', 'assets/sprites/boss2.png'], ['borghese', 'assets/sprites/borghese.png'], ['drone2', 'assets/sprites/drone2.png'], ['story_cores', 'assets/bg/story_cores.jpg'], ['logo', 'assets/ui/logo.png'],
 ];
 try { const k = localStorage.getItem('primal-diff'); if (k && DIFFS[k]) DIFF = DIFFS[k]; } catch (e) {}
 Audio.loadVolumes();

@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.8
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.9
+
+Nella 0.9: il drone di Ferrea ha la sua tavola vera (volo, sparo dall'occhio, colpito, caduta, rottami a terra).
 
 Nella 0.8: nel capitolo 3 "Senza armatura" Ciusky, Beps, Kathy, Kiki e Don combattono in borghese con pose vere (guardia, pugno, calcio, colpito, salto, a terra e, se raccolgono un'arma, il colpo col tubo).
 
