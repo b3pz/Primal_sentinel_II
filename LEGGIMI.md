@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.5
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.6
+
+Nella 0.6: i sette sfondi nuovi dei capitoli 2-8 (la flotta sopra il porto, il faro, Venezia, Roma col Colosseo, Reggio con la Fata Morgana, la forgia di Torino e Genova, Catania con l'Etna e la nave del Sovrano), usati anche nei duelli dei titani.
 
 Nella 0.5: dal capitolo 4 le Sentinelle combattono con l'armatura Cuori di Stella vera: 16 pose nuove per Ciusky, Beps, Kathy, Kiki e Don (camminata, pugno, calcio, arma, mossa speciale con lo spirito del titano, sparo, salto, colpito, a terra e la posa di vittoria del capo squadra).
 
