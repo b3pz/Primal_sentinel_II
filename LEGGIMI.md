@@ -1,4 +1,6 @@
-# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.6.1
+# PRIMAL SENTINELS II — CUORI DI STELLA · anteprima 0.7
+
+Nella 0.7: mostri giganti e boss veri. Nei duelli dei titani: Idra della Laguna, Colosso di Ferrea, Mostro del Vuoto, Tiranno Rosso in catene e il Re del Vuoto. Boss dei capitoli: Centurione di ferro (Roma), Vespera del Vuoto (Reggio), il Fabbro di Ferrea (Torino/Genova) e la Guardia del Re (Catania). Niente più mostri del primo gioco ricolorati.
 
 Nella 0.6.1: nuovo sfondo di Reggio Calabria (col lungomare, la statua sul molo e la Fata Morgana).
 

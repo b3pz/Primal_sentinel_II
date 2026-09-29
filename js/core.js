@@ -98,7 +98,7 @@ const KH_MAP = [0, 1, 2, 1, 3, 4, 4, 5, 3, 4, 4, 4, 3, 5, 5, 0];
 const KH_MAP2 = [0, 1, 0, 1, 2, 3, 3, 5, 2, 3, 4, 3, 2, 5, 6, 0];   // same, on the 8-pose sheet
 /* the titans live in 'giants'; the green dragon (1.8) in 'extra2' */
 /* 8-pose boss sheets (…P_0..7) can live on several atlases (II: Rigel, the general) */
-function bossPSheet(s) { for (const sh of ['bosses2', 'rigel', 'ferrea']) if (frameOf(sh, `${s}P_0`)) return sh; return null; }
+function bossPSheet(s) { for (const sh of ['bosses2', 'rigel', 'ferrea', 'boss2']) if (frameOf(sh, `${s}P_0`)) return sh; return null; }
 function beastSheet(key) { return frameOf('giants', key) ? 'giants' : 'extra2'; }
 function heroSprite(h, f) {
   const H = HEROES[h] || HEROES[0];

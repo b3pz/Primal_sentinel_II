@@ -112,11 +112,11 @@ const BOSSES = {
   custode: { name: 'IL CUSTODE', title: 'DIFESA DELL\'ANTICA FLOTTA', hp: 900, scale: 1.35, speed: 90, reach: 230, dmg: 24, frames: 6, pattern: ['sweep', 'orbs', 'sweep', 'summon'] },
   kharon2: { sprite: 'kharon', name: 'KHARON', title: 'PRIGIONIERO DELLA CORAZZA', hp: 950, scale: 1.25, speed: 165, reach: 205, dmg: 25, frames: 6, pattern: ['slash', 'wave', 'lunge', 'guard', 'wave'] },
   generale: { sprite: 'generale', name: 'GENERALE DI FERRO', title: 'LA MAZZA DEL SOVRANO', hp: 780, scale: 1.15, speed: 95, reach: 210, dmg: 24, frames: 6, pattern: ['slam', 'punch', 'charge', 'slam'], parts: [['SCUDO', 150], ['SPALLACCIO', 150]] },
-  generale2: { sprite: 'generale', name: 'CENTURIONE DI FERRO', title: 'IL GENERALE DI ROMA', hp: 880, scale: 1.2, speed: 110, reach: 215, dmg: 25, frames: 6, pattern: ['charge', 'slam', 'punch', 'charge'], parts: [['SCUDO', 170], ['SPALLACCIO', 170]], tint: '#d8a040' },
-  generale3: { sprite: 'generale', name: 'IL FABBRO DI FERREA', title: 'SIGNORE DELLA FORGIA', hp: 950, scale: 1.25, speed: 105, reach: 220, dmg: 26, frames: 6, pattern: ['slam', 'slam', 'charge', 'punch'], parts: [['SCUDO', 190], ['SPALLACCIO', 190]], tint: '#ff5a2a' },
-  generale4: { sprite: 'generale', name: 'LA GUARDIA DEL RE', title: 'L\'ULTIMO GENERALE', hp: 1050, scale: 1.3, speed: 120, reach: 225, dmg: 27, frames: 6, pattern: ['charge', 'slam', 'punch', 'slam', 'charge'], parts: [['SCUDO', 210], ['SPALLACCIO', 210]], tint: '#1a1a2a' },
+  generale2: { sprite: 'centurione', name: 'CENTURIONE DI FERRO', title: 'IL GENERALE DI ROMA', hp: 880, scale: 1.2, speed: 110, reach: 215, dmg: 25, frames: 6, pattern: ['charge', 'slam', 'punch', 'charge'], parts: [['SCUDO', 170], ['SPALLACCIO', 170]], },
+  generale3: { sprite: 'fabbro', name: 'IL FABBRO DI FERREA', title: 'SIGNORE DELLA FORGIA', hp: 950, scale: 1.25, speed: 105, reach: 220, dmg: 26, frames: 6, pattern: ['slam', 'slam', 'charge', 'punch'], parts: [['SCUDO', 190], ['SPALLACCIO', 190]], },
+  generale4: { sprite: 'guardia', name: 'LA GUARDIA DEL RE', title: 'L\'ULTIMO GENERALE', hp: 1050, scale: 1.3, speed: 120, reach: 225, dmg: 27, frames: 6, pattern: ['charge', 'slam', 'punch', 'slam', 'charge'], parts: [['SCUDO', 210], ['SPALLACCIO', 210]], },
   rigel2: { sprite: 'rigel', name: 'RIGEL', title: 'DUELLO SUL PONTE', hp: 880, scale: 1.1, speed: 185, reach: 205, dmg: 22, frames: 6, pattern: ['wave', 'slash', 'lunge', 'wave', 'guard'] },
-  vuoto: { sprite: 'vespera', name: 'VESPERA DEL VUOTO', title: 'LA SCHEGGIA DELLA STREGA', hp: 1050, scale: 1.3, speed: 125, reach: 520, dmg: 24, frames: 6, pattern: ['blast', 'teleport', 'orbs', 'summon', 'blast'], tint: '#6a2aff' },
+  vuoto: { sprite: 'vesperav', name: 'VESPERA DEL VUOTO', title: 'LA SCHEGGIA DELLA STREGA', hp: 1050, scale: 1.3, speed: 125, reach: 520, dmg: 24, frames: 6, pattern: ['blast', 'teleport', 'orbs', 'summon', 'blast'] },
   rigel: { name: 'RIGEL', title: 'IL GUERRIERO D\'ARGENTO', hp: 760, scale: 1.1, speed: 170, reach: 200, dmg: 21, frames: 6, pattern: ['slash', 'lunge', 'wave', 'slash', 'guard'] },
   vespera: { name: 'VESPERA', title: 'LA REGINA OSCURA', hp: 1100, scale: 1.3, speed: 120, reach: 520, dmg: 24, frames: 6, pattern: ['blast', 'teleport', 'orbs', 'summon', 'blast'] },
 };
@@ -128,11 +128,11 @@ const GIANTS = {
   eclipse: { sprite: 'eclipse', name: 'VESPERA ECLISSE', hp: 1300, scale: 2.05, dmg: 21 },
   // Primal Sentinels II (keys: 0 fermo · 1 carica · 2 colpo · 3 colpito · 4 sconfitto)
   magnar: { sheet: 'ferreaG', keys: ['magnarG_0', 'magnarG_1', 'magnarG_2', 'magnarG_3', 'magnarG_3'], name: 'MAGNAR, IL SOVRANO', hp: 99999, scale: 1.0, dmg: 26 },
-  idra: { sprite: 'trivor', name: 'IDRA DELLA LAGUNA', hp: 950, scale: 2.7, dmg: 17, tint: '#2aa8b8' },
-  colosso: { sprite: 'mastice', name: 'COLOSSO DI FERREA', hp: 1050, scale: 1.45, dmg: 18, frames: 8, tint: '#6a6f78' },
-  vuoto: { sprite: 'eclipse', name: 'MOSTRO DEL VUOTO', hp: 1150, scale: 2.05, dmg: 20, tint: '#4a1aa0' },
-  tiranno: { sheet: 'giants', keys: ['rexb_0', 'rexb_1', 'rexb_2', 'rexb_6', 'rexb_7'], name: 'TIRANNO ROSSO IN CATENE', hp: 1100, scale: 1.75, dmg: 21, chains: true },
-  fusione: { sheet: 'ferreaG', keys: ['magnarG_0', 'magnarG_1', 'magnarG_2', 'magnarG_3', 'magnarG_3'], name: 'IL RE DEL VUOTO', hp: 1500, scale: 1.25, dmg: 24, tint: '#7a2aff' },
+  idra: { sheet: 'mostri', keys: ['idraG_0', 'idraG_1', 'idraG_2', 'idraG_3', 'idraG_4'], name: 'IDRA DELLA LAGUNA', hp: 950, scale: 1, dmg: 17 },
+  colosso: { sheet: 'mostri', keys: ['colossoG_0', 'colossoG_1', 'colossoG_2', 'colossoG_3', 'colossoG_4'], name: 'COLOSSO DI FERREA', hp: 1050, scale: 1, dmg: 18 },
+  vuoto: { sheet: 'mostri', keys: ['vuotoMG_0', 'vuotoMG_1', 'vuotoMG_2', 'vuotoMG_3', 'vuotoMG_4'], name: 'MOSTRO DEL VUOTO', hp: 1150, scale: 1, dmg: 20 },
+  tiranno: { sheet: 'mostri', keys: ['tirannoCG_0', 'tirannoCG_1', 'tirannoCG_2', 'tirannoCG_3', 'tirannoCG_4'], name: 'TIRANNO ROSSO IN CATENE', hp: 1100, scale: 1, dmg: 21 },
+  fusione: { sheet: 'mostri', keys: ['reG_0', 'reG_1', 'reG_2', 'reG_3', 'reG_4'], name: 'IL RE DEL VUOTO', hp: 1500, scale: 1, dmg: 24 },
 };
 
 const ITEMS = {
